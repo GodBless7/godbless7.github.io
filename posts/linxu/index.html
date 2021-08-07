@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>linxu学习笔记 - Lprvep</title><link rel="icon" type="image/png" href=icons/myicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="linxu学习笔记" />
+<meta property="og:description" content="linux文件属性 共有七栏" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lprvep.com/posts/linxu/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-11-26T12:54:47&#43;08:00" />
+<meta property="article:modified_time" content="2019-11-26T12:54:47&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="linxu学习笔记"/>
+<meta name="twitter:description" content="linux文件属性 共有七栏"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://www.lprvep.com/js/main.js"></script>
+	<script src="https://www.lprvep.com/js/abc.js"></script>
+	<script src="https://www.lprvep.com/js/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://www.lprvep.com/">
+	<h1 class="site-title"><a href="https://www.lprvep.com/">Lprvep</a></h1>
+	<div class="site-description"><h2>Web Security</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/godbless7" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/lprvep" title="Twitter"><i data-feather="twitter"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/read">Read</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/avlist">Avlist</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">linxu学习笔记</h1>
+			<div class="meta">Posted at &mdash; Nov 26, 2019</div>
+		</div>
+
+		<div class="markdown">
+			<h3 id="linux文件属性">linux文件属性</h3>
+<p>共有七栏</p>
+<p><img src="images/linxu/20190904094550.png" alt="20190904094550"></p>
+<ol>
+<li>文件类型与权限</li>
+<li>表示有多少文件名链接到此节点</li>
+<li>文件所有者
+4 .文件所属组
+5 .文件大小
+6 .文件创建时间
+7 .文件名称</li>
+</ol>
+<p>在第一栏中</p>
+<p>如<code>drwxr-xr-x</code>共10个字符</p>
+<p>第1个为1组,之后每3个一组</p>
+<p>既<code>d rwx r-x r-x</code></p>
+<h4 id="文件类型与权限">文件类型与权限:</h4>
+<p>第1组:</p>
+<ol>
+<li>d目录</li>
+<li>-文件</li>
+<li>l链接文件</li>
+<li>b设备文件的可供存储的接口设备</li>
+<li>c表示设备文件的串行端口设备,如键盘鼠标一次性读取设备</li>
+</ol>
+<p>第2组:文件拥有者权限
+第3组:用户组权限
+第4组:其他用户权限</p>
+<p>后面三组只会出现:</p>
+<blockquote>
+<p>r: 可读(read)</p>
+<p>w: 可写(write)</p>
+<p>x: 可执行(execute)</p>
+</blockquote>
+<p><strong>且rwx顺序不可变,如没有权限则为-</strong></p>
+<h4 id="更改文件属性">更改文件属性</h4>
+<blockquote>
+<ol>
+<li>chgrp:更改文件属组</li>
+<li>chown:更改文件属主,也可以同时更改文件属组</li>
+<li>chmod:更改文件9个属性</li>
+</ol>
+</blockquote>
+<h5 id="更改属组主">更改属组/主</h5>
+<blockquote>
+<p>chgrp [-R] 文件属组 文件名</p>
+<p>chown [-R] 文件属组 文件名</p>
+<p>chown [-R] 文件拥有者:文件属组 文件名</p>
+<p>(其中-R为可选参数,递归更改文件属组，
+就是在更改某个目录文件的属组时，
+如果加上-R的参数，那么该目录下的所有文件的属组都会更改。</p>
+</blockquote>
+<p><img src="images/linxu/file.png" alt="file"></p>
+<p>使用chgrp更改文件属组:</p>
+<p><img src="images/linxu/2.png" alt="2"></p>
+<p>使用chown更改属组以及属主:</p>
+<p><img src="images/linxu/3.png" alt="3"></p>
+<h5 id="更改文件权限">更改文件权限</h5>
+<h6 id="利用数字更改文件权限">利用数字更改文件权限</h6>
+<p>在linux中权限可划分为分数来表示:</p>
+<blockquote>
+<p>r:4</p>
+<p>w:2</p>
+<p>x:1</p>
+</blockquote>
+<p>上文中也提到文件权限分为三组</p>
+<p>每组最高权限为rwx(4+2+1=7)</p>
+<blockquote>
+<p>意思就是想要给某个文件或者目录最高权限</p>
+<p>即drwxrwxrwx权限</p>
+<p>命令为:chmod 777 文件名</p>
+</blockquote>
+<p><img src="images/linxu/4.png" alt="4"></p>
+<p>也可以更改为其他权限</p>
+<p>例如-rwx&mdash;rwx [4+2+1]+[0+0+0]+[4+2+1]=707</p>
+<p><img src="images/linxu/5.png" alt="5"></p>
+<h6 id="利用符号类型改变文件权限">利用符号类型改变文件权限</h6>
+<p>在上文中也提到了 用户属主 用户属组 其他用户</p>
+<blockquote>
+<p>user</p>
+<p>group</p>
+<p>others</p>
+<p>就可以用 u g o 来表示这三种身份
+除了这里以外还有个a代表all,即所有身份的意思,权限依旧使用rwx</p>
+</blockquote>
+<p>命令 | 身份|赋权|权限 | 文件名或目录名
+-|-|-|-
+chmod |u<!-- raw HTML omitted -->g<!-- raw HTML omitted -->o<!-- raw HTML omitted -->a|+(加入)<!-- raw HTML omitted -->-(减去)<!-- raw HTML omitted -->=(设定)<!-- raw HTML omitted -->|r<!-- raw HTML omitted -->w<!-- raw HTML omitted -->x|xxx</p>
+<p>例如:</p>
+<p><img src="images/linxu/6.png" alt="6"></p>
+<blockquote>
+<p>chmod g+r 1.txt</p>
+</blockquote>
+<p><img src="images/linxu/7.png" alt="7"></p>
+<blockquote>
+<p>chmod o=rx 1.txt</p>
+</blockquote>
+<p><img src="images/linxu/8.png" alt="8"></p>
+<blockquote>
+<p>chmod u-w 1.txt</p>
+</blockquote>
+<p><img src="images/linxu/9.png" alt="9"></p>
+<h3 id="linux文件与目录管理">linux文件与目录管理</h3>
+<p>常用命令:</p>
+<ol>
+<li>ls:列出目录</li>
+<li>cd:切换目录</li>
+<li>pwd:显示当前目录</li>
+<li>mkdir:创建一个新的目录</li>
+<li>rmdir:删除一个空的目录</li>
+<li>cp:复制文件或者目录</li>
+<li>rm:删除文件或者目录</li>
+<li>mv:移动文件与目录，或修改文件与目录的名称</li>
+</ol>
+<h4 id="ls">ls</h4>
+<p>ls主要有三个比较常用的参事:</p>
+<ol>
+<li>-a 列举目录下所有文件和目录(包括隐藏的文件及目录)</li>
+<li>-d 仅列出目录本身</li>
+<li>-l 列举出文件目录所有信息,包括属性与权限这些数据</li>
+<li>不使用参数 列举出普通的文件目录</li>
+</ol>
+<p>当然这几个参数可以叠加使用,如:</p>
+<blockquote>
+<p>ls -la
+ls -ld</p>
+</blockquote>
+<h4 id="cd">cd</h4>
+<blockquote>
+<p>cd [相对路径和绝对路径]</p>
+<p>cd ~ 切换到该用户目录</p>
+<p>cd .. 切换到上一级目录</p>
+</blockquote>
+<h4 id="pwd">pwd</h4>
+<p>防止迷路的命令
+pwd一下就可以知道自己在哪里</p>
+<blockquote>
+<p>pwd -P 显示出确实的路径，而非使用连结 (link) 路径。</p>
+</blockquote>
+<h4 id="mkdir">mkdir</h4>
+<blockquote>
+<p>mkdir [-mp] 目录名称</p>
+<p>-m可以配置属性
+-p创建多层目录</p>
+</blockquote>
+<blockquote>
+<p>mkdir -m 777 xxx  给777权限给xxx</p>
+<p>mkdir -p /test/test/test  创建了三层文件夹</p>
+</blockquote>
+<h4 id="rmdir">rmdir</h4>
+<blockquote>
+<p>rmdir [-p] 目录名称</p>
+<p>加-p 可以删除多层 &lsquo;空&rsquo; 目录</p>
+<p>直接rmdir只能删除一层</p>
+</blockquote>
+<h4 id="cp">cp</h4>
+<blockquote>
+<p>cp 需要复制的文件名 复制到的路径</p>
+<p>cp 需要复制的文件名 复制到的路径/复制后命名的文件或目录</p>
+</blockquote>
+<p>可选参数</p>
+<ol>
+<li>-i:若复制目标存在时,会询问是否覆盖</li>
+<li>-f:强制复制</li>
+<li>-p:可以将复制文件或文件夹的属性一起复制</li>
+<li>-d:若目标文件为连接档的属性,则复制连接档属性</li>
+<li>-r:递归复制,可以复制这个目录下的所有东西</li>
+<li>-a:相当于-pdr</li>
+</ol>
+<h4 id="rm">rm</h4>
+<p><strong>这是个很刺激的命名,使用需要注意!</strong></p>
+<p>主要有三个参数</p>
+<blockquote>
+<p>-f:忽略不存在的文件,不出现警告</p>
+<p>-i:删除前会询问是否删除</p>
+<p>-r:递归删除</p>
+</blockquote>
+<p>直接使用<code>rm -rf 文件名或目录</code>,可以不提示任何东西直接删除</p>
+<p><img src="images/linxu/10.png" alt="10"></p>
+<h4 id="mv">mv</h4>
+<blockquote>
+<p>mv 1 test/</p>
+</blockquote>
+<p><img src="images/linxu/11.png" alt="11"></p>
+<p>也可以直接给目录更改名字</p>
+<blockquote>
+<p>mv 1 2</p>
+</blockquote>
+<p><img src="images/linxu/12.png" alt="12"></p>
+<p>参数:</p>
+<ol>
+<li>-f:强制移动,存在的文件直接覆盖</li>
+<li>-i:存在的文件会询问</li>
+<li>-u:两者留一个最新的</li>
+</ol>
+<h3 id="linux用户管理">linux用户管理</h3>
+<h4 id="添加用户">添加用户</h4>
+<blockquote>
+<p>useradd [可选参数] 用户</p>
+</blockquote>
+<p>参数:</p>
+<ol>
+<li>-c:指定一段注释性的描述</li>
+<li>-d:指定用户的主目录,不存在这个目录则需要同时使用-m选项创建</li>
+<li>-g:指定用户所属用户组</li>
+<li>-G:指定用户所属的附加组</li>
+<li>-s:指定用户登录的shell</li>
+<li>-u:指定用户的用户号,如果同时有-o参数,则可重复使用其他用户的表示</li>
+</ol>
+<blockquote>
+<p>useradd -c sb -d /home/abc -m sb<br>
+-d 和 -m 同时使用的用法</p>
+</blockquote>
+<p><img src="images/linxu/13.png" alt="13"></p>
+<p><img src="images/linxu/14.png" alt="14"></p>
+<p>其他也是同理</p>
+<blockquote>
+<p>useradd -s /bash/sh abc</p>
+</blockquote>
+<p>既设置用户sb的shell在/bash/sh</p>
+<p><img src="images/linxu/15.png" alt="15"></p>
+<p><img src="images/linxu/17.png" alt="17"></p>
+<h4 id="删除用户">删除用户</h4>
+<blockquote>
+<p>userdel [参数] 用户名</p>
+</blockquote>
+<p>常用的参数有:-r</p>
+<p>能够将这个用户的用户目录,系统记录也一并删除</p>
+<h4 id="修改用户">修改用户</h4>
+<blockquote>
+<p>usrmod [参数] 用户名</p>
+</blockquote>
+<p>这条命令的参数和上面的添加用户都差不多
+-c, -d, -m, -g, -G, -s, -u以及-o</p>
+<p>usermod [-LU][-c &lt;备注&gt;][-d &lt;登入目录&gt;][-e &lt;有效期限&gt;]
+[-f &lt;缓冲天数&gt;][-g &lt;群组&gt;][-G &lt;群组&gt;][-l &lt;帐号名称&gt;][-s shell]
+[-u uid][用户帐号]</p>
+<h4 id="用户口令的管理">用户口令的管理</h4>
+<blockquote>
+<p>passwd [参数] 用户名</p>
+</blockquote>
+<p>当用户刚刚创建的时候是没有密码的,处于锁定的状态</p>
+<p>必须使用这个命令才能够使用</p>
+<p>参数如下:</p>
+<blockquote>
+<p>-l 锁定口令,即禁用账号
+-u 口令解锁
+-d 使账号无口令
+-f 强迫用户下次登录时修改口令</p>
+</blockquote>
+<h4 id="账户文件">账户文件</h4>
+<h5 id="账号信息">账号信息</h5>
+<blockquote>
+<p>/etc/passwd</p>
+<p>登录名:加密口令:最后一次修改时间:最小时间间隔:最大时间间隔
+:警告时间:不活动时间:失效时间:标志</p>
+</blockquote>
+<p><img src="images/linxu/18.png" alt="18"></p>
+<p>其中:</p>
+<ol>
+<li>登录名就是用户名</li>
+<li>加密口令呢就是加密后的密码,空则为空密码(在这个地方如果有*号则账号被锁住)</li>
+<li>最后修改的时间就是最后一次修改密码的时间</li>
+<li>最小时间间隔指的是两次口令之间所需要的最小天数</li>
+<li>最大时间间隔指的是口令的最大天数</li>
+<li>警告时间是系统开始警告用户到用户密码正式失效之间的天数</li>
+<li>不活动时间就是用户没有登录,但仍能保持有效的最大天数</li>
+<li>失效时间就是过了这个范围,账号就莫得了</li>
+</ol>
+<h5 id="用户组信息">用户组信息</h5>
+<blockquote>
+<p>/etc/group
+组名:口令:组标识号:组内用户列表</p>
+</blockquote>
+<p><img src="images/linxu/20.png" alt="20"></p>
+<p>其中:</p>
+<ol>
+<li>组名就是用户组的名称</li>
+<li>口令,但是一般用户组是没有口令的</li>
+<li>组标识号与用户标识号类似</li>
+<li>组内用户列表就是这个用户组下的用户</li>
+</ol>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/linux%E5%AE%89%E5%85%A8">linux安全</a></li>
+								
+								<li><a href="/tags/%E8%BF%90%E7%BB%B4">运维</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/godbless7">lprvep</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123-45', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

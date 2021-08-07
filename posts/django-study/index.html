@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Django学习笔记 - Lprvep</title><link rel="icon" type="image/png" href=icons/myicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Django学习笔记" />
+<meta property="og:description" content="Django上手 安装 pip install django #使用的是3." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lprvep.com/posts/django-study/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-07-02T17:32:16&#43;08:00" />
+<meta property="article:modified_time" content="2020-07-02T17:32:16&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Django学习笔记"/>
+<meta name="twitter:description" content="Django上手 安装 pip install django #使用的是3."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://www.lprvep.com/js/main.js"></script>
+	<script src="https://www.lprvep.com/js/abc.js"></script>
+	<script src="https://www.lprvep.com/js/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://www.lprvep.com/">
+	<h1 class="site-title"><a href="https://www.lprvep.com/">Lprvep</a></h1>
+	<div class="site-description"><h2>Web Security</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/godbless7" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/lprvep" title="Twitter"><i data-feather="twitter"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/read">Read</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/avlist">Avlist</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">Django学习笔记</h1>
+			<div class="meta">Posted at &mdash; Jul 2, 2020</div>
+		</div>
+
+		<div class="markdown">
+			<h3 id="django上手">Django上手</h3>
+<h5 id="安装">安装</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pip install django  <span style="color:#586e75">#使用的是3.0.4的版本</span>
+</code></pre></div><h5 id="检查是否安装成功">检查是否安装成功</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">&gt;&gt;&gt;</span> <span style="color:#719e07">import</span> django
+<span style="color:#719e07">&gt;&gt;&gt;</span> django<span style="color:#719e07">.</span>get_version()
+<span style="color:#2aa198">&#39;3.0.4&#39;</span>
+</code></pre></div><h5 id="创建项目">创建项目</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">λ django-admin startproject lprvep  <span style="color:#586e75">#创建名为lprvep的项目</span>
+λ tree /F
+.
+└─lprvep
+    │  manage.py			<span style="color:#586e75">#用于与该Django的交互</span>
+    │
+    └─lprvep				<span style="color:#586e75">#项目的容器</span>
+            asgi.py			<span style="color:#586e75">#ASGI兼容的web服务器入口</span>
+            settings.py		<span style="color:#586e75">#该项目的设置与配置</span>
+            urls.py			<span style="color:#586e75">#URL声明</span>
+            wsgi.py			<span style="color:#586e75">#WSGI兼用的web服务器的入口</span>
+            __init__.py		<span style="color:#586e75">#空文件,告诉python这是个python包</span>
+</code></pre></div><h5 id="启动项目">启动项目</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">λ python manage.py runserver
+Watching <span style="color:#719e07">for</span> file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 17 unapplied migration(s). Your project may not work properly <span style="color:#719e07">until</span> you apply the migrations <span style="color:#719e07">for</span> app(s): admin, auth, contenttypes, sessions.
+Run <span style="color:#2aa198">&#39;python manage.py migrate&#39;</span> to apply them.
+
+July 02, 2020 - 17:48:03
+Django version 3.0.4, using settings <span style="color:#2aa198">&#39;lprvep.settings&#39;</span>
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+</code></pre></div><p>成功搭建</p>
+<p><img src="../images/django-study/1.png" alt="1"></p>
+<h5 id="添加第一个页面">添加第一个页面</h5>
+<p>在/lprvep/lprvep目录下新建个文件views.py的文件,代码如下</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">from</span> django.http <span style="color:#719e07">import</span> HttpResponse
+
+<span style="color:#719e07">def</span> <span style="color:#268bd2">hello</span>(request):
+    <span style="color:#719e07">return</span> HttpResponse(<span style="color:#2aa198">&#34;hello , lprvep ! &#34;</span>)
+</code></pre></div><p>这里解释下HttpRespose的作用</p>
+<p>就是在他内部传入一个字符串然后然后发送给浏览器</p>
+<p>然后在当前目录下的urls.py文件中添加url</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">from</span> django.contrib <span style="color:#719e07">import</span> admin
+<span style="color:#719e07">from</span> django.urls <span style="color:#719e07">import</span> path
+<span style="color:#719e07">from</span> django.conf.urls <span style="color:#719e07">import</span> url		<span style="color:#586e75">#新增</span>
+<span style="color:#719e07">from</span> . <span style="color:#719e07">import</span> views						<span style="color:#586e75">#新增 传入当前目录下的views.py</span>
+
+urlpatterns <span style="color:#719e07">=</span> [
+    path(<span style="color:#2aa198">&#39;hello/&#39;</span>,views<span style="color:#719e07">.</span>hello),			<span style="color:#586e75">#新增</span>
+    path(<span style="color:#2aa198">&#39;admin/&#39;</span>, admin<span style="color:#719e07">.</span>site<span style="color:#719e07">.</span>urls),
+]
+
+</code></pre></div><p><img src="images/django-study/2.png" alt="2"></p>
+<h6 id="path函数">path()函数</h6>
+<p>可以接收四个函数,两个必选:route,view;两个可选:kwargs,name</p>
+<p>route:字符串,表示url的规则,与之匹配的url会执行对应的view</p>
+<p>view:用于执行匹配route的url请求</p>
+<p>kwargs:视图使用的字典类型的参数</p>
+<p>name:反向获取url</p>
+<h3 id="django模板">Django模板</h3>
+<h5 id="修改默认路径">修改默认路径</h5>
+<p>创建html文件,为了使项目更加清晰,所以python文件一般不与html文件同个目录下</p>
+<p>所以这时候就新建一个&quot;templates&quot;目录,来存放html文件</p>
+<p>值得注意的是该文件位置是和lprvep文件同级的</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lprvep
+    │  db.sqlite3
+    │  manage.py
+    │
+    ├─lprvep
+    │  │  asgi.py
+    │  │  settings.py
+    │  │  urls.py
+    │  │  views.py
+    │  │  wsgi.py
+    │  │  __init__.py
+    │  
+    │
+    └─templates
+            lprvep.html
+</code></pre></div><p>创建目录后,就需要修改一下django项目总默认文件的位置</p>
+<p>在<strong>lprvep/lprvep/settings.py</strong>文件中,以下红框为修改的位置,修改为&rsquo;templates&rsquo;目录下</p>
+<p><img src="images/django-study/3.png" alt="3"></p>
+<p>其中BASE_DIR是当前项目的根目录</p>
+<h5 id="调用html文件">调用html文件</h5>
+<p>模板语法:</p>
+<blockquote>
+<p>view: {&ldquo;HTML变量名&rdquo;:&ldquo;views变量名&rdquo;}</p>
+<p>HTML: { {变量名} }</p>
+</blockquote>
+<p>首先views中添加一个新的函数</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">from</span> django,shortcuts <span style="color:#719e07">import</span> render
+
+<span style="color:#719e07">def</span> <span style="color:#268bd2">lprvep</span>(request):
+    context <span style="color:#719e07">=</span> {}
+    context[<span style="color:#2aa198">&#39;hello&#39;</span>] <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;hello , lprvep&#34;</span>				<span style="color:#586e75">#相当于context={&#39;hello&#39;: &#39;hello , lprvep&#39;}</span>
+    <span style="color:#719e07">return</span> render(request,<span style="color:#2aa198">&#34;lprvep.html&#34;</span>,context)
+</code></pre></div><p><strong>render</strong>这里的作用是将数据填充进模板文件,在把最终结果返回给浏览器</p>
+<p>render可以接收三个参数:</p>
+<ol>
+<li>request参数</li>
+<li>传入的html文件</li>
+<li>保存数据的字典参数</li>
+</ol>
+<p>lprvep.html</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#719e07">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#268bd2">html</span> lang<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;en&#34;</span>&gt;
+&lt;<span style="color:#268bd2">head</span>&gt;
+    &lt;<span style="color:#268bd2">meta</span> charset<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;UTF-8&#34;</span>&gt;
+    &lt;<span style="color:#268bd2">title</span>&gt;lprvep&lt;/<span style="color:#268bd2">title</span>&gt;
+&lt;/<span style="color:#268bd2">head</span>&gt;
+&lt;<span style="color:#268bd2">body</span>&gt;
+&lt;<span style="color:#268bd2">h1</span>&gt;{{ hello }}&lt;/<span style="color:#268bd2">h1</span>&gt;  <span style="color:#586e75">&lt;!-- 函数名为hello --&gt;</span>
+&lt;/<span style="color:#268bd2">body</span>&gt;
+&lt;/<span style="color:#268bd2">html</span>&gt;
+</code></pre></div><p>html和views都添加后,就需要到<strong>urls.py</strong>中添加path才能从浏览器访问得到,path前面也说到过了</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">path(<span style="color:#2aa198">&#39;lprvep/&#39;</span>,views<span style="color:#719e07">.</span>lprvep), <span style="color:#586e75">#直接添加这行即可</span>
+</code></pre></div><p>访问结果</p>
+<p><img src="images/django-study/4.png" alt="4"></p>
+<h5 id="字典和列表">字典和列表</h5>
+<p>正常的字符串都是直接输入出来,</p>
+<p>但是遇到其他需求时,比如使用字典或者列表</p>
+<p>想让它输入某个字典或者列表的值</p>
+<p>就可以这样做</p>
+<p>字典: <strong>.键值</strong></p>
+<p>列表: <strong>.下标</strong></p>
+<p>例如</p>
+<p>views.py</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">def</span> <span style="color:#268bd2">lprvep</span>(request):
+    views_list <span style="color:#719e07">=</span> [<span style="color:#2aa198">123</span>,<span style="color:#2aa198">456</span>,<span style="color:#2aa198">789</span>]
+    views_dict <span style="color:#719e07">=</span> {<span style="color:#2aa198">&#39;name&#39;</span>:<span style="color:#2aa198">&#39;lprvep&#39;</span>,<span style="color:#2aa198">&#39;age&#39;</span>:<span style="color:#2aa198">&#39;18&#39;</span>}
+    <span style="color:#719e07">return</span> render(request,<span style="color:#2aa198">&#39;lprvep.html&#39;</span>,{<span style="color:#2aa198">&#39;views_list&#39;</span>:views_list,<span style="color:#2aa198">&#39;views_dict&#39;</span>:views_dict})
+</code></pre></div><p>lprvep.html</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#719e07">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#268bd2">html</span> lang<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;en&#34;</span>&gt;
+&lt;<span style="color:#268bd2">head</span>&gt;
+    &lt;<span style="color:#268bd2">meta</span> charset<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;UTF-8&#34;</span>&gt;
+    &lt;<span style="color:#268bd2">title</span>&gt;lprvep&lt;/<span style="color:#268bd2">title</span>&gt;
+&lt;/<span style="color:#268bd2">head</span>&gt;
+&lt;<span style="color:#268bd2">body</span>&gt;
+{{ views_list }}
+&lt;<span style="color:#268bd2">br</span> /&gt;
+{{ views_list.0 }}
+&lt;<span style="color:#268bd2">br</span> /&gt;
+{{ views_dict }}
+&lt;<span style="color:#268bd2">br</span> /&gt;
+{{ views_dict.name }}
+&lt;/<span style="color:#268bd2">body</span>&gt;
+&lt;/<span style="color:#268bd2">html</span>&gt;
+</code></pre></div><p><img src="images/django-study/5.png" alt="5"></p>
+<h5 id="过滤器">过滤器</h5>
+<p>过滤器的作用就是在变量被显示之前修改它</p>
+<p>使用方法如下</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#719e07">{{</span> 变量名 | 过滤器:可选参数 <span style="color:#719e07">}}</span> <span style="color:#586e75">#值得注意的是过滤器这里后面跟的参数不能有空格</span>
+</code></pre></div><p>内置过滤器:</p>
+<table>
+<thead>
+<tr>
+<th>过滤器</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>add</td>
+<td style="text-align:center">加法</td>
+</tr>
+<tr>
+<td>addslashes</td>
+<td style="text-align:center">添加斜杠</td>
+</tr>
+<tr>
+<td>capfirst</td>
+<td style="text-align:center">首字母大写</td>
+</tr>
+<tr>
+<td>center</td>
+<td style="text-align:center">文本居中</td>
+</tr>
+<tr>
+<td>cut</td>
+<td style="text-align:center">去除字符</td>
+</tr>
+<tr>
+<td>date</td>
+<td style="text-align:center">日期格式化</td>
+</tr>
+<tr>
+<td>default</td>
+<td style="text-align:center">设置默认值</td>
+</tr>
+<tr>
+<td>default_if_none</td>
+<td style="text-align:center">当None时设置默认值</td>
+</tr>
+<tr>
+<td>dictsort</td>
+<td style="text-align:center">字典排序</td>
+</tr>
+<tr>
+<td>dictsortreversed</td>
+<td style="text-align:center">字典反向排序</td>
+</tr>
+<tr>
+<td>divisibleby</td>
+<td style="text-align:center">判断是否能够整除</td>
+</tr>
+<tr>
+<td>escape</td>
+<td style="text-align:center">转义</td>
+</tr>
+<tr>
+<td>escapejs</td>
+<td style="text-align:center">转义js代码</td>
+</tr>
+<tr>
+<td>filesizeformat</td>
+<td style="text-align:center">文件大小显示</td>
+</tr>
+<tr>
+<td>first</td>
+<td style="text-align:center">显示第一个元素</td>
+</tr>
+<tr>
+<td>floatformat</td>
+<td style="text-align:center">浮点数格式化</td>
+</tr>
+<tr>
+<td>force_escape</td>
+<td style="text-align:center">强制立刻转义</td>
+</tr>
+<tr>
+<td>get_digit</td>
+<td style="text-align:center">获取数字</td>
+</tr>
+<tr>
+<td>iriencode</td>
+<td style="text-align:center">转换IRI</td>
+</tr>
+<tr>
+<td>join</td>
+<td style="text-align:center">字符列表连接成字符</td>
+</tr>
+<tr>
+<td>last</td>
+<td style="text-align:center">最后一个元素</td>
+</tr>
+<tr>
+<td>length</td>
+<td style="text-align:center">长度</td>
+</tr>
+<tr>
+<td>length_is</td>
+<td style="text-align:center">判断长度是否等于</td>
+</tr>
+<tr>
+<td>linebreaks</td>
+<td style="text-align:center">行转换为p</td>
+</tr>
+<tr>
+<td>linebreaksbr</td>
+<td style="text-align:center">行转换为br</td>
+</tr>
+<tr>
+<td>linenumbers</td>
+<td style="text-align:center">显示行号</td>
+</tr>
+<tr>
+<td>ljust</td>
+<td style="text-align:center">左对齐</td>
+</tr>
+<tr>
+<td>lower</td>
+<td style="text-align:center">字符小写</td>
+</tr>
+<tr>
+<td>make_list</td>
+<td style="text-align:center">分割成字符列表</td>
+</tr>
+<tr>
+<td>phone2numeric</td>
+<td style="text-align:center">电话号码(可能包含英文),转化为等效数字</td>
+</tr>
+<tr>
+<td>pluralize</td>
+<td style="text-align:center">复数形式</td>
+</tr>
+<tr>
+<td>pprint</td>
+<td style="text-align:center">调试</td>
+</tr>
+<tr>
+<td>random</td>
+<td style="text-align:center">随机获取列表中的一项显示</td>
+</tr>
+<tr>
+<td>rjust</td>
+<td style="text-align:center">右对齐</td>
+</tr>
+<tr>
+<td>safe</td>
+<td style="text-align:center">安全确认</td>
+</tr>
+<tr>
+<td>safeseq</td>
+<td style="text-align:center">列表安全确认</td>
+</tr>
+<tr>
+<td>slice</td>
+<td style="text-align:center">切片</td>
+</tr>
+<tr>
+<td>slugify</td>
+<td style="text-align:center">转换成ASCII</td>
+</tr>
+<tr>
+<td>stringformat</td>
+<td style="text-align:center">字符串格式化</td>
+</tr>
+<tr>
+<td>striptags</td>
+<td style="text-align:center">去除HTML中的标签</td>
+</tr>
+<tr>
+<td>time</td>
+<td style="text-align:center">时间格式化</td>
+</tr>
+<tr>
+<td>timesince</td>
+<td style="text-align:center">开始时间</td>
+</tr>
+<tr>
+<td>timeuntil</td>
+<td style="text-align:center">结束时间</td>
+</tr>
+<tr>
+<td>title</td>
+<td style="text-align:center">所有单词首字母大写</td>
+</tr>
+<tr>
+<td>truncatechars</td>
+<td style="text-align:center">截断字符,超过的以&hellip;显示</td>
+</tr>
+<tr>
+<td>truncatechars_html</td>
+<td style="text-align:center">截断字符,超过的以&hellip;显示,但保留html标签</td>
+</tr>
+<tr>
+<td>truncatewords</td>
+<td style="text-align:center">截断单词,同上</td>
+</tr>
+<tr>
+<td>truncatewords_html</td>
+<td style="text-align:center">截断单词,同上</td>
+</tr>
+<tr>
+<td>unordered_list</td>
+<td style="text-align:center">无序列表</td>
+</tr>
+<tr>
+<td>upper</td>
+<td style="text-align:center">大写</td>
+</tr>
+<tr>
+<td>urlencode</td>
+<td style="text-align:center">转义url</td>
+</tr>
+<tr>
+<td>urlize</td>
+<td style="text-align:center">url转成可点击的链接</td>
+</tr>
+<tr>
+<td>urlizetrunc</td>
+<td style="text-align:center">urlize的截断方式</td>
+</tr>
+<tr>
+<td>wordcount</td>
+<td style="text-align:center">单词计数</td>
+</tr>
+<tr>
+<td>wordwrap</td>
+<td style="text-align:center">指定行长度</td>
+</tr>
+<tr>
+<td>yesno</td>
+<td style="text-align:center">将True，False和None，映射成字符串‘yes’，‘no’，‘maybe’</td>
+</tr>
+</tbody>
+</table>
+<p>下面记录下上表中表述不是特别清楚的过滤器</p>
+<h6 id="add">add</h6>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{{ age | add:&#39;5&#39;}} <span style="color:#586e75">&lt;!--这里就等于 age+5 --&gt;</span>
+</code></pre></div><h6 id="addslashes">addslashes</h6>
+<p>在引号前添加斜杠</p>
+<h6 id="center">center</h6>
+<p>这里需要给定宽度范围,它才会以此居中,不然会报错</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{{ value | center:&#39;10&#39;}}
+</code></pre></div><h6 id="cut">cut</h6>
+<p>移出指定的字符</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{{ value | cut:&#34;1&#34;}} <span style="color:#586e75">&lt;!--value=123 cut后就只显示23了--&gt;</span>
+</code></pre></div><h6 id="date">date</h6>
+<p>格式 <strong>Y-m-d H:i:s</strong>返回 <strong>年-月-日 小时:分钟:秒</strong> 的格式时间</p>
+<p>如下就只返回年月日</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{{ time | date:&#34;Y-m-d&#34;T}}+08:00
+</code></pre></div><h6 id="default_if_none">default_if_none</h6>
+<p>如果变量为空,则使用默认值</p>
+<h6 id="divisibleby">divisibleby</h6>
+<p>判断是否变量能否被参数值整除,能则ture,否则false</p>
+<h6 id="filesizeformat">filesizeformat</h6>
+<p>直观的显示文件大小形式,例如变量为1024,则返回1kb</p>
+<h6 id="floatformat">floatformat</h6>
+<p>以浮点数的形式显示,无参数则默认只保留小数点后一位</p>
+<p>添加数字就变成了小数点后相应的数字位数</p>
+<h6 id="get_digit">get_digit</h6>
+<p>给定一个整数，返回所请求的数字，这里不同的是,这过滤器是从右边开始算</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{{ value|get_digit:&#34;2&#34; }} <span style="color:#586e75">&lt;!--例如值为1234 过滤器的值为2 那么就返回3--&gt;</span>
+</code></pre></div><h6 id="join">join</h6>
+<p>连接列表</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{{value | join:&#34;+&#34; }} <span style="color:#586e75">&lt;!--value=[1,2,3] 经过过滤器以后就成为了1+2+3--&gt;</span>
+</code></pre></div><h6 id="length_is">length_is</h6>
+<p>变量的长度和参数值比较,相等为ture,否则为false</p>
+<h6 id="linebreaks">linebreaks</h6>
+<p>换行变<code>&lt;p&gt;</code></p>
+<h6 id="linebreaksbr">linebreaksbr</h6>
+<p>换行变<code>&lt;br /&gt;</code></p>
+<h6 id="ljust">ljust</h6>
+<p>也是需要给定宽度范围才可以左对齐</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">&#34;{{ value | ljust:&#34;10&#34; }}&#34;
+</code></pre></div><h6 id="make_list">make_list</h6>
+<p>把字符串分割为列表  123-&gt;[1,2,3]</p>
+<h6 id="slice">slice</h6>
+<p>列表切片</p>
+<p>例如参数为 &ldquo;:2&rdquo;  列表为[1,2,3] 返回[1,2]</p>
+<h6 id="urlizetrunc">urlizetrunc</h6>
+<p>将链接转换成可以点击的链接,但截断超过长度的网址</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{{ value| urlizetrunc:15 }}
+</code></pre></div><h6 id="wordwrap">wordwrap</h6>
+<p>指定行长度</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{{ value|wordwrap:5 }} <span style="color:#586e75">&lt;!-- 每行限制长度为5 , 超过就自动换行--&gt;</span>
+</code></pre></div><h5 id="if和for">if和for</h5>
+<h6 id="if">if</h6>
+<p>基本语法格式如下：</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{% if condition %}
+     ... display <span style="color:#586e75">&lt;!--成立后返回的值--&gt;</span>
+{% endif %}
+</code></pre></div><p>或者：</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{% if condition1 %} <span style="color:#586e75">&lt;!--在if中 也可以使用and  not 等关键字来判断--&gt;</span>
+   ... display 1
+{% elif condition2 %}
+   ... display 2
+{% else %}
+   ... display 3
+{% endif %}
+</code></pre></div><h6 id="for">for</h6>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{% for i in test %} <span style="color:#586e75">&lt;!--正向迭代--&gt;</span>
+    {{ i }}
+{% endfor %}
+
+{% for i in test reversed %} <span style="color:#586e75">&lt;!--反向迭代--&gt;</span>
+    {{ i }}
+{% endfor %}
+</code></pre></div><div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">在` {% for %}` 标签里可以通过 `{{ forloop }}` 变量获取循环序号。
+</code></pre></div><ul>
+<li>forloop.counter: 顺序获取循环序号，从 1 开始计算</li>
+<li>forloop.counter0: 顺序获取循环序号，从 0 开始计算</li>
+<li>forloop.revcounter: 倒叙获取循环序号，结尾序号为 1</li>
+<li>forloop.revcounter0: 倒叙获取循环序号，结尾序号为 0</li>
+<li>forloop.first（一般配合if标签使用）: 第一条数据返回 True，其他数据返回 False</li>
+<li>forloop.last（一般配合if标签使用）: 最后一条数据返回 True，其他数据返回 False</li>
+</ul>
+<p>for还有个可选的参数 :empty</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{% for i in test %}    <span style="color:#586e75">&lt;!--当test为空时候就会返回空--&gt;</span>
+	{{ forloop.counter0 }} 
+{% empty %}    
+ 空 
+{% endfor %}
+</code></pre></div><h5 id="ifequalifnotequal">ifequal/ifnotequal</h5>
+<p>用于比较两个变量是否相等</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{% ifequal test root %}
+    &lt;<span style="color:#268bd2">h1</span>&gt;相等&lt;/<span style="color:#268bd2">h1</span>&gt;
+{% endifequal %}
+
+{% ifequal test root %}
+    &lt;<span style="color:#268bd2">h1</span>&gt;相等&lt;/<span style="color:#268bd2">h1</span>&gt;
+{% else %}
+    &lt;<span style="color:#268bd2">h1</span>&gt;不相等&lt;/<span style="color:#268bd2">h1</span>&gt;
+{% endifequal %}
+</code></pre></div><h5 id="注释">注释</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{# xxxxx #}
+</code></pre></div><h5 id="配置静态文件">配置静态文件</h5>
+<p>在项目根目录创建<strong>statics</strong>文件</p>
+<p>settings.py中</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">STATIC_URL <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;/static/&#39;</span>
+STATICFILES_DIRS <span style="color:#719e07">=</span> [ 
+    os<span style="color:#719e07">.</span>path<span style="color:#719e07">.</span>join(BASE_DIR, <span style="color:#2aa198">&#34;statics&#34;</span>), 
+]
+</code></pre></div><p>然后就可以在该目录下建立css,js,images,plugins目录分别放入相对于的文件就完事了</p>
+<p>加载只需要在html中添加</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback"> {% load static %}
+</code></pre></div><div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{% load static %}
+&lt;<span style="color:#268bd2">img</span> src<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;{% static &#39;images/1.jpg&#39; %}&#34;</span> alt<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;test&#34;</span>&gt;
+</code></pre></div><p><img src="images/django-study/6.png" alt="6"></p>
+<h5 id="模板继承">模板继承</h5>
+<p>父模板用于放置可重复利用的内容，子模板继承父模板的内容，并放置自己的内容。</p>
+<h6 id="父模板">父模板</h6>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">{% block 名称 %} 
+预留给子模板的区域，可以设置设置默认内容
+{% endblock 名称 %}
+</code></pre></div><h6 id="子模板">子模板</h6>
+<p>子模板使用标签 extends 继承父模板：</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{% extends &#34;父模板路径&#34;%}  <span style="color:#586e75">&lt;!--加载父模板以后,就可以修改block里面的内容--&gt;</span>
+</code></pre></div><div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{ % block 名称 % }
+内容 
+{% endblock 名称 %}
+</code></pre></div><h3 id="django模型">Django模型</h3>
+<h5 id="数据库配置">数据库配置</h5>
+<p>Django默认使用SQLite数据库,因为python源生支持SQLite数据库,所以你无需安装其他数据库也可以直接使用它</p>
+<p>在settings.py中可以修改使用的数据库</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">DATABASES <span style="color:#719e07">=</span> {
+    <span style="color:#2aa198">&#39;default&#39;</span>: {
+        <span style="color:#2aa198">&#39;ENGINE&#39;</span>: <span style="color:#2aa198">&#39;django.db.backends.sqlite3&#39;</span>,
+        <span style="color:#2aa198">&#39;NAME&#39;</span>: os<span style="color:#719e07">.</span>path<span style="color:#719e07">.</span>join(BASE_DIR, <span style="color:#2aa198">&#39;db.sqlite3&#39;</span>),
+    }
+}
+</code></pre></div><p>其中ENGINE可以成为一下内容</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">django.db.backends.sqlite3
+django.db.backends.postgresql
+django.db.backends.mysql
+django.db.backends.oracle
+</code></pre></div><p>如果不是使用SQLite数据库,则需要先创建数据库,因为ORM无法操作到数据库级别</p>
+<p>例如mysql就需要先进行以下操作创建数据库</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#719e07">create</span> <span style="color:#719e07">database</span> 数据库名称 <span style="color:#719e07">default</span> <span style="color:#719e07">charset</span><span style="color:#719e07">=</span>utf8;
+</code></pre></div><p>使用mysql的话,settings.py中,配置就应该改为一下</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">DATABASES <span style="color:#719e07">=</span> { 
+    <span style="color:#2aa198">&#39;default&#39;</span>: 
+    { 
+        <span style="color:#2aa198">&#39;ENGINE&#39;</span>: <span style="color:#2aa198">&#39;django.db.backends.mysql&#39;</span>,
+        <span style="color:#2aa198">&#39;NAME&#39;</span>: <span style="color:#2aa198">&#39;lprvep&#39;</span>, 					<span style="color:#586e75"># 数据库名称</span>
+        <span style="color:#2aa198">&#39;HOST&#39;</span>: <span style="color:#2aa198">&#39;127.0.0.1&#39;</span>, 				<span style="color:#586e75"># 数据库地址</span>
+        <span style="color:#2aa198">&#39;PORT&#39;</span>: <span style="color:#2aa198">3306</span>, 						<span style="color:#586e75"># 端口 </span>
+        <span style="color:#2aa198">&#39;USER&#39;</span>: <span style="color:#2aa198">&#39;root&#39;</span>,  					<span style="color:#586e75"># 数据库用户名</span>
+        <span style="color:#2aa198">&#39;PASSWORD&#39;</span>: <span style="color:#2aa198">&#39;123456&#39;</span>,				<span style="color:#586e75"># 数据库密码</span>
+    }  
+}
+</code></pre></div><p>配置修改以后,需要让Django我们使用的是mysql数据库</p>
+<p>首先安装好pymysql模块</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pip install pymysql
+</code></pre></div><p>然后在settings.py的同级目录下的_<em>init</em>_.py中添加</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">import</span> pymysql
+pymysql<span style="color:#719e07">.</span>install_as_MySQLdb()
+</code></pre></div><p>为了方便就不使用mysql了,在该笔记中使用SQLite</p>
+<h5 id="定义模型">定义模型</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">λ django-admin startapp testmodel <span style="color:#586e75">#创建名为testmodel的app</span>
+λ tree /F
+
+D:.
+│  db.sqlite3
+│  manage.py
+│
+├─lprvep
+│  │  asgi.py
+│  │  settings.py
+│  │  urls.py
+│  │  views.py
+│  │  wsgi.py
+│  │  __init__.py
+├─statics
+│  └─images
+│          1.jpg
+│
+├─templates
+│      lprvep.html
+│
+└─testmodel			<span style="color:#586e75">#testmodel所在目录</span>
+    │  admin.py
+    │  apps.py
+    │  models.py
+    │  tests.py
+    │  views.py
+    │  __init__.py
+    │
+    └─migrations
+            __init__.py
+</code></pre></div><p>app建好以后就可以到models.py中添加对应的东西了</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">from</span> django.db <span style="color:#719e07">import</span> models
+
+<span style="color:#719e07">class</span> <span style="color:#268bd2">Test</span>(models<span style="color:#719e07">.</span>Model):					<span style="color:#586e75">#类名Test代表了数据库的表名</span>
+    name <span style="color:#719e07">=</span> models<span style="color:#719e07">.</span>CharField(max_length<span style="color:#719e07">=</span><span style="color:#2aa198">20</span>)	<span style="color:#586e75">#name则代表了字段,之后的CharField则为数据类型,max_length=20最大长度</span>
+</code></pre></div><p>之后就在setting.py中安装上app</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">INSTALLED_APPS <span style="color:#719e07">=</span> [
+    <span style="color:#2aa198">&#39;django.contrib.admin&#39;</span>,
+    <span style="color:#2aa198">&#39;django.contrib.auth&#39;</span>,
+    <span style="color:#2aa198">&#39;django.contrib.contenttypes&#39;</span>,
+    <span style="color:#2aa198">&#39;django.contrib.sessions&#39;</span>,
+    <span style="color:#2aa198">&#39;django.contrib.messages&#39;</span>,
+    <span style="color:#2aa198">&#39;django.contrib.staticfiles&#39;</span>,
+    <span style="color:#2aa198">&#39;testmodel&#39;</span>,		<span style="color:#586e75">#添加到这</span>
+]						<span style="color:#586e75">#其实这里还有另一种写法&#39;testmodel.apps.TestmodelConfig&#39; </span>
+						<span style="color:#586e75">#因为testmodel的配置文件在apps.py里,然后调用了TestmodelConfig</span>
+    					<span style="color:#586e75">#不过一般直接testmodel就可以了</span>
+</code></pre></div><p>配置完这些以后,就需要让Django知道我们在app上做了啥了</p>
+<p>需要使用到makemigrations(生成数据库脚本)和migrate(迁移)命令</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">λ python manage.py makemigrations testmodel
+Migrations <span style="color:#719e07">for</span> <span style="color:#2aa198">&#39;testmodel&#39;</span>:
+  testmodel\migrations\0001_initial.py
+    - Create model Test
+λ python manage.py migrate testmodel
+Operations to perform:
+  Apply all migrations: testmodel
+Running migrations:
+  Applying testmodel.0001_initial... OK
+</code></pre></div><h5 id="数据库操作">数据库操作</h5>
+<p>为了方便操作,这里的举例直接在shell中来举例</p>
+<p>这里首先是进入shell, 然后import相应模块</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">λ python manage.py shell
+Python 3.8.1 (tags/v3.8.1:1b293b6, Dec 18 2019, 23:11:46) [MSC v.1916 64 bit (AMD64)] on win32
+<span style="color:#b58900">Type </span><span style="color:#2aa198">&#34;help&#34;</span>, <span style="color:#2aa198">&#34;copyright&#34;</span>, <span style="color:#2aa198">&#34;credits&#34;</span> or <span style="color:#2aa198">&#34;license&#34;</span> <span style="color:#719e07">for</span> more information.
+(InteractiveConsole)
+&gt;&gt;&gt; import django
+&gt;&gt;&gt; django.setup()
+</code></pre></div><p>进行以上操作以后就可以对django内的数据库进行操作</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#586e75">#导入写的模型类</span>
+&gt;&gt;&gt; from testmodel.models import Test
+
+<span style="color:#586e75">#通过objects.all()获取所有数据行,类型与sql中的select * from </span>
+&gt;&gt;&gt; Test.objects.all()
+&lt;QuerySet [&lt;Test: Test object (1)&gt;]&gt;
+
+<span style="color:#586e75">#往表里写入&#34;lprvep&#34;,并保存,且查询id号</span>
+&gt;&gt;&gt; q = Test(name=<span style="color:#2aa198">&#34;lprvep&#34;</span>)
+<span style="color:#586e75">#save()和update()都可以用于更新数据</span>
+&gt;&gt;&gt; q.save()
+&gt;&gt;&gt; q.id
+2
+
+<span style="color:#586e75">#查询name的值</span>
+&gt;&gt;&gt; q.name
+<span style="color:#2aa198">&#39;lprvep&#39;</span>
+&gt;&gt;&gt; Test.objects.all()
+&lt;QuerySet [&lt;Test: Test object (1)&gt;, &lt;Test: Test object (2)&gt;]&gt;
+
+<span style="color:#586e75">#如果是查询主键的话可以将其中的id换为pk(这里的id就是主键,所以pk=1和id=1的效果是一样的)</span>
+&gt;&gt;&gt; Test.objects.get(id=1)
+&lt;Test: Test object (1)&gt;
+&gt;&gt;&gt; Test.objects.get(id=2)
+&lt;Test: Test object (2)&gt;
+
+<span style="color:#586e75">#get为获取某个对象,下列中因为没有id=3的值,所以报错</span>
+&gt;&gt;&gt; Test.objects.get(id=3)
+Traceback (most recent call last):
+  File <span style="color:#2aa198">&#34;&lt;console&gt;&#34;</span>, line 1, <span style="color:#719e07">in</span> &lt;module&gt;
+  File <span style="color:#2aa198">&#34;D:\Python\lib\site-packages\django\db\models\manager.py&#34;</span>, line 82, <span style="color:#719e07">in</span> manager_method
+    <span style="color:#719e07">return</span> getattr(self.get_queryset(), name)(*args, **kwargs)
+  File <span style="color:#2aa198">&#34;D:\Python\lib\site-packages\django\db\models\query.py&#34;</span>, line 415, <span style="color:#719e07">in</span> get
+    raise self.model.DoesNotExist(
+testmodel.models.Test.DoesNotExist: Test matching query does not exist.
+
+<span style="color:#586e75">#filter可以当做sql中的where使用,即设置条件过滤结果,下面就是符合id=1的显示</span>
+&gt;&gt;&gt; Test.objects.<span style="color:#719e07">filter</span>(id=1)
+&lt;QuerySet [&lt;Test: Test object (1)&gt;]&gt;
+
+<span style="color:#586e75">#数据排序</span>
+&gt;&gt;&gt; Test.objects.order_by(<span style="color:#2aa198">&#39;id&#39;</span>)
+&lt;QuerySet [&lt;Test: Test object (1)&gt;, &lt;Test: Test object (2)&gt;]&gt;
+
+<span style="color:#586e75">#也能够串联起来使用,查询符合name=lprvep,然后按照id来排序</span>
+&gt;&gt;&gt; Test.objects.<span style="color:#719e07">filter</span>(name=<span style="color:#2aa198">&#39;lprvep&#39;</span>).order_by(<span style="color:#2aa198">&#39;id&#39;</span>)
+&lt;QuerySet [&lt;Test: Test object (2)&gt;]&gt;
+
+<span style="color:#586e75">#删除id为1的数据</span>
+&gt;&gt;&gt; Test.objects.get(id=1).delete()
+(1, {<span style="color:#2aa198">&#39;testmodel.Test&#39;</span>: 1})
+&gt;&gt;&gt; Test.objects.all()
+&lt;QuerySet [&lt;Test: Test object (2)&gt;]&gt;
+</code></pre></div>
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/python">python</a></li>
+								
+								<li><a href="/tags/django">django</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/godbless7">lprvep</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123-45', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

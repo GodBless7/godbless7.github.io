@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>iscc2019记录 - Lprvep</title><link rel="icon" type="image/png" href=icons/myicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="iscc2019记录" />
+<meta property="og:description" content="一.Web:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lprvep.com/posts/media/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-05-30T17:13:33&#43;08:00" />
+<meta property="article:modified_time" content="2019-05-30T17:13:33&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="iscc2019记录"/>
+<meta name="twitter:description" content="一.Web:"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://www.lprvep.com/js/main.js"></script>
+	<script src="https://www.lprvep.com/js/abc.js"></script>
+	<script src="https://www.lprvep.com/js/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://www.lprvep.com/">
+	<h1 class="site-title"><a href="https://www.lprvep.com/">Lprvep</a></h1>
+	<div class="site-description"><h2>Web Security</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/godbless7" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/lprvep" title="Twitter"><i data-feather="twitter"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/read">Read</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/avlist">Avlist</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">iscc2019记录</h1>
+			<div class="meta">Posted at &mdash; May 30, 2019</div>
+		</div>
+
+		<div class="markdown">
+			<p><strong>一.Web:</strong></p>
+<p><strong>0x01 web4</strong></p>
+<p>代码审计的题目</p>
+<p><img src="images/media/7796317a180a54d54a477322691edd7d.png" alt=""></p>
+<p>简单的看了一下</p>
+<p>要达到如下条件:</p>
+<p>$Action=”auth”</p>
+<p>$hashed_input=$hashed_key</p>
+<p>第一点直接构造action=auth</p>
+<p>第二点key用get方式并用sha256加密的方式传输给hashed_input</p>
+<p><img src="images/media/54beea0152ae21866c80638feebf8eed.png" alt=""></p>
+<p>最后构造出</p>
+<p>payload:?action=auth&amp;key=s&amp;hashed_key=043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89</p>
+<p><img src="images/media/a1e712a27f84b468777a4643d7560155.png" alt=""></p>
+<p>flag{7he_rea1_f1@g_15_4ere}</p>
+<p><strong>0x02 web2</strong></p>
+<p><img src="images/media/bfa482d8396e23493d81bb2caaedb9d6.png" alt=""></p>
+<p>已经说了是三位数数字密码了</p>
+<p>看着这个验证码</p>
+<p>就觉得可以爆破一手</p>
+<p><img src="images/media/e9863ac086bc2278a5634d4cb88f125e.png" alt=""></p>
+<p>Pkav神器出手就知道有没有</p>
+<p>配置一下工具 生成下000-999的字典</p>
+<p>开始爆破</p>
+<p><img src="images/media/be22d7ff2317f924ca367e22b7ad55e4.png" alt=""></p>
+<p><img src="images/media/3c2e757c9ddb8f1afd548b9201bea66d.png" alt=""></p>
+<p>长度明显不同</p>
+<p>果然直接爆出了flag</p>
+<p><img src="images/media/76c13eae39d8cd2ee0fa57bed441a1c2.png" alt=""></p>
+<p>flag is flag{996_ICU}</p>
+<p><strong>0x03 web1</strong></p>
+<p><img src="images/media/d4ae711653ef543ad361a362d190297a.png" alt=""></p>
+<p>也是一道代码审计的题目</p>
+<p>之前做过这样的题(小声bb:简直一模一样)</p>
+<p>第一个if这里需要vlaue&gt;32并且value&lt;127不然会被unset给kill了</p>
+<p>然后到了chr函数了这里</p>
+<p>查了下资料 说的是传入的函数会+256取模</p>
+<p>接着往下</p>
+<p>&lsquo;w3lc0me_To_ISCC2019&rsquo;这个用户名会变成ascii</p>
+<p>Python大法好</p>
+<p><img src="images/media/9e9019b9de9d38208ab2544204476379.png" alt=""></p>
+<p><img src="images/media/55e0c1458e712cc38a62a2057e8288c2.png" alt=""></p>
+<p>然后前面部分的payload就已经出来了</p>
+<p>后面的password&lt;2333 password+1&gt;2333</p>
+<p>利用intval函数的缺陷</p>
+<p>直接整个password=0x2334</p>
+<p>Payload:?value[]=375&amp;value[]=307&amp;value[]=364&amp;value[]=355&amp;value[]=304&amp;value[]=365&amp;value[]=357&amp;value</p>
+<p>[]=351&amp;value[]=340&amp;value[]=367&amp;value[]=351&amp;value[]=329&amp;value[]=339&amp;value[]=323&amp;value[]=323&amp;value[]=306&amp;value[]=304&amp;value[]=305&amp;value[]=313&amp;password=0x2334</p>
+<p><img src="images/media/64909a96c6c468b7180caeffecd78354.png" alt=""></p>
+<p>flag{8311873e241ccad54463eaa5d4efc1e9}</p>
+<p><strong>0x04 web3</strong></p>
+<p><img src="images/media/ef38ea75ac19118b7f9893a201d654b3.png" alt=""></p>
+<p>打开这个页面有点眼熟</p>
+<p>直接是sqli的原题</p>
+<p>但我写下这题的时候</p>
+<p>直接admin 123456</p>
+<p>就直接爆出来了flag</p>
+<p>各位表哥动作太猛了 我还没有操作好来 密码又不对了</p>
+<p><img src="images/media/c32e9cbe94578e1c5c5ee403a4ae35dc.png" alt=""></p>
+<p>(正常的套路还没有弄过,反正出来flag就对了)</p>
+<p><strong>0x05 Web6</strong></p>
+<p><img src="images/media/6f6638ef42c3eb39a040821e2851197f.png" alt=""></p>
+<p>刚刚开始还没有头绪</p>
+<p>就疯狂乱尝试</p>
+<p><img src="images/media/d995db501df9fbb9586799433814519a.png" alt=""></p>
+<p>没头绪怎么办呢?乱翻源码</p>
+<p><img src="images/media/49c7a1298e090ece8d229f9ad3184fb9.png" alt=""></p>
+<p>翻到这这个</p>
+<p><img src="images/media/5978f3453ec08fa8e3e5d1486ff857a2.png" alt=""></p>
+<p>看到这里我还是没什么头绪</p>
+<p>就看看响应头吧</p>
+<p>随便提交一下</p>
+<p><img src="images/media/4c3b51fa5eae09906fcf70fdcfeb37d5.png" alt=""></p>
+<p>把它们抓出来!统统给我拿去解密了</p>
+<p><img src="images/media/e5fc5487a6aa159eed11a316e076e927.png" alt=""></p>
+<p>JWT的加密</p>
+<p><img src="images/media/cdce0fd7586a4680d8f020329ec63825.png" alt=""></p>
+<p>这个时候想想刚刚看到的js文件 时候明白了什么?</p>
+<p>/Pubkey/md5{username+password}</p>
+<p>我用户名和密码都是lprvep</p>
+<p><img src="images/media/05a092be1faf06023ad1c8e98951d36f.png" alt=""></p>
+<p>然后接着查资料去……</p>
+<p>终于在github上找到脚本 可以伪造令牌</p>
+<p><img src="images/media/fbb447898f7c03bb9326d1055cd162b7.png" alt=""></p>
+<p><img src="images/media/b7fd15f70f42d0d446043e0d0e6510c9.png" alt=""></p>
+<p>然后一堆错误 慢慢修改完成了以后</p>
+<p>得到了这个</p>
+<p>b&rsquo;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoibHBydmVwIiwicHJpdiI6ImFkbWluIn0.QSAqDOH91JDyZNBJ2x44SMblipfG3yVpR_b9DaXYyvU&rsquo;</p>
+<p>这时这题已经是宣布结束了</p>
+<p>懒得打开burp来改了 这里直接用谷歌浏览器里面自带的功能</p>
+<p><img src="images/media/436d7fecf1699b54baedd5632fe2c77e.png" alt=""></p>
+<p>上面这里直接拿得到的东西替换一下 在点下list 直接出来了我们想看的东西</p>
+<p><img src="images/media/b8d557b3072af3eeb1a9bb1f6ea8657f.png" alt=""></p>
+<p><img src="images/media/6965193b0e849f019b11b17156646da9.png" alt=""></p>
+<p>flag{cfd61b8a7397fa7c10b2ae548f5bfaef}</p>
+<p>(之前这里在公钥那里掉进坑了,没有分行好,所以一直是false,好在最后发现了)</p>
+<p><strong>二.MISC</strong></p>
+<p><strong>0x01 隐藏的信息</strong></p>
+<p><img src="images/media/391d31e2a739fa5965cbe48451c0142c.png" alt=""></p>
+<p>看样子似乎是8进制 直接全部转换成ascii</p>
+<p>拿出我的python神器</p>
+<p><img src="images/media/7790276ea85ccf1517c12dd8a116c5d1.png" alt=""></p>
+<p>这应该就是base64了</p>
+<p>解码</p>
+<p><img src="images/media/fd3318c8b13e511b695d92015df4f9ef.png" alt=""></p>
+<p>ISCC{N0_0ne_can_st0p_y0u}</p>
+<p><strong>0x02</strong> 最危险的地方就是最安全的地方</p>
+<p>下载后是个压缩包,压缩包里面是个图片</p>
+<p>图片打不开</p>
+<p><img src="images/media/a8d0d6045f287fc1046cd20984362644.png" alt=""></p>
+<p>发现图片里面还有很多图片 这里改为.zip</p>
+<p>发现一堆二维码 这肯定不能都扫码啊 看他们的大小</p>
+<p><img src="images/media/39ab9de0cba5ff1ea53fe909f6acf465.png" alt=""></p>
+<p>50.jpg这个有问题</p>
+<p>扫码发现什么 丢进Winhex</p>
+<p><img src="images/media/4f1a7c9c2de9c3f904abf7900c75d591.png" alt=""></p>
+<p>又看到了熟悉的base64</p>
+<p><img src="images/media/82227c5a2e4b9341c2b960e3ebe1f98d.png" alt=""></p>
+<p>flag{15cC9012}</p>
+<p><strong>0x03 解密成绩单</strong></p>
+<p><img src="images/media/a5645c8ad8dc922ebc0c9f009dbe3c24.png" alt=""></p>
+<p>有密码?伪加密直接来一波</p>
+<p><img src="images/media/0ce144d691f40ab34874bd17955d835a.png" alt=""></p>
+<p>果然能直接打开了</p>
+<p><img src="images/media/9a800fa7294466096c9de2e5f59a088f.png" alt=""></p>
+<p><img src="images/media/7763c79720f23e802873dcb1d98e0d56.png" alt=""></p>
+<p>接下来应该是需要找账号密码了</p>
+<p>用not++打开</p>
+<p><img src="images/media/dc34c182469bc54c585f67a0f1b65b25.png" alt=""></p>
+<p>.net的程序 直接搬出神器dySpy乱翻</p>
+<p><img src="images/media/4d6b8405d25377c3774360a136ceff97.png" alt=""></p>
+<p><img src="images/media/f32305029fa2ed3d111824bc7335ed10.png" alt=""></p>
+<p><img src="images/media/12004815d6f2505656ed19128a31f6d7.png" alt=""></p>
+<p>完事</p>
+<p><strong>0x04 Welcome</strong></p>
+<p><img src="images/media/091e3075146a01ea14f5d51c57a2bb04.png" alt=""></p>
+<p>看到是zip 直接加后缀名zip</p>
+<p>出来了</p>
+<p><img src="images/media/1ff0d0fc1876c96b7d2f463f5a959add.png" alt=""></p>
+<p>解压出来 然后我惊呆了</p>
+<p><img src="images/media/ee276fc09b13d6a424338e6b4781f8d5.png" alt=""></p>
+<p>想了很久这个应该是1和0有关</p>
+<p>洮蓠朩暒 蓅烺計劃看作为‘0’，</p>
+<p>戶囗 萇條看作为‘1’</p>
+<p>011001100110110001100001011001110111101101001001010100110100001101000011010111110101011101000101010011000100001101001111010011010100010101111101</p>
+<p><img src="images/media/17c2a09dc2ee41a7387c75867b567307.png" alt=""></p>
+<p>flag{ISCC_WELCOME}</p>
+<p><strong>0x05 倒立屋</strong></p>
+<p>一张倒立的屋子的图片</p>
+<p>看起来没什么不对</p>
+<p>直接丢进StegSolve</p>
+<p>心里直接是奔着LSB隐写去的</p>
+<p><img src="images/media/8c35824fdbd7b3d9853a3f2d778569be.png" alt=""></p>
+<p>IsCc_2019</p>
+<p>拿去提交 提示错误</p>
+<p>然后回到题目名称 倒立?</p>
+<p>那就倒过来</p>
+<p>9102_cCsI</p>
+<p>完事</p>
+<p><strong>0x06 无法运行的exe</strong></p>
+<p><img src="images/media/580755b91048a9a662fc86b1622ca39d.png" alt=""></p>
+<p>一个无法打开的文件 解压出来使用not++打开</p>
+<p>拿去bese64解码</p>
+<p><img src="images/media/66d549e97674346152b465dcab666a69.png" alt=""></p>
+<p>看到了png 所以应该是图片来着</p>
+<p>但是这样解码出来的是乱码 无法还原图片</p>
+<p>找个能bese64直接变16进制的网站</p>
+<p><img src="images/media/d3fdde4c51c5e1b4c355f554fd8f12bc.png" alt=""></p>
+<p><img src="images/media/1c6452af39b8c2293c471e6fce73fcdc.png" alt=""></p>
+<p>Png的头数据块不对 改个0A</p>
+<p><img src="images/media/feda519818a89754b3b24c6d3a771c02.png" alt=""></p>
+<p>出现了二维码</p>
+<p><img src="images/media/ecb4647a7b9ad168ef115af083ad63e6.png" alt=""></p>
+<p>扫码 IScC_2019</p>
+<p><strong>0x07 High起来！</strong></p>
+<p>下载解压出来是个图片</p>
+<p>现在看到图片就先not++看看</p>
+<p><img src="images/media/b0a902544c69694754e0986795cdabb7.png" alt=""></p>
+<p>里面果然有东西(iscc这次都是这个套路),改成zip后缀</p>
+<p><img src="images/media/cbbdbad84423992390a83dca2e50c209.png" alt=""></p>
+<p>在这个mp3这里 我死了很多天</p>
+<p>甚至想去砍出题人了都</p>
+<p>一直没有发现有什么不对的地方 某日突然看到提示</p>
+<p><img src="images/media/fa8653224ebe68977a1afc9d74d359aa.png" alt=""></p>
+<p>立马找到原来的图片来看</p>
+<p><img src="images/media/9e06ba69d97899aae68c6f85d976fed3.png" alt=""></p>
+<p>它的头部错误了 把12改成89</p>
+<p><img src="images/media/5e53e9271bde7423c28aaa623f532903.png" alt=""></p>
+<p>出现二维码</p>
+<p>扫码:中口由羊口中中大中中中井 当铺密码</p>
+<p>201902252228 这个时候思路已经明了</p>
+<p>用MPStego找出隐藏文件</p>
+<p><img src="images/media/1ea5010e22deeda7e131ab9e00ffd257.png" alt=""></p>
+<p>得到一个txt</p>
+<p><img src="images/media/7f6cb1d660a03a630540a05e6dd99238.png" alt=""></p>
+<p><img src="images/media/6b3fd0c0cf340caada5f0eacae4c694e.png" alt=""></p>
+<p>Unicode解码</p>
+<p>flag{PrEtTy_1ScC9012_gO0d}</p>
+<p><strong>0x08 他们能在一起吗？</strong></p>
+<p>又是一题二维码</p>
+<p>扫出来:UEFTUyU3QjBLX0lfTDBWM19ZMHUlMjElN0Q=</p>
+<p>解码: PASS{0K_I_L0V3_Y0u!}</p>
+<p>想着这么容易???</p>
+<p>提交 错误 ,果然没有这么简单</p>
+<p>把刚刚二维码那个文件下载下来</p>
+<p>按照前面题目的套路 丢进not++</p>
+<p><img src="images/media/6b6d9cfef0a55e37f83d532eb631a834.png" alt=""></p>
+<p>这又是个压缩包里面有个txt</p>
+<p><img src="images/media/3593b47570fea7d5729fcc59d444e605.png" alt=""></p>
+<p>这个解压密码应该就是刚刚解出来的东西了</p>
+<p><img src="images/media/a78df8e2cc3a75c62c07b8511a5c6b6e.png" alt=""></p>
+<p>ISCC{S0rrY_W3_4R3_Ju5T_Fr1END}</p>
+<p><strong>0x09 Keyes' secret</strong></p>
+<p><img src="images/media/fe01bbb6d7277a0a69ecce4e92a065a3.png" alt=""></p>
+<p>头皮发麻 没见过这种东西 只能用题目来百度了</p>
+<p>最后查出来是键盘密码</p>
+<p>这东西顶不住 只能拿出神器python了</p>
+<p><img src="images/media/89c39e1b5aac579ef5c7793c04d4fc3b.png" alt=""></p>
+<p><img src="images/media/d0f7d1455a3d7cce37d2142166befbd2.png" alt=""></p>
+<p>HERE ARE YOURFLAG{ISCC KEYBOARD CIPHER} REVERSE-ENGINEERING</p>
+<p>FLAG{ISCC KEYBOARD CIPHER}</p>
+<p>完事</p>
+<p><strong>0x10 Aesop&rsquo;s secret</strong></p>
+<p><img src="images/media/ec70bcb8e741b2b0405a27bef666d4cb.png" alt=""></p>
+<p>附件是个gif 动得太快 看不清 那ps分离一下</p>
+<p><img src="images/media/8759003da006038670d4a047d25cc12a.png" alt=""></p>
+<p>出来了个ISCC</p>
+<p>又没有头绪了 又是按照前面的套路 丢进not++</p>
+<p><img src="images/media/2e20812f0fd7306ecef2363572a218ec.png" alt=""></p>
+<p>发现了这么一段东西</p>
+<p>Base64解码</p>
+<p><img src="images/media/85a7afc9bebed6e0b78e5e031ec7aabe.png" alt=""></p>
+<p>一堆乱码</p>
+<p>所以应该不是bese64 这时候看到题目是Aesop 就想到了aes密码 然后上图得的到一个ISCC
+这应该是个密钥</p>
+<p><img src="images/media/c5b6ac3b3442515cd151864ac1304646.png" alt=""></p>
+<p>解密后 还是被加密了 难道是二次加密?</p>
+<p>复制过来在解密一次</p>
+<p><img src="images/media/015f4cf4019205f8111f90885ced54ed.png" alt=""></p>
+<p>果然</p>
+<p>flag{DugUpADiamondADeepDarkMine}</p>
+<p><strong>0x11 碎纸机</strong></p>
+<p>看到这题400分的时候</p>
+<p>本来是不怎么想做的</p>
+<p>但是既然做到了最后一题misc 那就想办法做完去吧</p>
+<p>看到附件里面又是图片 解压出来想都没想直接丢not++</p>
+<p><img src="images/media/f997a39717f02c2f45ddea728e87a8b9.png" alt=""></p>
+<p>果然 这图片还是压缩包 更改zip后缀</p>
+<p><img src="images/media/83a6b2969aa04c29ca3b9985d847de78.png" alt=""></p>
+<p>到了这里 思路就断了 一直在想欧鹏 曦文是谁 感觉他是题目的关键</p>
+<p>后来也想到了 opence</p>
+<p>还以为是需要用到opence来把他们合成</p>
+<p>后来看了下网上opence ctf的例题 也尝试了下,都不行</p>
+<p>把它们丢进not++ 也没发现什么 都是些乱码</p>
+<p>那这次丢进winhex 每张图片都看了下 感觉也没什么不对</p>
+<p>放了一晚 第二天在看</p>
+<p><img src="images/media/8cb0b6da250b33ded95394229b669f1b.png" alt=""></p>
+<p>这里好像有点规律 就就只有这几个字符</p>
+<p>最后面想到是不是可能会是形状</p>
+<p>就想着试试</p>
+<p><img src="images/media/57b368b742d2da6c5267fd08c9b9dd91.png" alt=""></p>
+<p>结果Fl就出现了 接着往下</p>
+<p><img src="images/media/ed9a04bf34f47b34abb8e6808ea2ae82.png" alt=""></p>
+<p>Flag都出来了 猜想得到证实</p>
+<p>后续步骤过于繁琐 重复</p>
+<p>最后得出</p>
+<p>Flag={ISCC_is_so_interesting_!}</p>
+<p>(这题我是真的服气)</p>
+<p><strong>三. Reverse:</strong></p>
+<p><strong>0x01 Rev02</strong></p>
+<p><img src="images/media/1900a2c9a8395d91f90d8ff8cfe8b8d5.png" alt=""></p>
+<p>丢进ida第一眼就看到了0x66 不知道为什么 0x66记得特别清楚是</p>
+<p><img src="images/media/7a55e6eee551effdf398082338ba9078.png" alt=""></p>
+<p>这题不值这个分数……</p>
+<p>已经是出来了</p>
+<p>flag{ST0RING_STAT1C_PA55WORDS_1N_FIL3S_1S_N0T_S3CUR3}</p>
+<p><strong>0x02 answer to everything</strong></p>
+<p><img src="images/media/13c222904593fdbc2b4295706ae95cd2.png" alt=""></p>
+<p>这里说到了sha1 后续可能需要sha1解密</p>
+<p>先放到ida</p>
+<p><img src="images/media/da2831c612cc273e16b6feed46496523.png" alt=""></p>
+<p>主函数里面有个 not_the_flag</p>
+<p>此地无银三百两???</p>
+<p>点进去再说 然后里面又发现了</p>
+<p><img src="images/media/4edae037f4f2e24b99946069a54016a0.png" alt=""></p>
+<p>还来?</p>
+<p>给你来一手大招F5 看看伪代码</p>
+<p><img src="images/media/f7cbb6150d63eef328abdce19dd91cb2.png" alt=""></p>
+<p>英语不太行 翻译一手</p>
+<p><img src="images/media/80c21ce6a68ea41a5a73cf0d4cf52588.png" alt=""></p>
+<p>有道不太行</p>
+<p>应该是这啥密码没任何标签</p>
+<p>但最后的kdudpeh 应该就是秘密</p>
+<p>Sha1解密一下</p>
+<p><img src="images/media/a0323b5c34fe4d49791509bd45a3e196.png" alt=""></p>
+<p>直接提交 错误</p>
+<p>加个flag{}不行</p>
+<p>试了很多次</p>
+<p>终于尝试出来了ISCC………</p>
+<p>ISCC{80ee2a3fe31da904c596d993f7f1de4827c1450a}</p>
+<p><strong>0x03 简单的Python</strong></p>
+<p><img src="images/media/dad7cd2204012b138fc0094f2f826c66.png" alt=""></p>
+<p>一堆乱码</p>
+<p>反编译一下 还原后:</p>
+<p><img src="images/media/2f1d9c0afc7f3338edbb74bcd568fb13.png" alt=""></p>
+<p>这串代码的意思就是:</p>
+<p>输入一段字符串</p>
+<p>然后进入到自定义的encode函数中 和变量correct比较</p>
+<p>而这个自定的encode函数的意思就是</p>
+<p>每个输入的字符的ascii码斗鱼32进行异或</p>
+<p>然后在每个加上16</p>
+<p>最后在base64加密</p>
+<p>所以我们就反过来 先base64解密</p>
+<p>加每个ascii减16</p>
+<p>在和32异或回来</p>
+<p>完事</p>
+<p><img src="images/media/1ebe1a585bbb0332a0dffb526ae1e6a4.png" alt=""></p>
+<p>ISCC{simple_pyc}</p>
+<p><strong>0x04 dig dig dig</strong></p>
+<p><img src="images/media/1a599ac9f693c0adc3aad7f9fd0bccd5.png" alt=""></p>
+<p>丢进ida 先看看主函数有什么东西</p>
+<p>看了下这里是先base64在rot13最后uudecode</p>
+<p><img src="images/media/ce953236a540c207ea6771501bb4257b.png" alt=""></p>
+<p>所以我们现在需要做的是 翻过啦 就应该能得到flag</p>
+<p>现在去找下加密后的东西在哪里</p>
+<p>在字符串窗口这边 发现了一串比较违和的东西</p>
+<p><img src="images/media/d46d3320593ba0a2b9a0a8811387c20f.png" alt=""></p>
+<p>@1DE!440S9W9,2T%Y07=%&lt;W!Z.3!:1T%S2S-),7-$/3T</p>
+<p>先uudecode</p>
+<p><img src="images/media/dbcd5c8ec41a923c5bb4da0062413a58.png" alt=""></p>
+<p>然后在rot13</p>
+<p><img src="images/media/375863ac1c5e214c84f90ad82b80f394.png" alt=""></p>
+<p>最后base64</p>
+<p><img src="images/media/7c90572d3b3e9f00dab4245727df2e44.png" alt=""></p>
+<p>ISCC{base64_rot13__uu}</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/iscc">iscc</a></li>
+								
+								<li><a href="/tags/ctf">ctf</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/godbless7">lprvep</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123-45', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

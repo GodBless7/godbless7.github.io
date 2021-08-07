@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>靶机 on Lprvep</title>
+    <link>https://www.lprvep.com/tags/%E9%9D%B6%E6%9C%BA/</link>
+    <description>Recent content in 靶机 on Lprvep</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Copyright notice</copyright>
+    <lastBuildDate>Fri, 10 Jul 2020 03:12:13 +0800</lastBuildDate><atom:link href="https://www.lprvep.com/tags/%E9%9D%B6%E6%9C%BA/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>vulnhub渗透靶机dc系列</title>
+      <link>https://www.lprvep.com/posts/vulnhub-dc-series/</link>
+      <pubDate>Fri, 10 Jul 2020 03:12:13 +0800</pubDate>
+      
+      <guid>https://www.lprvep.com/posts/vulnhub-dc-series/</guid>
+      <description>DC-3 信息收集 首先是使用nmap对靶机进行一个简单的扫描</description>
+    </item>
+    
+    <item>
+      <title>HackTheBox-Web-Challenge</title>
+      <link>https://www.lprvep.com/posts/hackthebox/</link>
+      <pubDate>Thu, 05 Dec 2019 17:52:38 +0800</pubDate>
+      
+      <guid>https://www.lprvep.com/posts/hackthebox/</guid>
+      <description>背景  本文仅代表个人观点,如有错误,请多包涵!</description>
+    </item>
+    
+  </channel>
+</rss>

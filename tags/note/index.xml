@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>note on Lprvep</title>
+    <link>https://www.lprvep.com/tags/note/</link>
+    <description>Recent content in note on Lprvep</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Copyright notice</copyright>
+    <lastBuildDate>Tue, 07 Apr 2020 09:25:46 +0800</lastBuildDate><atom:link href="https://www.lprvep.com/tags/note/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>upload-labs总结</title>
+      <link>https://www.lprvep.com/posts/upload-labs-challenge/</link>
+      <pubDate>Tue, 07 Apr 2020 09:25:46 +0800</pubDate>
+      
+      <guid>https://www.lprvep.com/posts/upload-labs-challenge/</guid>
+      <description>前言 一直以来都没有做一个完全的总结</description>
+    </item>
+    
+    <item>
+      <title>mysql_review</title>
+      <link>https://www.lprvep.com/posts/mysql-review/</link>
+      <pubDate>Sun, 09 Feb 2020 06:55:07 +0800</pubDate>
+      
+      <guid>https://www.lprvep.com/posts/mysql-review/</guid>
+      <description>背景 最近在教育src玩,挖洞的时候就发现,自己基础不够牢固</description>
+    </item>
+    
+    <item>
+      <title>python中正则表达式的学习</title>
+      <link>https://www.lprvep.com/posts/python-re/</link>
+      <pubDate>Thu, 21 Nov 2019 17:56:27 +0800</pubDate>
+      
+      <guid>https://www.lprvep.com/posts/python-re/</guid>
+      <description>学习环境 python 3.</description>
+    </item>
+    
+  </channel>
+</rss>

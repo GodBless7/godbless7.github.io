@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>redteam on Lprvep</title>
+    <link>https://www.lprvep.com/tags/redteam/</link>
+    <description>Recent content in redteam on Lprvep</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Copyright notice</copyright>
+    <lastBuildDate>Tue, 15 Jun 2021 03:48:15 +0800</lastBuildDate><atom:link href="https://www.lprvep.com/tags/redteam/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>利用hash登录远程桌面</title>
+      <link>https://www.lprvep.com/posts/pth-rdp/</link>
+      <pubDate>Tue, 15 Jun 2021 03:48:15 +0800</pubDate>
+      
+      <guid>https://www.lprvep.com/posts/pth-rdp/</guid>
+      <description>在渗透测试过程中,获取得到了某个用户的NTLM hash时,可以利用PTH(Pass the hash)对远程桌面服务进行登录</description>
+    </item>
+    
+    <item>
+      <title>Alaris - 通过进程注入Shellcode来绕过EDR的加载器</title>
+      <link>https://www.lprvep.com/posts/edr-bypass-alaris/</link>
+      <pubDate>Fri, 05 Mar 2021 04:50:22 +0800</pubDate>
+      
+      <guid>https://www.lprvep.com/posts/edr-bypass-alaris/</guid>
+      <description>首先使用CS生成x64的payload,output类型选择Raw</description>
+    </item>
+    
+  </channel>
+</rss>

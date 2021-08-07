@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cnvd on Lprvep</title>
+    <link>https://www.lprvep.com/tags/cnvd/</link>
+    <description>Recent content in cnvd on Lprvep</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Copyright notice</copyright>
+    <lastBuildDate>Thu, 19 Dec 2019 22:48:15 +0800</lastBuildDate><atom:link href="https://www.lprvep.com/tags/cnvd/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>python练习之查询cnvd漏洞</title>
+      <link>https://www.lprvep.com/posts/python-practice-cnvd/</link>
+      <pubDate>Thu, 19 Dec 2019 22:48:15 +0800</pubDate>
+      
+      <guid>https://www.lprvep.com/posts/python-practice-cnvd/</guid>
+      <description>背景 此程序仅用于python的学习以及对知识点的记忆加固</description>
+    </item>
+    
+  </channel>
+</rss>

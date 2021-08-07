@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on Lprvep</title>
+    <link>https://www.lprvep.com/tags/python/</link>
+    <description>Recent content in python on Lprvep</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Copyright notice</copyright>
+    <lastBuildDate>Thu, 02 Jul 2020 17:32:16 +0800</lastBuildDate><atom:link href="https://www.lprvep.com/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Django学习笔记</title>
+      <link>https://www.lprvep.com/posts/django-study/</link>
+      <pubDate>Thu, 02 Jul 2020 17:32:16 +0800</pubDate>
+      
+      <guid>https://www.lprvep.com/posts/django-study/</guid>
+      <description>Django上手 安装 pip install django #使用的是3.</description>
+    </item>
+    
+    <item>
+      <title>python学习之打造每日安全资讯推送</title>
+      <link>https://www.lprvep.com/posts/python-security-push/</link>
+      <pubDate>Sun, 24 May 2020 23:23:51 +0800</pubDate>
+      
+      <guid>https://www.lprvep.com/posts/python-security-push/</guid>
+      <description>前言 这阵子看到圈子内的各种表哥都在讲&amp;quot;自动化&amp;quot;</description>
+    </item>
+    
+    <item>
+      <title>python练习之查询cnvd漏洞</title>
+      <link>https://www.lprvep.com/posts/python-practice-cnvd/</link>
+      <pubDate>Thu, 19 Dec 2019 22:48:15 +0800</pubDate>
+      
+      <guid>https://www.lprvep.com/posts/python-practice-cnvd/</guid>
+      <description>背景 此程序仅用于python的学习以及对知识点的记忆加固</description>
+    </item>
+    
+    <item>
+      <title>python中正则表达式的学习</title>
+      <link>https://www.lprvep.com/posts/python-re/</link>
+      <pubDate>Thu, 21 Nov 2019 17:56:27 +0800</pubDate>
+      
+      <guid>https://www.lprvep.com/posts/python-re/</guid>
+      <description>学习环境 python 3.</description>
+    </item>
+    
+    <item>
+      <title>关于Python_Scan网站目录Demo的学习</title>
+      <link>https://www.lprvep.com/posts/python_scan_demo/</link>
+      <pubDate>Sun, 03 Nov 2019 00:41:33 +0800</pubDate>
+      
+      <guid>https://www.lprvep.com/posts/python_scan_demo/</guid>
+      <description>关于Python_Scan网站目录Demo的学习  最近在学习python</description>
+    </item>
+    
+  </channel>
+</rss>

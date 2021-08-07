@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mysql on Lprvep</title>
+    <link>https://www.lprvep.com/tags/mysql/</link>
+    <description>Recent content in mysql on Lprvep</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Copyright notice</copyright>
+    <lastBuildDate>Sun, 09 Feb 2020 06:55:07 +0800</lastBuildDate><atom:link href="https://www.lprvep.com/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>mysql_review</title>
+      <link>https://www.lprvep.com/posts/mysql-review/</link>
+      <pubDate>Sun, 09 Feb 2020 06:55:07 +0800</pubDate>
+      
+      <guid>https://www.lprvep.com/posts/mysql-review/</guid>
+      <description>背景 最近在教育src玩,挖洞的时候就发现,自己基础不够牢固</description>
+    </item>
+    
+  </channel>
+</rss>

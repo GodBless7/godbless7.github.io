@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>mysql_review - Lprvep</title><link rel="icon" type="image/png" href=icons/myicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="mysql_review" />
+<meta property="og:description" content="背景 最近在教育src玩,挖洞的时候就发现,自己基础不够牢固" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lprvep.com/posts/mysql-review/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-02-09T06:55:07&#43;08:00" />
+<meta property="article:modified_time" content="2020-02-09T06:55:07&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="mysql_review"/>
+<meta name="twitter:description" content="背景 最近在教育src玩,挖洞的时候就发现,自己基础不够牢固"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://www.lprvep.com/js/main.js"></script>
+	<script src="https://www.lprvep.com/js/abc.js"></script>
+	<script src="https://www.lprvep.com/js/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://www.lprvep.com/">
+	<h1 class="site-title"><a href="https://www.lprvep.com/">Lprvep</a></h1>
+	<div class="site-description"><h2>Web Security</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/godbless7" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/lprvep" title="Twitter"><i data-feather="twitter"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/read">Read</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/avlist">Avlist</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">mysql_review</h1>
+			<div class="meta">Posted at &mdash; Feb 9, 2020</div>
+		</div>
+
+		<div class="markdown">
+			<h3 id="背景">背景</h3>
+<p>最近在教育src玩,挖洞的时候就发现,自己基础不够牢固</p>
+<p>很多知识点还没有玩透,特别是这两天发现了好多注入点</p>
+<p>基本上都是能测试到存在注入,然后丢进sqlmap</p>
+<p>sqlmap跑出来还好,跑不出来就直接GG了</p>
+<p>所以重新学习下mysql</p>
+<h3 id="mysql基础">mysql基础</h3>
+<p>本文基于ubuntu下</p>
+<h4 id="mysql安装">mysql安装</h4>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt-get update 
+sudo apt-get install mysql-server
+
+进入mysql
+sudo mysql -u root -p
+
+</code></pre></div><h4 id="mysql基本语法">mysql基本语法</h4>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#719e07">show</span> <span style="color:#719e07">databases</span>; <span style="color:#586e75">-- 查询所有库名
+</span><span style="color:#586e75"></span><span style="color:#719e07">use</span> xxx;		<span style="color:#586e75">-- 进入xxx
+</span><span style="color:#586e75"></span><span style="color:#719e07">show</span> <span style="color:#719e07">tables</span>;	<span style="color:#586e75">-- 进入某个库以后,查询所有表名
+</span><span style="color:#586e75"></span><span style="color:#719e07">show</span> columns <span style="color:#719e07">from</span> 表;	<span style="color:#586e75">-- 显示表的属性
+</span><span style="color:#586e75"></span><span style="color:#719e07">show</span> <span style="color:#719e07">index</span> <span style="color:#719e07">from</span> 表;		<span style="color:#586e75">-- 显示表的详细索引信息
+</span><span style="color:#586e75"></span>
+
+<span style="color:#719e07">CREATE</span> <span style="color:#719e07">DATABASE</span> <span style="color:#719e07">IF</span> <span style="color:#719e07">NOT</span> <span style="color:#719e07">EXISTS</span> RUNOOB <span style="color:#719e07">DEFAULT</span> <span style="color:#719e07">CHARSET</span> utf8 <span style="color:#719e07">COLLATE</span> utf8_general_ci;
+
+创建数据库
+<span style="color:#719e07">create</span> <span style="color:#719e07">database</span> 数据库名;
+
+删除数据库
+<span style="color:#719e07">drop</span> <span style="color:#719e07">database</span> 数据库名;
+
+选择数据库
+<span style="color:#719e07">use</span> 数据库名;
+
+创建数据表
+<span style="color:#719e07">create</span> <span style="color:#719e07">table</span> <span style="color:#268bd2">table_name</span> (columns_name column_type);
+
+删除数据表
+dorp <span style="color:#719e07">table</span> table_name;
+
+插入数据
+<span style="color:#719e07">insert</span> <span style="color:#719e07">into</span> table_name <span style="color:#719e07">values</span> (values1,values2,values3);
+<span style="color:#719e07">insert</span> <span style="color:#719e07">into</span> <span style="color:#268bd2">table_name</span> (field1,field2,field3) <span style="color:#719e07">values</span> (values1,values2,values3);
+						这里是字段						这里是值
+查询数据
+<span style="color:#719e07">select</span> column_name,column_name <span style="color:#719e07">from</span> table_name [<span style="color:#719e07">where</span> clause][<span style="color:#719e07">limit</span> n][offset m]
+
+<span style="color:#719e07">where</span> 相当于条件语句
+可以使用 <span style="color:#719e07">and</span> 或者 <span style="color:#719e07">or</span> 指定一个或者多个条件
+
+其中 <span style="color:#719e07">where</span> 是不区分大小写的 
+要区分大小写则需要 加上 <span style="color:#719e07">binary</span> 即: <span style="color:#719e07">where</span> <span style="color:#719e07">binary</span> 
+
+更新数据
+upload table_name <span style="color:#dc322f">set</span> field1<span style="color:#719e07">=</span>new<span style="color:#719e07">-</span>value1,field2<span style="color:#719e07">=</span>new<span style="color:#719e07">-</span>value2 [<span style="color:#719e07">where</span> clause];
+例如
+给id为3的title更新数据
+upload title_tbl <span style="color:#dc322f">set</span> title<span style="color:#719e07">=</span><span style="color:#2aa198">&#39;lprvep&#39;</span> <span style="color:#719e07">where</span> id<span style="color:#719e07">=</span><span style="color:#2aa198">3</span>;
+如果只是想替换部分数据则:
+需要到 <span style="color:#719e07">replace</span>
+upload title_tbl <span style="color:#dc322f">set</span> title<span style="color:#719e07">=</span><span style="color:#719e07">replace</span>(title,<span style="color:#2aa198">&#39;lprvep&#39;</span>,<span style="color:#2aa198">&#39;websec&#39;</span>) <span style="color:#719e07">where</span> id<span style="color:#719e07">=</span><span style="color:#2aa198">3</span>;
+
+删除数据
+<span style="color:#719e07">delete</span> <span style="color:#719e07">from</span> table_name [<span style="color:#719e07">where</span> clause];
+<span style="color:#719e07">delete</span> title_tal <span style="color:#719e07">where</span> id<span style="color:#719e07">=</span><span style="color:#2aa198">3</span>; <span style="color:#719e07">--</span>不加条件语句就是删除表内所有数据
+</code></pre></div><h4 id="数值类型">数值类型</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">大小</th>
+<th style="text-align:left">范围（有符号）</th>
+<th style="text-align:left">范围（无符号）</th>
+<th style="text-align:left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">TINYINT</td>
+<td style="text-align:left">1 byte</td>
+<td style="text-align:left">(-128，127)</td>
+<td style="text-align:left">(0，255)</td>
+<td style="text-align:left">小整数值</td>
+</tr>
+<tr>
+<td style="text-align:left">SMALLINT</td>
+<td style="text-align:left">2 bytes</td>
+<td style="text-align:left">(-32 768，32 767)</td>
+<td style="text-align:left">(0，65 535)</td>
+<td style="text-align:left">大整数值</td>
+</tr>
+<tr>
+<td style="text-align:left">MEDIUMINT</td>
+<td style="text-align:left">3 bytes</td>
+<td style="text-align:left">(-8 388 608，8 388 607)</td>
+<td style="text-align:left">(0，16 777 215)</td>
+<td style="text-align:left">大整数值</td>
+</tr>
+<tr>
+<td style="text-align:left">INT或INTEGER</td>
+<td style="text-align:left">4 bytes</td>
+<td style="text-align:left">(-2 147 483 648，2 147 483 647)</td>
+<td style="text-align:left">(0，4 294 967 295)</td>
+<td style="text-align:left">大整数值</td>
+</tr>
+<tr>
+<td style="text-align:left">BIGINT</td>
+<td style="text-align:left">8 bytes</td>
+<td style="text-align:left">(-9,223,372,036,854,775,808，9 223 372 036 854 775 807)</td>
+<td style="text-align:left">(0，18 446 744 073 709 551 615)</td>
+<td style="text-align:left">极大整数值</td>
+</tr>
+<tr>
+<td style="text-align:left">FLOAT</td>
+<td style="text-align:left">4 bytes</td>
+<td style="text-align:left">(-3.402 823 466 E+38，-1.175 494 351 E-38)，0，(1.175 494 351 E-38，3.402 823 466 351 E+38)</td>
+<td style="text-align:left">0，(1.175 494 351 E-38，3.402 823 466 E+38)</td>
+<td style="text-align:left">单精度 浮点数值</td>
+</tr>
+<tr>
+<td style="text-align:left">DOUBLE</td>
+<td style="text-align:left">8 bytes</td>
+<td style="text-align:left">(-1.797 693 134 862 315 7 E+308，-2.225 073 858 507 201 4 E-308)，0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td style="text-align:left">0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td style="text-align:left">双精度 浮点数值</td>
+</tr>
+<tr>
+<td style="text-align:left">DECIMAL</td>
+<td style="text-align:left">对DECIMAL(M,D) ，如果M&gt;D，为M+2否则为D+2</td>
+<td style="text-align:left">依赖于M和D的值</td>
+<td style="text-align:left">依赖于M和D的值</td>
+<td style="text-align:left">小数值</td>
+</tr>
+</tbody>
+</table>
+<h4 id="时间类型">时间类型</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">大小 ( bytes)</th>
+<th style="text-align:left">范围</th>
+<th style="text-align:left">格式</th>
+<th style="text-align:left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">DATE</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">1000-01-01/9999-12-31</td>
+<td style="text-align:left">YYYY-MM-DD</td>
+<td style="text-align:left">日期值</td>
+</tr>
+<tr>
+<td style="text-align:left">TIME</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">&lsquo;-838:59:59&rsquo;/&lsquo;838:59:59&rsquo;</td>
+<td style="text-align:left">HH:MM:SS</td>
+<td style="text-align:left">时间值或持续时间</td>
+</tr>
+<tr>
+<td style="text-align:left">YEAR</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1901/2155</td>
+<td style="text-align:left">YYYY</td>
+<td style="text-align:left">年份值</td>
+</tr>
+<tr>
+<td style="text-align:left">DATETIME</td>
+<td style="text-align:left">8</td>
+<td style="text-align:left">1000-01-01 00:00:00/9999-12-31 23:59:59</td>
+<td style="text-align:left">YYYY-MM-DD HH:MM:SS</td>
+<td style="text-align:left">混合日期和时间值</td>
+</tr>
+<tr>
+<td style="text-align:left">TIMESTAMP</td>
+<td style="text-align:left">4</td>
+<td style="text-align:left">1970-01-01 00:00:00/2038结束时间是第 <strong>2147483647</strong> 秒，北京时间 <strong>2038-1-19 11:14:07</strong>，格林尼治时间 2038年1月19日 凌晨 03:14:07</td>
+<td style="text-align:left">YYYYMMDD HHMMSS</td>
+<td style="text-align:left">混合日期和时间值，时间戳</td>
+</tr>
+</tbody>
+</table>
+<h4 id="字符串类型">字符串类型</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">大小</th>
+<th style="text-align:left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">CHAR</td>
+<td style="text-align:left">0-255 bytes</td>
+<td style="text-align:left">定长字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">VARCHAR</td>
+<td style="text-align:left">0-65535 bytes</td>
+<td style="text-align:left">变长字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">TINYBLOB</td>
+<td style="text-align:left">0-255 bytes</td>
+<td style="text-align:left">不超过 255 个字符的二进制字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">TINYTEXT</td>
+<td style="text-align:left">0-255 bytes</td>
+<td style="text-align:left">短文本字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">BLOB</td>
+<td style="text-align:left">0-65 535 bytes</td>
+<td style="text-align:left">二进制形式的长文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">TEXT</td>
+<td style="text-align:left">0-65 535 bytes</td>
+<td style="text-align:left">长文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">MEDIUMBLOB</td>
+<td style="text-align:left">0-16 777 215 bytes</td>
+<td style="text-align:left">二进制形式的中等长度文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">MEDIUMTEXT</td>
+<td style="text-align:left">0-16 777 215 bytes</td>
+<td style="text-align:left">中等长度文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">LONGBLOB</td>
+<td style="text-align:left">0-4 294 967 295 bytes</td>
+<td style="text-align:left">二进制形式的极大文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">LONGTEXT</td>
+<td style="text-align:left">0-4 294 967 295 bytes</td>
+<td style="text-align:left">极大文本数据</td>
+</tr>
+</tbody>
+</table>
+<h4 id="比较运算符">比较运算符</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">符号</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">=</td>
+<td style="text-align:left">等于</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">&lt;&gt;, !=</td>
+<td style="text-align:left">不等于</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">&gt;</td>
+<td style="text-align:left">大于</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">&lt;</td>
+<td style="text-align:left">小于</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">&lt;=</td>
+<td style="text-align:left">小于等于</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">&gt;=</td>
+<td style="text-align:left">大于等于</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">BETWEEN</td>
+<td style="text-align:left">在两值之间</td>
+<td style="text-align:left">&gt;=min&amp;&amp;&lt;=max</td>
+</tr>
+<tr>
+<td style="text-align:left">NOT BETWEEN</td>
+<td style="text-align:left">不在两值之间</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">IN</td>
+<td style="text-align:left">在集合中</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">NOT IN</td>
+<td style="text-align:left">不在集合中</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">&lt;=&gt;</td>
+<td style="text-align:left">严格比较两个NULL值是否相等</td>
+<td style="text-align:left">两个操作码均为NULL时，其所得值为1；而当一个操作码为NULL时，其所得值为0</td>
+</tr>
+<tr>
+<td style="text-align:left">LIKE</td>
+<td style="text-align:left">模糊匹配</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">REGEXP 或 RLIKE</td>
+<td style="text-align:left">正则式匹配</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">IS NULL</td>
+<td style="text-align:left">为空</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">IS NOT NULL</td>
+<td style="text-align:left">不为空</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="逻辑运算符">逻辑运算符</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">运算符号</th>
+<th style="text-align:left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">NOT 或 !</td>
+<td style="text-align:left">逻辑非</td>
+</tr>
+<tr>
+<td style="text-align:left">AND</td>
+<td style="text-align:left">逻辑与</td>
+</tr>
+<tr>
+<td style="text-align:left">OR</td>
+<td style="text-align:left">逻辑或</td>
+</tr>
+<tr>
+<td style="text-align:left">XOR</td>
+<td style="text-align:left">逻辑异或</td>
+</tr>
+</tbody>
+</table>
+<h4 id="位运算符">位运算符</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">运算符号</th>
+<th style="text-align:left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">&amp;</td>
+<td style="text-align:left">按位与</td>
+</tr>
+<tr>
+<td style="text-align:left">|</td>
+<td style="text-align:left">按位或</td>
+</tr>
+<tr>
+<td style="text-align:left">^</td>
+<td style="text-align:left">按位异或</td>
+</tr>
+<tr>
+<td style="text-align:left">!</td>
+<td style="text-align:left">取反</td>
+</tr>
+<tr>
+<td style="text-align:left">&laquo;</td>
+<td style="text-align:left">左移</td>
+</tr>
+<tr>
+<td style="text-align:left">&raquo;</td>
+<td style="text-align:left">右移</td>
+</tr>
+</tbody>
+</table>
+<h4 id="like子句">like子句</h4>
+<p>用法</p>
+<blockquote>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#719e07">SELECT</span> field1, field2,...fieldN 
+<span style="color:#719e07">FROM</span> table_name
+<span style="color:#719e07">WHERE</span> field1 <span style="color:#719e07">LIKE</span> condition1 [<span style="color:#719e07">AND</span> [<span style="color:#719e07">OR</span>]] filed2 <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;somevalue&#39;</span>
+</code></pre></div></blockquote>
+<ul>
+<li>你可以使用LIKE子句代替等号 <strong>=</strong>。</li>
+<li>LIKE 通常与 <strong>%</strong> 一同使用，类似于一个元字符的搜索。</li>
+<li>你可以使用 AND 或者 OR 指定一个或多个条件。</li>
+<li>你可以在 DELETE 或 UPDATE 命令中使用 WHERE&hellip;LIKE 子句来指定条件。</li>
+</ul>
+<p>例如:</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#719e07">select</span> <span style="color:#719e07">*</span> form abc <span style="color:#719e07">where</span> title <span style="color:#719e07">like</span> <span style="color:#2aa198">&#39;%com&#39;</span>
+就是获取abc表中的title字段中含有com结尾的所有记录
+</code></pre></div><p>like语句还可以使用&quot;_&quot;:</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#2aa198">&#39;%a&#39;</span>     <span style="color:#719e07">//</span>以a结尾的数据
+<span style="color:#2aa198">&#39;a%&#39;</span>     <span style="color:#719e07">//</span>以a开头的数据
+<span style="color:#2aa198">&#39;%a%&#39;</span>    <span style="color:#719e07">//</span>含有a的数据
+<span style="color:#2aa198">&#39;_a_&#39;</span>    <span style="color:#719e07">//</span>三位且中间字母是a的
+<span style="color:#2aa198">&#39;_a&#39;</span>     <span style="color:#719e07">//</span>两位且结尾字母是a的
+<span style="color:#2aa198">&#39;a_&#39;</span>     <span style="color:#719e07">//</span>两位且开头字母是a的
+</code></pre></div><p>当然不只是%和_还有[]以及[^]</p>
+<p>%:表示任意个或者多个字符,可以匹配任意长度的字符,若是有中文则使用两个%%</p>
+<p>_:表示任意单个字符</p>
+<p>[]:表示括号内所列字符的一个</p>
+<p>[^] :表示不再括号内的字符的一个</p>
+<h4 id="union联合查询">union联合查询</h4>
+<p><strong>UNION 语句</strong>：用于将不同表中相同列中查询的数据展示出来；（不包括重复数据）</p>
+<p><strong>UNION ALL 语句</strong>：用于将不同表中相同列中查询的数据展示出来；（包括重复数据）</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#719e07">SELECT</span> 列名称 <span style="color:#719e07">FROM</span> 表名称 <span style="color:#719e07">UNION</span> <span style="color:#719e07">SELECT</span> 列名称 <span style="color:#719e07">FROM</span> 表名称
+<span style="color:#719e07">SELECT</span> 列名称 <span style="color:#719e07">FROM</span> 表名称 <span style="color:#719e07">UNION</span> <span style="color:#719e07">ALL</span> <span style="color:#719e07">SELECT</span> 列名称 <span style="color:#719e07">FROM</span> 表名称
+</code></pre></div><h4 id="排序">排序</h4>
+<p>使用order by子句来排序,设定想按那个字段那种方式来排序</p>
+<p>asc为升序,desc为倒序,默认不写的话为升序</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#719e07">SELECT</span> <span style="color:#719e07">*</span> <span style="color:#719e07">from</span> abc <span style="color:#719e07">ORDER</span> <span style="color:#719e07">BY</span> test; <span style="color:#586e75">-- 这就为按照字段test的升序来返回abc的结果 在最后加上个desc就是倒序
+</span></code></pre></div>
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/mysql">mysql</a></li>
+								
+								<li><a href="/tags/note">note</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/godbless7">lprvep</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123-45', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

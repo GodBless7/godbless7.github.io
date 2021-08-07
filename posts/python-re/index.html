@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>python中正则表达式的学习 - Lprvep</title><link rel="icon" type="image/png" href=icons/myicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="python中正则表达式的学习" />
+<meta property="og:description" content="学习环境 python 3." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lprvep.com/posts/python-re/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-11-21T17:56:27&#43;08:00" />
+<meta property="article:modified_time" content="2019-11-21T17:56:27&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="python中正则表达式的学习"/>
+<meta name="twitter:description" content="学习环境 python 3."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://www.lprvep.com/js/main.js"></script>
+	<script src="https://www.lprvep.com/js/abc.js"></script>
+	<script src="https://www.lprvep.com/js/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://www.lprvep.com/">
+	<h1 class="site-title"><a href="https://www.lprvep.com/">Lprvep</a></h1>
+	<div class="site-description"><h2>Web Security</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/godbless7" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/lprvep" title="Twitter"><i data-feather="twitter"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/read">Read</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/avlist">Avlist</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">python中正则表达式的学习</h1>
+			<div class="meta">Posted at &mdash; Nov 21, 2019</div>
+		</div>
+
+		<div class="markdown">
+			<h5 id="学习环境">学习环境</h5>
+<p>python 3.7.1</p>
+<h5 id="正则表达式语法">正则表达式语法</h5>
+<p>元字符</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字符</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\number</td>
+<td style="text-align:center">匹配数字代表的组合</td>
+</tr>
+<tr>
+<td style="text-align:center">\A</td>
+<td style="text-align:center">匹配输入字符串的开始</td>
+</tr>
+<tr>
+<td style="text-align:center">\Z</td>
+<td style="text-align:center">匹配输入字符串的结束</td>
+</tr>
+<tr>
+<td style="text-align:center">\b</td>
+<td style="text-align:center">匹配空字符串,但只在开头或结尾</td>
+</tr>
+<tr>
+<td style="text-align:center">\B</td>
+<td style="text-align:center">匹配空字符串,但不能在开始和结尾</td>
+</tr>
+<tr>
+<td style="text-align:center">\d</td>
+<td style="text-align:center">匹配数字,即0-9</td>
+</tr>
+<tr>
+<td style="text-align:center">\D</td>
+<td style="text-align:center">匹配非数字,即不是数字</td>
+</tr>
+<tr>
+<td style="text-align:center">\s</td>
+<td style="text-align:center">匹配空白,即空格和tab键</td>
+</tr>
+<tr>
+<td style="text-align:center">\S</td>
+<td style="text-align:center">匹配非空白</td>
+</tr>
+<tr>
+<td style="text-align:center">\w</td>
+<td style="text-align:center">匹配单词字符,即a-z,A-Z,0-9,_</td>
+</tr>
+<tr>
+<td style="text-align:center">\W</td>
+<td style="text-align:center">匹配非单词字符</td>
+</tr>
+<tr>
+<td style="text-align:center">.</td>
+<td style="text-align:center">匹配除了换行符的任意字符</td>
+</tr>
+<tr>
+<td style="text-align:center">^</td>
+<td style="text-align:center">匹配字符串的开始</td>
+</tr>
+<tr>
+<td style="text-align:center">$</td>
+<td style="text-align:center">匹配字符串的结尾或者换行符的前一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">*</td>
+<td style="text-align:center">匹配0到任意次重复</td>
+</tr>
+<tr>
+<td style="text-align:center">+</td>
+<td style="text-align:center">匹配1次到任意次重复</td>
+</tr>
+<tr>
+<td style="text-align:center">?</td>
+<td style="text-align:center">匹配0个或1个</td>
+</tr>
+<tr>
+<td style="text-align:center">*?,??,+?</td>
+<td style="text-align:center">非贪婪模式,最小匹配</td>
+</tr>
+<tr>
+<td style="text-align:center">{m,n}</td>
+<td style="text-align:center">匹配m到n次</td>
+</tr>
+<tr>
+<td style="text-align:center">{m,n}?</td>
+<td style="text-align:center">上一条的非贪婪模式</td>
+</tr>
+<tr>
+<td style="text-align:center">\</td>
+<td style="text-align:center">转移特殊字符</td>
+</tr>
+<tr>
+<td style="text-align:center">[]</td>
+<td style="text-align:center">字符集合(出现即匹配,^为不匹配)</td>
+</tr>
+<tr>
+<td style="text-align:center">(&hellip;)</td>
+<td style="text-align:center">组合</td>
+</tr>
+<tr>
+<td style="text-align:center">(?&hellip;)</td>
+<td style="text-align:center">扩展标记,只影响括号内</td>
+</tr>
+<tr>
+<td style="text-align:center">?P<!-- raw HTML omitted -->&hellip;</td>
+<td style="text-align:center">匹配外部定义的name</td>
+</tr>
+<tr>
+<td style="text-align:center">?P=name</td>
+<td style="text-align:center">匹配前面那个叫 <em>name</em> 的命名组中匹配到的串同样的字串</td>
+</tr>
+<tr>
+<td style="text-align:center">?#&hellip;</td>
+<td style="text-align:center">注释</td>
+</tr>
+<tr>
+<td style="text-align:center">?=&hellip;</td>
+<td style="text-align:center">匹配&hellip;的内容</td>
+</tr>
+<tr>
+<td style="text-align:center">?!&hellip;</td>
+<td style="text-align:center">匹配&hellip;不符合的情况</td>
+</tr>
+<tr>
+<td style="text-align:center">?&lt;=&hellip;</td>
+<td style="text-align:center">在&hellip;之前包括&hellip;不要</td>
+</tr>
+<tr>
+<td style="text-align:center">?&lt;!&hellip;</td>
+<td style="text-align:center">匹配之前不是&hellip;的</td>
+</tr>
+<tr>
+<td style="text-align:center">?(id/name)yes-pattern\no-pattern</td>
+<td style="text-align:center">id 或 <em>name</em> 存在，匹配 <code>yes-pattern</code> ，否则匹配 <code>no-pattern</code>，<code>no-pattern</code> 可选，也可以被忽略。</td>
+</tr>
+</tbody>
+</table>
+<p>也不知道为啥 |这个符号放到表格里转义也奇奇怪怪的
+所以我就单独放了这个出来
+|  等价于或,即A|B,匹配A或B</p>
+<h5 id="re模块内置函数">Re模块内置函数</h5>
+<h6 id="1内置函数">1.内置函数</h6>
+<p><strong>match(pattern,string,flags=0)</strong></p>
+<p>匹配0开始的字符串,就是指能匹配开头</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">&gt;&gt;&gt;</span> test <span style="color:#719e07">=</span> re<span style="color:#719e07">.</span>match(<span style="color:#2aa198">r</span><span style="color:#2aa198">&#39;abc&#39;</span>,<span style="color:#2aa198">&#39;abcdef&#39;</span>)
+<span style="color:#719e07">&gt;&gt;&gt;</span> <span style="color:#719e07">print</span>(test)
+<span style="color:#719e07">&lt;</span>re<span style="color:#719e07">.</span>Match <span style="color:#b58900">object</span>; span<span style="color:#719e07">=</span>(<span style="color:#2aa198">0</span>, <span style="color:#2aa198">3</span>), match<span style="color:#719e07">=</span><span style="color:#2aa198">&#39;abc&#39;</span><span style="color:#719e07">&gt;</span>
+</code></pre></div><p><strong>search(pattern,string,flags=0)</strong></p>
+<p>搜索整个字符串,任意位置</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">&gt;&gt;&gt;</span> test <span style="color:#719e07">=</span> re<span style="color:#719e07">.</span>search(<span style="color:#2aa198">r</span><span style="color:#2aa198">&#39;abc&#39;</span>,<span style="color:#2aa198">&#39;aabcdef&#39;</span>)
+<span style="color:#719e07">&gt;&gt;&gt;</span> <span style="color:#719e07">print</span>(test)
+<span style="color:#719e07">&lt;</span>re<span style="color:#719e07">.</span>Match <span style="color:#b58900">object</span>; span<span style="color:#719e07">=</span>(<span style="color:#2aa198">1</span>, <span style="color:#2aa198">4</span>), match<span style="color:#719e07">=</span><span style="color:#2aa198">&#39;abc&#39;</span><span style="color:#719e07">&gt;</span>
+</code></pre></div><p><strong>sub(pattern,repl,string,count=0,flags=0)</strong></p>
+<p>替换字符串</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">&gt;&gt;&gt;</span> test <span style="color:#719e07">=</span> re<span style="color:#719e07">.</span>sub(<span style="color:#2aa198">r</span><span style="color:#2aa198">&#39;abc&#39;</span>,<span style="color:#2aa198">&#39;123&#39;</span>,<span style="color:#2aa198">&#39;abcdef&#39;</span>)
+<span style="color:#719e07">&gt;&gt;&gt;</span> <span style="color:#719e07">print</span>(test)
+<span style="color:#2aa198">123</span><span style="color:#719e07">def</span>
+</code></pre></div><p>其中<strong>repl</strong>为替换内容,也可以为函数,<strong>count</strong>为替换次数,默认为0,即全部替换</p>
+<p><strong>subn(pattern,repl,string,count=0,flags=0)</strong></p>
+<p>替换字符串及替换的次数</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">&gt;&gt;&gt;</span> a <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;abcdef&#39;</span>
+<span style="color:#719e07">&gt;&gt;&gt;</span> test <span style="color:#719e07">=</span> re<span style="color:#719e07">.</span>subn(<span style="color:#2aa198">&#39;abc&#39;</span>,<span style="color:#2aa198">&#39;123&#39;</span>,a)
+<span style="color:#719e07">&gt;&gt;&gt;</span> <span style="color:#719e07">print</span>(a)
+abcdef
+<span style="color:#719e07">&gt;&gt;&gt;</span> <span style="color:#719e07">print</span>(test)
+(<span style="color:#2aa198">&#39;123def&#39;</span>, <span style="color:#2aa198">1</span>)
+</code></pre></div><p><strong>compile(pattern[,flags])</strong></p>
+<p>编译正则对象</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">&gt;&gt;&gt;</span> test <span style="color:#719e07">=</span> re<span style="color:#719e07">.</span>compile(<span style="color:#2aa198">&#39;\d+&#39;</span>)
+<span style="color:#719e07">&gt;&gt;&gt;</span> m <span style="color:#719e07">=</span> test<span style="color:#719e07">.</span>match(<span style="color:#2aa198">&#39;1abc&#39;</span>)
+<span style="color:#719e07">&gt;&gt;&gt;</span> <span style="color:#719e07">print</span>(m)
+<span style="color:#719e07">&lt;</span>re<span style="color:#719e07">.</span>Match <span style="color:#b58900">object</span>; span<span style="color:#719e07">=</span>(<span style="color:#2aa198">0</span>, <span style="color:#2aa198">1</span>), match<span style="color:#719e07">=</span><span style="color:#2aa198">&#39;1&#39;</span><span style="color:#719e07">&gt;</span>
+</code></pre></div><p><strong>findall(pattern,string,flags=0)</strong></p>
+<p>返回匹配列表</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">&gt;&gt;&gt;</span> test <span style="color:#719e07">=</span> re<span style="color:#719e07">.</span>compile(<span style="color:#2aa198">&#39;\d+&#39;</span>)
+<span style="color:#719e07">&gt;&gt;&gt;</span> a <span style="color:#719e07">=</span> test<span style="color:#719e07">.</span>findall(<span style="color:#2aa198">&#39;sbdoasbd 1551 asda 499&#39;</span>)
+<span style="color:#719e07">&gt;&gt;&gt;</span> <span style="color:#719e07">print</span>(a)
+[<span style="color:#2aa198">&#39;1551&#39;</span>, <span style="color:#2aa198">&#39;499&#39;</span>]
+</code></pre></div><p><strong>finditer(pattern,string,flags=0)</strong></p>
+<p>返回一个迭代器</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">i <span style="color:#719e07">=</span> re<span style="color:#719e07">.</span>finditer(<span style="color:#2aa198">r</span><span style="color:#2aa198">&#39;\d+&#39;</span>,<span style="color:#2aa198">&#39;123456abc789&#39;</span>)
+<span style="color:#719e07">for</span> test <span style="color:#719e07">in</span> i :
+    <span style="color:#719e07">print</span>(test<span style="color:#719e07">.</span>group())
+    
+    
+<span style="color:#2aa198">123456</span>
+<span style="color:#2aa198">789</span>
+</code></pre></div><p><strong>split(pattern,string[,maxsplit=0,flags=0])</strong></p>
+<p>分割</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">&gt;&gt;&gt;</span> abc <span style="color:#719e07">=</span> re<span style="color:#719e07">.</span>split(<span style="color:#2aa198">&#39;\W+&#39;</span>,<span style="color:#2aa198">&#39;abc,abc,abc.&#39;</span>)
+<span style="color:#719e07">&gt;&gt;&gt;</span> <span style="color:#719e07">print</span>(abc)
+[<span style="color:#2aa198">&#39;abc&#39;</span>, <span style="color:#2aa198">&#39;abc&#39;</span>, <span style="color:#2aa198">&#39;abc&#39;</span>, <span style="color:#2aa198">&#39;&#39;</span>]
+</code></pre></div><p><strong>escape(pattern)</strong></p>
+<p>转义特殊字符</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">&gt;&gt;&gt;</span> test <span style="color:#719e07">=</span>re<span style="color:#719e07">.</span>escape(<span style="color:#2aa198">&#39;www.lprvep.com&#39;</span>)
+<span style="color:#719e07">&gt;&gt;&gt;</span> <span style="color:#719e07">print</span>(test)
+www\<span style="color:#719e07">.</span>lprvep\<span style="color:#719e07">.</span>com
+</code></pre></div><p><strong>fullmatch(pattern,string,flags=0)</strong></p>
+<p>匹配整体符合的字符串</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">&gt;&gt;&gt;</span> test <span style="color:#719e07">=</span> re<span style="color:#719e07">.</span>compile(<span style="color:#2aa198">r</span><span style="color:#2aa198">&#39;\d+&#39;</span>)
+<span style="color:#719e07">&gt;&gt;&gt;</span> str1 <span style="color:#719e07">=</span> re<span style="color:#719e07">.</span>fullmatch(test,<span style="color:#2aa198">&#39;123456&#39;</span>)
+<span style="color:#719e07">&gt;&gt;&gt;</span> str2 <span style="color:#719e07">=</span> re<span style="color:#719e07">.</span>fullmatch(test,<span style="color:#2aa198">&#39;123456abc&#39;</span>)
+<span style="color:#719e07">&gt;&gt;&gt;</span> <span style="color:#719e07">print</span>(str1)
+<span style="color:#719e07">&lt;</span>re<span style="color:#719e07">.</span>Match <span style="color:#b58900">object</span>; span<span style="color:#719e07">=</span>(<span style="color:#2aa198">0</span>, <span style="color:#2aa198">6</span>), match<span style="color:#719e07">=</span><span style="color:#2aa198">&#39;123456&#39;</span><span style="color:#719e07">&gt;</span>
+<span style="color:#719e07">&gt;&gt;&gt;</span> <span style="color:#719e07">print</span>(str2)
+<span style="color:#268bd2">None</span>
+</code></pre></div><p><strong>purge()</strong></p>
+<p>清空正则缓存</p>
+<h6 id="2可选flags标志位">2.可选flags标志位</h6>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">标志</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">re.S(DOTALL)</td>
+<td style="text-align:center">匹配包括换行符在内的所有字符</td>
+</tr>
+<tr>
+<td style="text-align:center">re.I(IGNORECASE)</td>
+<td style="text-align:center">忽略大小写</td>
+</tr>
+<tr>
+<td style="text-align:center">re.L(LOCALE)</td>
+<td style="text-align:center">表示特殊字符集\w,\W\b\W\s\S以来与当前环境</td>
+</tr>
+<tr>
+<td style="text-align:center">re.M(MULTILINE)</td>
+<td style="text-align:center">多行模式</td>
+</tr>
+<tr>
+<td style="text-align:center">re.X(VERBOSE)</td>
+<td style="text-align:center">无论空格和'#&lsquo;后面的注释</td>
+</tr>
+<tr>
+<td style="text-align:center">re.U</td>
+<td style="text-align:center">根据Unicode字符集解析字符,影响\w,\W,\b,\B</td>
+</tr>
+</tbody>
+</table>
+<h6 id="3其他">3.其他</h6>
+<p><strong>group(num=0)</strong> 匹配的一个或多个字符穿</p>
+<p><strong>groups()</strong> 返回一个包含所有小组字符串的元组</p>
+<p><strong>groupdict()</strong> 返回一个字典</p>
+<p><strong>span()</strong> 匹配到的字符串开始和结尾的位置</p>
+<p><strong>start()</strong> 匹配到字符串开始的位置</p>
+<p><strong>end()</strong> 匹配到字符串结尾的位置</p>
+<h5 id="常用正则表达式">常用正则表达式</h5>
+<blockquote>
+<p>引用来源:菜鸟教程</p>
+</blockquote>
+<h6 id="1-效验数字"><strong>1. 效验数字</strong></h6>
+<ul>
+<li>数字：<strong>^[0-9]*$</strong></li>
+<li>n位的数字：<strong>^\d{n}$</strong></li>
+<li>至少n位的数字**：^\d{n,}$**</li>
+<li>m-n位的数字：<strong>^\d{m,n}$</strong></li>
+<li>零和非零开头的数字：<strong>^(0|[1-9][0-9]*)$</strong></li>
+<li>非零开头的最多带两位小数的数字：<strong>^([1-9][0-9]*)+(.[0-9]{1,2})?$</strong></li>
+<li>带1-2位小数的正数或负数：<strong>^(-)?\d+(.\d{1,2})$</strong></li>
+<li>正数、负数、和小数：<strong>^(-|+)?\d+(.\d+)?$</strong></li>
+<li>有两位小数的正实数：<strong>^[0-9]+(.[0-9]{2})?$</strong></li>
+<li>有1~3位小数的正实数：<strong>^[0-9]+(.[0-9]{1,3})?$</strong></li>
+<li>非零的正整数：<strong>^[1-9]\d*$ 或 ^([1-9][0-9]*){1,3}$ 或 ^+?[1-9][0-9]*$</strong></li>
+<li>非零的负整数：<strong>^-[1-9][]0-9&quot;*$ 或 ^-[1-9]\d*$</strong></li>
+<li>非负整数：<strong>^\d+$ 或 ^[1-9]\d*|0$</strong></li>
+<li>非正整数：<strong>^-[1-9]\d*|0$ 或 ^((-\d+)|(0+))$</strong></li>
+<li>非负浮点数：<strong>^\d+(.\d+)?$ 或 ^[1-9]\d*.\d*|0.\d*[1-9]\d*|0?.0+|0$</strong></li>
+<li>非正浮点数：<strong>^((-\d+(.\d+)?)|(0+(.0+)?))$ 或 ^(-([1-9]\d*.\d*|0.\d*[1-9]\d*))|0?.0+|0$</strong></li>
+<li>正浮点数：<strong>^[1-9]\d*.\d*|0.\d*[1-9]\d*$ 或 ^(([0-9]+.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*.[0-9]+)|([0-9]*[1-9][0-9]*))$</strong></li>
+<li>负浮点数：<strong>^-([1-9]\d*.\d*|0.\d*[1-9]\d*)$ 或 ^(-(([0-9]+.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*.[0-9]+)|([0-9]*[1-9][0-9]*)))$</strong></li>
+<li>浮点数：<strong>^(-?\d+)(.\d+)?$ 或 ^-?([1-9]\d*.\d*|0.\d*[1-9]\d*|0?.0+|0)$</strong></li>
+</ul>
+<h6 id="2效验字符"><strong>2.效验字符</strong></h6>
+<ul>
+<li>汉字：<strong>^[\u4e00-\u9fa5]{0,}$</strong></li>
+<li>英文和数字：<strong>^[A-Za-z0-9]+$ 或 ^[A-Za-z0-9]{4,40}$</strong></li>
+<li>长度为3-20的所有字符：<strong>^.{3,20}$</strong></li>
+<li>由26个英文字母组成的字符串：<strong>^[A-Za-z]+$</strong></li>
+<li>由26个大写英文字母组成的字符串：<strong>^[A-Z]+$</strong></li>
+<li>由26个小写英文字母组成的字符串：<strong>^[a-z]+$</strong></li>
+<li>由数字和26个英文字母组成的字符串：<strong>^[A-Za-z0-9]+$</strong></li>
+<li>由数字、26个英文字母或者下划线组成的字符串：<strong>^\w+$ 或 ^\w{3,20}$</strong></li>
+<li>中文、英文、数字包括下划线：**^[\u4E00-\u9FA5A-Za-z0-9_]+$**</li>
+<li>中文、英文、数字但不包括下划线等符号：<strong>^[\u4E00-\u9FA5A-Za-z0-9]+$ 或 ^[\u4E00-\u9FA5A-Za-z0-9]{2,20}$</strong></li>
+<li>可以输入含有^%&amp;&rsquo;,;=?$&quot;等字符：<strong>[^%&amp;',;=?$\x22]+</strong></li>
+<li>禁止输入含有~的字符：<strong>[^~\x22]+</strong></li>
+</ul>
+<h6 id="3特殊需求"><strong>3.特殊需求</strong></h6>
+<ul>
+<li>Email地址：<strong>^\w+([-+.]\w+)*@\w+([-.]\w+)*.\w+([-.]\w+)*$</strong></li>
+<li>域名：<strong>[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+.?</strong></li>
+<li>InternetURL：<strong>[a-zA-z]+://[^\s]* 或 ^http://([\w-]+.)+[\w-]+(/[\w-./?%&amp;=]*)?$</strong></li>
+<li>手机号码：<strong>^(13[0-9]|14[5|7]|15[0|1|2|3|4|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$</strong></li>
+<li>电话号码(&ldquo;XXX-XXXXXXX&rdquo;、&ldquo;XXXX-XXXXXXXX&rdquo;、&ldquo;XXX-XXXXXXX&rdquo;、&ldquo;XXX-XXXXXXXX&rdquo;、&ldquo;XXXXXXX&quot;和&quot;XXXXXXXX)：<strong>^((\d{3,4}-)|\d{3.4}-)?\d{7,8}$</strong></li>
+<li>国内电话号码(0511-4405222、021-87888822)：<strong>\d{3}-\d{8}|\d{4}-\d{7}</strong></li>
+<li>电话号码正则表达式（支持手机号码，3-4位区号，7-8位直播号码，1－4位分机号）: <strong>((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)</strong></li>
+<li>身份证号(15位、18位数字)，最后一位是校验位，可能为数字或字符X：<strong>(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)</strong></li>
+<li>帐号是否合法(字母开头，允许5-16字节，允许字母数字下划线)：**^[a-zA-Z][a-zA-Z0-9_]{4,15}$**</li>
+<li>密码(以字母开头，长度在6~18之间，只能包含字母、数字和下划线)：<strong>^[a-zA-Z]\w{5,17}$</strong></li>
+<li>强密码(必须包含大小写字母和数字的组合，不能使用特殊字符，长度在 8-10 之间)：<strong>^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,10}$</strong></li>
+<li>强密码(必须包含大小写字母和数字的组合，可以使用特殊字符，长度在8-10之间)：<strong>^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$</strong></li>
+<li>日期格式：<strong>^\d{4}-\d{1,2}-\d{1,2}</strong></li>
+<li>一年的12个月(01～09和1～12)：<strong>^(0?[1-9]|1[0-2])$</strong></li>
+<li>一个月的31天(01～09和1～31)：<strong>^((0?[1-9])|((1|2)[0-9])|30|31)$</strong></li>
+<li>钱的输入格式：</li>
+</ul>
+<ol>
+<li>​    有四种钱的表示形式我们可以接受:&ldquo;10000.00&rdquo; 和 &ldquo;10,000.00&rdquo;, 和没有 &ldquo;分&rdquo; 的 &ldquo;10000&rdquo; 和 &ldquo;10,000&rdquo;：<strong>^[1-9][0-9]*$</strong></li>
+<li>​    这表示任意一个不以0开头的数字,但是,这也意味着一个字符&quot;0&quot;不通过,所以我们采用下面的形式：<strong>^(0|[1-9][0-9]*)$</strong></li>
+<li>​    一个0或者一个不以0开头的数字.我们还可以允许开头有一个负号：<strong>^(0|-?[1-9][0-9]*)$</strong></li>
+<li>这表示一个0或者一个可能为负的开头不为0的数字.让用户以0开头好了.把负号的也去掉,因为钱总不能是负的吧。下面我们要加的是说明可能的小数部分：<strong>^[0-9]+(.[0-9]+)?$</strong></li>
+<li>​    必须说明的是,小数点后面至少应该有1位数,所以&quot;10.&ldquo;是不通过的,但是 &ldquo;10&rdquo; 和 &ldquo;10.2&rdquo; 是通过的：<strong>^[0-9]+(.[0-9]{2})?$</strong></li>
+<li>​    这样我们规定小数点后面必须有两位,如果你认为太苛刻了,可以这样：<strong>^[0-9]+(.[0-9]{1,2})?$</strong></li>
+<li>​    这样就允许用户只写一位小数.下面我们该考虑数字中的逗号了,我们可以这样：<strong>^[0-9]{1,3}(,[0-9]{3})*(.[0-9]{1,2})?$</strong></li>
+<li>​    1到3个数字,后面跟着任意个 逗号+3个数字,逗号成为可选,而不是必须：<strong>^([0-9]+|[0-9]{1,3}(,[0-9]{3})*)(.[0-9]{1,2})?$</strong></li>
+<li>​    备注：这就是最终结果了,别忘了&rdquo;+&ldquo;可以用&rdquo;*&ldquo;替代如果你觉得空字符串也可以接受的话(奇怪,为什么?)最后,别忘了在用函数时去掉去掉那个反斜杠,一般的错误都在这里</li>
+</ol>
+<ul>
+<li>xml文件：<strong>^([a-zA-Z]+-?)+[a-zA-Z0-9]+\.[x|X][m|M][l|L]$</strong></li>
+<li>中文字符的正则表达式：<strong>[\u4e00-\u9fa5]</strong></li>
+<li>双字节字符：<strong>[^\x00-\xff]    (包括汉字在内，可以用来计算字符串的长度(一个双字节字符长度计2，ASCII字符计1))</strong></li>
+<li>空白行的正则表达式：<strong>\n\s*\r    (可以用来删除空白行)</strong></li>
+<li>HTML标记的正则表达式：<strong>&lt;(\S*?)[^&gt;]*&gt;.*?|&lt;.*? /&gt;    ( 首尾空白字符的正则表达式：^\s*|\s*$或(^\s*)|(\s*$)    (可以用来删除行首行尾的空白字符(包括空格、制表符、换页符等等)，非常有用的表达式)</strong></li>
+<li>腾讯QQ号：<strong>[1-9][0-9]{4,}    (腾讯QQ号从10000开始)</strong></li>
+<li>中国邮政编码：<strong>[1-9]\d{5}(?!\d)    (中国邮政编码为6位数字)</strong></li>
+<li>IP地址：<strong>((?:(?:25[0-5]|2[0-4]\d|[01]?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d?\d))</strong></li>
+</ul>
+<h5 id="参考链接">参考链接</h5>
+<p>python官网re库文档:</p>
+<p><a href="https://docs.python.org/zh-cn/3/library/re.html">https://docs.python.org/zh-cn/3/library/re.html</a></p>
+<p>菜鸟教程:</p>
+<p><a href="https://www.runoob.com/python/python-reg-expressions.html">https://www.runoob.com/python/python-reg-expressions.html</a></p>
+<p><a href="https://www.runoob.com/regexp/regexp-tutorial.html">https://www.runoob.com/regexp/regexp-tutorial.html</a></p>
+<p>廖雪峰:</p>
+<p><a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017639890281664">https://www.liaoxuefeng.com/wiki/1016959663602400/1017639890281664</a></p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/python">python</a></li>
+								
+								<li><a href="/tags/note">note</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/godbless7">lprvep</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123-45', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

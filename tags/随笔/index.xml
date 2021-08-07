@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>随笔 on Lprvep</title>
+    <link>https://www.lprvep.com/tags/%E9%9A%8F%E7%AC%94/</link>
+    <description>Recent content in 随笔 on Lprvep</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Copyright notice</copyright>
+    <lastBuildDate>Fri, 08 Jan 2021 03:42:11 +0800</lastBuildDate><atom:link href="https://www.lprvep.com/tags/%E9%9A%8F%E7%AC%94/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2020总结</title>
+      <link>https://www.lprvep.com/posts/2020/</link>
+      <pubDate>Fri, 08 Jan 2021 03:42:11 +0800</pubDate>
+      
+      <guid>https://www.lprvep.com/posts/2020/</guid>
+      <description>2020年是个很迷幻的一年，因为疫情原因接近大半年都是在家里度过的。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>记一次运气下完成的渗透测试 - Lprvep</title><link rel="icon" type="image/png" href=icons/myicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="记一次运气下完成的渗透测试" />
+<meta property="og:description" content="0x00 背景  为了贯彻落实习近平总书记关于网络强国的重要思想!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lprvep.com/posts/hw2019/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-08-31T13:58:57&#43;08:00" />
+<meta property="article:modified_time" content="2019-08-31T13:58:57&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="记一次运气下完成的渗透测试"/>
+<meta name="twitter:description" content="0x00 背景  为了贯彻落实习近平总书记关于网络强国的重要思想!"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.lprvep.com/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://www.lprvep.com/css/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://www.lprvep.com/js/main.js"></script>
+	<script src="https://www.lprvep.com/js/abc.js"></script>
+	<script src="https://www.lprvep.com/js/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://www.lprvep.com/">
+	<h1 class="site-title"><a href="https://www.lprvep.com/">Lprvep</a></h1>
+	<div class="site-description"><h2>Web Security</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/godbless7" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/lprvep" title="Twitter"><i data-feather="twitter"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/read">Read</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/avlist">Avlist</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">记一次运气下完成的渗透测试</h1>
+			<div class="meta">Posted at &mdash; Aug 31, 2019</div>
+		</div>
+
+		<div class="markdown">
+			<h2 id="0x00-背景">0x00 背景</h2>
+<blockquote>
+<p><strong>为了贯彻落实习近平总书记关于网络强国的重要思想!</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>本文章仅供学习交流，如作他用所承受的法律责任一概与作者无关!</strong></p>
+<p><strong>本文章仅供学习交流，如作他用所承受的法律责任一概与作者无关!</strong></p>
+<p><strong>本文章仅供学习交流，如作他用所承受的法律责任一概与作者无关!</strong></p>
+</blockquote>
+<p>一日老师找到我,要我代表学校参加某省的hw</p>
+<p>本来想着这么菜还是不去丢人了</p>
+<p>但又想到能看到很多表哥秀操作</p>
+<p>就答应下来了
+<img src="images/hw2019/1.png" alt="1.png"></p>
+<p>但是去到那里的第一天,看到这些牌子</p>
+<p>我人都傻了,我一个学生来这里干嘛哟</p>
+<p>第一时间觉得被老师给卖了</p>
+<p><img src="images/hw2019/2.png" alt=""></p>
+<p>但既然来了,就要装得像样</p>
+<p>就算不会也要装得巨屌的那种样子</p>
+<p>这是我学长告诉我的</p>
+<h2 id="0x01-确定目标">0x01 确定目标</h2>
+<p>第二天去到场地,发现两个大厂 奇某某 深某某 就在我附近</p>
+<p>压力剧增啊</p>
+<p>然后抽签抽到了 某某局 某某局 和 某某局 以及 某某大学</p>
+<p><img src="images/hw2019/9.png" alt=""></p>
+<p>看着这个大学就决定搞这个了</p>
+<p>因为叫我来的老师 就是这个学校研究生毕业的</p>
+<p>(反正有点收获就可以在他面前装一手b,如果不得也&hellip;.就不得吧)</p>
+<h2 id="0x02-陷入绝望">0x02 陷入绝望</h2>
+<p>确定资产范围</p>
+<pre><code>- 主站(门户)
+- 缴费系统
+- 教务系统
+- VPN系统
+- OA
+- 教室邮箱
+- 校内各级学院网站(均为一cms)
+- 图书馆
+- 以及需要内网环境才能访问的各类资产
+
+学校ip段范围初步确定在xx.xx.80-95.1-254之间
+</code></pre>
+<p>在门户网站上,也能看到在内网环境下才可以访问的资产分类</p>
+<pre><code>-公共服务
+-教学资源服务
+-教工服务
+-学生服务
+</code></pre>
+<p>资产大概就这些了,开搞!</p>
+<p><strong>这时我听到附近的表哥们</strong></p>
+<p><strong>&ldquo;得了得了,弱口令,拿下了拿下了!&rdquo;,&ldquo;注入,注入!&quot;</strong></p>
+<p>但似乎这个学校不太给我这个菜鸡面子</p>
+<p>动一下就出来个waf</p>
+<p>啥杀软都给我跳出来了</p>
+<p><img src="images/hw2019/12.png" alt=""></p>
+<p><img src="images/hw2019/13.png" alt=""></p>
+<p>太菜了我,看到这种直接右上角的X了</p>
+<p>后面甚至ip都被封了</p>
+<p>表哥扔我的神器还没有得用上就已经莫得了</p>
+<p>&hellip;&hellip;</p>
+<p>一天过去了</p>
+<p>第二天还是这么个情况</p>
+<p>没找到什么突破口</p>
+<p>都已经打算在混两天就算了</p>
+<p>每天的快乐已经变成这句话了</p>
+<p><img src="images/hw2019/11.jpg" alt=""></p>
+<p><strong>(讲道理,这里的饭还行)</strong></p>
+<p>​</p>
+<p>​</p>
+<h2 id="0x03-意外收获">0x03 意外收获</h2>
+<p>第二天下午准备开饭前的半个小时</p>
+<p>当时是已经收拾好了等时间到就跑去吃饭了</p>
+<p>但想着不能干坐吧</p>
+<p><strong>不看不知道一看吓一跳</strong></p>
+<p><img src="images/hw2019/3.png" alt=""></p>
+<p><strong>突然发现图书馆系统的账号密码</strong></p>
+<p><strong>均为一卡通号</strong></p>
+<p><strong>在第一天的时候,也有想过利用学生的一卡通的弱密码来看看有没有什么突破口</strong></p>
+<p><strong>但是限制一般都是身份证后6位为弱密码,所以也就没看出什么来</strong></p>
+<p><strong>这里直接给我搞个&quot;均为一卡通号&rdquo;</strong></p>
+<p><img src="images/hw2019/16.png" alt=""></p>
+<p><strong>然后在图书馆内也可以查询到学生的预约记录</strong></p>
+<p><strong>记录中包含证件号,应该就是所谓的一卡通号</strong></p>
+<p><strong>随机挑选一位幸运儿登录</strong></p>
+<p><strong>最令我没想到的是一登录的成功了</strong></p>
+<p><img src="images/hw2019/4.png" alt=""></p>
+<p><strong>在这个图书馆的界面中,有个证件信息</strong></p>
+<p><strong>证件信息中包含了该同学的身份证号</strong></p>
+<p><strong>这时候就得到了学号+身份证号,就想着那些教务管理系统是不是可以尝试去突破了</strong></p>
+<p><img src="images/hw2019/5.png" alt=""></p>
+<p><strong>来到教务管理系统,尝试使用账号密码都是学号登录,当然是登录失败</strong></p>
+<p><strong>这里直接点一手找回密码</strong></p>
+<p><img src="images/hw2019/6.png" alt=""></p>
+<p><strong>然后可以看到,这里找回密码只需要学号+身份证号</strong></p>
+<p><strong>利用刚才得到的学号和身份证号码直接帮这位幸运儿修改下密码</strong></p>
+<p><img src="images/hw2019/14.png" alt=""></p>
+<p><strong>修改成功,舒服了</strong></p>
+<p><strong>然后我们就可以成功登录到这个系统了</strong></p>
+<p><img src="images/hw2019/15.png" alt=""></p>
+<p><strong>这个时候想到,是否这个修改后的密码也能登陆vpn系统呢?</strong></p>
+<p><strong>但是时间到了,下班,吃饭去了</strong></p>
+<h2 id="0x04-峰回路转">0x04 峰回路转</h2>
+<p><strong>第二天一来就直接安排</strong></p>
+<p><strong>把vpn给开了!!</strong></p>
+<p><img src="images/hw2019/7.png" alt=""></p>
+<p><strong>用的是深信服的vpn系统</strong></p>
+<p><strong>第一天的时候我还想锤他们今天我就爱上他们了</strong></p>
+<p><strong>用昨天得到的学号和修改后的密码尝试登陆</strong></p>
+<p><img src="images/hw2019/17.png" alt=""></p>
+<p><strong>舒服了登陆成功</strong></p>
+<p><strong>昨天的我还在被外网痛不欲生,今天的我在内网舒舒服服</strong></p>
+<p><img src="images/hw2019/8.png" alt=""></p>
+<p><strong>刚刚进来,我就找到了别人口中的注入,听别人说几天了都,今天终于碰到了</strong></p>
+<p><img src="images/hw2019/18.png" alt=""></p>
+<p><strong>一碰还是dba权限的,进到shell里面system权限</strong></p>
+<p><img src="images/hw2019/19.png" alt=""></p>
+<p><img src="images/hw2019/20.png" alt=""></p>
+<p><strong>那还有什么好说的呢,直接冲!</strong></p>
+<p><img src="images/hw2019/21.png" alt=""></p>
+<p><strong>但这台好像没什么用,也不再域里面</strong></p>
+<p><strong>本来这个时候还想慢慢一个一个站的看</strong></p>
+<p><strong>但发现附近的表哥已经日穿几个内网了</strong></p>
+<p><strong>那只能拿出神器了呀</strong></p>
+<p><img src="images/hw2019/22.png" alt=""></p>
+<p><strong>因为是在内网,所以应该就会有很多的弱口令</strong></p>
+<p><strong>然后这样一扫就还扫出了十多台</strong></p>
+<p><strong>登录上去基本还都是root权限</strong></p>
+<p><strong>先把这些弱口令都交上去,0分好多天了,该变变了</strong></p>
+<p><img src="images/hw2019/23.png" alt=""></p>
+<p><strong>后来直接膨胀了</strong></p>
+<p><strong>数据库啥的我都不扫了,我直接去扫3389了</strong></p>
+<p><strong>这不直接扫出来3台</strong></p>
+<p><img src="images/hw2019/24.png" alt=""></p>
+<p><strong>在这几台中寻找有用的东西</strong></p>
+<p><strong>最后发现下面这台好像有点东西</strong></p>
+<p><strong>一上来就看到一个管理的界面,以及后面的ip表</strong></p>
+<p><img src="images/hw2019/28.png" alt=""></p>
+<p><strong>管理的那个界面为i摄像头的管理系统</strong></p>
+<p><strong>而后面的ip表,我点来看的时候惊呆了,这不是ip表,这是ip+账号密码的表</strong></p>
+<p><img src="images/hw2019/26.png" alt=""></p>
+<p><strong>果然烧香拜佛是有用的呀</strong></p>
+<p><strong>各个系统以及服务器的账号密码都给我列举出来了</strong></p>
+<p><img src="images/hw2019/25.png" alt=""></p>
+<p><strong>然后用着密码去登录了好几个系统</strong></p>
+<p><strong>都是可以登录的</strong></p>
+<p><img src="images/hw2019/31.png" alt=""></p>
+<p><img src="images/hw2019/27.png" alt=""></p>
+<p><strong>到这呢这次的渗透测试基本结束</strong></p>
+<p><strong>看着下图大家都懂了吧,提交一手报告,拿分拿分,下班下班</strong></p>
+<p><img src="images/hw2019/29.png" alt=""></p>
+<p><strong>最夸张的是他所有的摄像头都是弱口令(一千多个摄像头啊)</strong></p>
+<p><img src="images/hw2019/30.png" alt=""></p>
+<h2 id="0x05-总结">0x05 总结</h2>
+<p><strong>这次测试了主要是运气问题,没啥技术含量,但这几天也学习了不少,大佬勿喷.</strong></p>
+<blockquote>
+<ol>
+<li><strong>通过图书馆的&quot;账号密码均为一卡通&quot;,且对于大多说学生来说这种系统懒得改密码怕忘记的心理,随机挑选幸运儿登录</strong></li>
+<li><strong>在成功登录图书馆后,可获得身份证号码一枚</strong></li>
+<li><strong>此时战场转到教务系统,教务系统的找回密码机制:学号+身份证号,而此时我们已经掌握了学生的学号+身份证号,所以就可以轻易更改密码</strong></li>
+<li><strong>更改教务系统的密码后,使用更改后的密码登录vpn系统</strong></li>
+<li><strong>进入了vpn,就成了爸爸(深信服的vpn系统还是舒服的呀)</strong></li>
+<li><strong>拿出神器扫内网的各个服务的弱口令</strong></li>
+<li><strong>通过弱口令拿到内网的各种设备的权限</strong></li>
+<li><strong>结束</strong></li>
+</ol>
+</blockquote>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95">渗透测试</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright notice |  <a href="https://github.com/godbless7">lprvep</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123-45', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

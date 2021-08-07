@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>运维 on Lprvep</title>
+    <link>https://www.lprvep.com/tags/%E8%BF%90%E7%BB%B4/</link>
+    <description>Recent content in 运维 on Lprvep</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Copyright notice</copyright>
+    <lastBuildDate>Thu, 26 Dec 2019 22:22:24 +0800</lastBuildDate><atom:link href="https://www.lprvep.com/tags/%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux安全期末复习</title>
+      <link>https://www.lprvep.com/posts/review-for-linux-exam/</link>
+      <pubDate>Thu, 26 Dec 2019 22:22:24 +0800</pubDate>
+      
+      <guid>https://www.lprvep.com/posts/review-for-linux-exam/</guid>
+      <description>前言 期末考试即将到来,对于我这种懒狗来说</description>
+    </item>
+    
+    <item>
+      <title>linxu学习笔记</title>
+      <link>https://www.lprvep.com/posts/linxu/</link>
+      <pubDate>Tue, 26 Nov 2019 12:54:47 +0800</pubDate>
+      
+      <guid>https://www.lprvep.com/posts/linxu/</guid>
+      <description>linux文件属性 共有七栏</description>
+    </item>
+    
+  </channel>
+</rss>
